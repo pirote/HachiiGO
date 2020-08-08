@@ -64,7 +64,7 @@
           <div class="col">ส่วนนสูง: {{this.show_height}}</div>
           <div class="col">อายุ: {{this.show_age}}</div>
         </div>
-        <b-button style="background-color: #ffffff; border-color: #ffffff; color:#F87030; margin:10px;">บันทึก</b-button>
+        <b-button style="background-color: #ffffff; border-color: #ffffff; color:#F87030; margin:10px;" v-on:click="save">บันทึก</b-button>
       </div>
     </div>
     <b-button 
@@ -109,25 +109,46 @@ export default {
   },
   methods:{
     sum(){
-      var weight = parseInt(this.weight);
-      var height = parseInt(this.height);
-      var age = parseInt(this.age);
-      if(this.sex === "ชาย"){
-        this.bmr = (66 + (13.7 * weight) + (5 * height) - (6.8 * age)).toFixed(2);
-        this.tdee = (this.bmr * this.exercise).toFixed(2);
+      if(!this.sex){
+        alert("กรุณาเลือกข้อมูลเพศ")
       }
-      if(this.sex === "หญิง"){
-        this.bmr = (66.5 + (9.6 * weight) + (1.8 * height) - (4.7 * age)).toFixed(2);
-        this.tdee = (this.bmr * this.exercise).toFixed(2);
+      else if(!this.weight){
+        alert("กรุณากรอกข้อมูลน้ำหนัก")
       }
-      this.show_age = age
-      this.show_height = height
-      this.show_weight = weight
-      console.log("BMR: ", this.bmr);
-      console.log("TDEE: ", this.tdee);
+      else if(!this.height){
+        alert("กรุณากรอกข้อมูลความสูง")
+      }
+      else if(!this.age){
+        alert("กรุณากรอกข้อมูลอายุ")
+      }
+      else if(!this.exercise){
+        alert("กรุณาเลือกข้อมูลการออกกำลังการ")
+      }
+      else{
+        var weight = parseInt(this.weight);
+        var height = parseInt(this.height);
+        var age = parseInt(this.age);
+        if(this.sex === "ชาย"){
+          this.bmr = (66 + (13.7 * weight) + (5 * height) - (6.8 * age)).toFixed(2);
+          this.tdee = (this.bmr * this.exercise).toFixed(2);
+        }
+        if(this.sex === "หญิง"){
+          this.bmr = (66.5 + (9.6 * weight) + (1.8 * height) - (4.7 * age)).toFixed(2);
+          this.tdee = (this.bmr * this.exercise).toFixed(2);
+        }
+        this.show_age = age
+        this.show_height = height
+        this.show_weight = weight
+        console.log("BMR: ", this.bmr);
+        console.log("TDEE: ", this.tdee);
+      }
+      
     },
     back(){
       this.$emit("close_calories", "default");
+    },
+    save(){
+      alert("ยังไม่พร้อมใช้งาน")
     }
   }
 };
