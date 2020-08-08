@@ -50,20 +50,11 @@
       </div>
       <div class="col" id="show">
         <div class="tdee">
-          <h1>{{this.tdee}}</h1>
+          <h1 style="font-size: 64px;">{{this.tdee}}</h1>
         </div>
-        <h4>TDEE</h4>
+          <h4>TDEE</h4>
+          <p>แคลอรี่ที่ร่างกายต้องการต่อวัน</p>        
         <hr>
-        <div class="bmr">
-          <h4>{{this.bmr}}</h4>
-        </div>
-        <p>BMR</p>
-        <hr>
-        <div class="row">
-          <div class="col">น้ำหนัก: {{this.show_weight}}</div>
-          <div class="col">ส่วนนสูง: {{this.show_height}}</div>
-          <div class="col">อายุ: {{this.show_age}}</div>
-        </div>
         <b-button style="background-color: #ffffff; border-color: #ffffff; color:#F87030; margin:10px;" v-on:click="save">บันทึก</b-button>
       </div>
     </div>
@@ -163,12 +154,7 @@ export default {
 .tdee{
   text-align: center;
   padding-top: 50px;
-  height: 120px;
-}
-.bmr{
-  text-align: center;
-  padding-top: 40px;
-  height: 90px;
+  height: 150px;
 }
 #show{
   background-color: #F87030;
@@ -177,6 +163,8 @@ export default {
   color: #ffffff;
 }
 #sum{
+  padding-top: 16px;
+  padding-left: 16px;
   background-color: #FBFBFB;
 }
 </style>
