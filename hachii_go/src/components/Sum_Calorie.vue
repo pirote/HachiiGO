@@ -52,7 +52,7 @@
         <div class="tdee">
           <h1 style="font-size: 64px;">{{this.tdee}}</h1>
         </div>
-          <h4>TDEE</h4>
+          <h4></h4>
           <p>แคลอรี่ที่ร่างกายต้องการต่อวัน</p>        
         <hr>
         <b-button style="background-color: #ffffff; border-color: #ffffff; color:#F87030; margin:10px;" v-on:click="save">บันทึก</b-button>
