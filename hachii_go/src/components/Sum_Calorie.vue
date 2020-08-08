@@ -2,7 +2,7 @@
   <div class="hello">
     <h3>คํานวณแคลอรี่</h3>
     <hr />
-    <div class="row">
+    <div class="row" id="sum">
       <div class="col">
         <div class="form-group">
           <h5 for="exampleInputEmail1" style="text-align: left;">เพศ:</h5>
@@ -64,8 +64,15 @@
           <div class="col">ส่วนนสูง: {{this.show_height}}</div>
           <div class="col">อายุ: {{this.show_age}}</div>
         </div>
+        <b-button style="background-color: #ffffff; border-color: #ffffff; color:#F87030; margin:10px;">บันทึก</b-button>
       </div>
     </div>
+    <b-button 
+      style="background-color: #F87030; border-color: #F87030; color:#ffffff; margin:10px;" 
+      class="previous round"
+      v-on:click="back">
+        &#8249; กลับ
+      </b-button>
   </div>
 </template>
 
@@ -118,31 +125,37 @@ export default {
       this.show_weight = weight
       console.log("BMR: ", this.bmr);
       console.log("TDEE: ", this.tdee);
+    },
+    back(){
+      this.$emit("close_calories", "default");
     }
   }
 };
 </script>
 <style>
 .hello {
-  margin: 80px 50px 50px 50px;
+  margin: 10px 50px 50px 50px;
   background-color: #ffffff;
   text-align: center;
   padding: 16px;
 }
 .tdee{
   text-align: center;
-  padding-top: 30px;
-  height: 100px;
+  padding-top: 50px;
+  height: 120px;
 }
 .bmr{
   text-align: center;
-  padding-top: 50px;
-  height: 100px;
+  padding-top: 40px;
+  height: 90px;
 }
 #show{
   background-color: #F87030;
   border-radius: 10px;
   margin: 16px;
   color: #ffffff;
+}
+#sum{
+  background-color: #FBFBFB;
 }
 </style>
