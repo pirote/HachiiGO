@@ -52,7 +52,7 @@
         <div class="tdee">
           <h1>{{this.tdee}}</h1>
         </div>
-        <h4>TBEE</h4>
+        <h4>TDEE</h4>
         <hr>
         <div class="bmr">
           <h4>{{this.bmr}}</h4>
