@@ -15,7 +15,6 @@
 <script>
 // @ is an alias to /src
 import SumCalorie from '@/components/Sum_Calorie.vue'
-
 export default {
   name: 'Home',
   components: {
@@ -32,7 +31,7 @@ export default {
     },
     closeCalories(e){
       this.status = e
-    }
+    },
   }
 }
 </script>
