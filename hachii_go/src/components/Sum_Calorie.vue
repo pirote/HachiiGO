@@ -52,10 +52,12 @@
         <div class="tdee">
           <h1 style="font-size: 64px;">{{this.tdee}}</h1>
         </div>
-          <h4></h4>
-          <p>แคลอรี่ที่ร่างกายต้องการต่อวัน</p>        
+        <div class="div_dit">
+          <p style="padding-top: 100px;">แคลอรี่ที่ร่างกายต้องการต่อวัน</p>        
+        </div>
+          
         <hr>
-        <b-button style="background-color: #ffffff; border-color: #ffffff; color:#F87030; margin:10px;" v-on:click="save">บันทึก</b-button>
+        <b-button v-if="this.nameDB !== ''" style="background-color: #ffffff; border-color: #ffffff; color:#F87030; margin:10px;" v-on:click="save">บันทึก</b-button>
       </div>
     </div>
     <b-button 
@@ -68,6 +70,8 @@
 </template>
 
 <script>
+import firebase from "firebase";
+var database = firebase.database();
 export default {
   name: "HelloWorld",
   props: {
@@ -96,7 +100,14 @@ export default {
         { value: 1.725, text: "ออกกำลังกายหนัก (6-7 ครั้งต่อสัปดาห์)" },
         { value: 1.9, text: "ออกกำลังกายหนักมาก (ทุกวัน วันละ 2 เวลา)" },
       ],
+      nameDB:'' 
     };
+  },
+  created() {
+    firebase.auth().onAuthStateChanged((firebaseUser) => {
+            this.nameDB = firebaseUser.displayName +"(" + firebaseUser.uid +")" 
+            console.log("firebaseUser", this.nameDB);
+        });
   },
   methods:{
     sum(){
@@ -136,10 +147,38 @@ export default {
       
     },
     back(){
+      this.clear();
       this.$emit("close_calories", "default");
     },
     save(){
-      alert("ยังไม่พร้อมใช้งาน")
+      if(this.tdee){
+        const today = new Date();
+        var date =
+          today.getDate() +
+          "/" +
+          (today.getMonth() + 1) +
+          "/" +
+          today.getFullYear();
+        var dataRef = database.ref("/" + this.nameDB);
+        dataRef.push({ tdee: this.tdee , date: date});
+        this.clear();
+      }
+      else{
+        alert("กรุณากรอกข้อมูลก่อนบันทึก");
+      }
+      
+    },
+    clear(){
+      this.sex =  "";
+      this.age = '';
+      this.height = '';
+      this.weight = '';
+      this.show_age = '';
+      this.show_height = '';
+      this.show_weight = '';
+      this.exercise = '';
+      this.bmr = null;
+      this.tdee = null;
     }
   }
 };
@@ -153,7 +192,7 @@ export default {
 }
 .tdee{
   text-align: center;
-  padding-top: 50px;
+  padding-top: 100px;
   height: 150px;
 }
 #show{
@@ -166,5 +205,21 @@ export default {
   padding-top: 16px;
   padding-left: 16px;
   background-color: #FBFBFB;
+}
+@media only screen and (max-width: 1024px) {
+  .col{
+    max-width: 100%;
+  }
+  .hello {
+  margin: 10px 16px 50px 16px;
+  background-color: #ffffff;
+  text-align: center;
+  padding: 16px;
+}
+.div_dit{
+  text-align: center; 
+  width: 250px; 
+  margin: 0;
+}
 }
 </style>

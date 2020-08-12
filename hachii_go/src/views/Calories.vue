@@ -84,8 +84,8 @@ export default {
         { value: "นม", text: "นม" },
         { value: "ก๋วยเตี๋ยว", text: "ก๋วยเตี๋ยว" },
         { value: "ถั่ว", text: "ถั่ว" },
-        { value: "กับข้าว", text: "กับข้าว" },
-        { value: "ข้าวก๋วยเตี๋ยว", text: "ข้าวก๋วยเตี๋ยว" },
+        { value: "ข้าวแกง", text: "ข้าวแกง" },
+        { value: "ข้าว", text: "ข้าว" },
         { value: "ผัก", text: "ผัก" }
       ],
     }
@@ -145,10 +145,10 @@ export default {
     if(this.collection === "ถั่ว"){
       this.dataAll = this.dataNuts
     }
-    if(this.collection === "กับข้าว"){
+    if(this.collection === "ข้าวแกง"){
       this.dataAll = this.dataRice
     }
-    if(this.collection === "ข้าวก๋วยเตี๋ยว"){
+    if(this.collection === "ข้าว"){
       this.dataAll = this.dataRiceN
     }
     if(this.collection === "ผัก"){
@@ -338,5 +338,10 @@ export default {
   border: 0; 
   color: #ffffff;
   border-radius: 50px;
+}
+@media only screen and (max-width: 1024px) {
+  .menu_bar{
+    width: 100%;
+  }
 }
 </style>
