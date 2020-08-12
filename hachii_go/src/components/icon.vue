@@ -530,34 +530,35 @@
 export default {
   methods: {
     Eggs() {
-        this.$router.push({ name: "Calories"})
+        //this.$router.push({ name: "Calories"})
+        alert("Egg ไข่")
     },
     Fish() {
-        this.$router.push({ name: "Calories"})
+        alert("Fish ปลา")
     },
     Fruits() {
-        this.$router.push({ name: "Calories"})
+        alert("Fruits ผลไม้")
     },
     Meat() {
-        this.$router.push({ name: "Calories"})
+        alert("Meat เนื้อ")
     },
     Milk() {
-        this.$router.push({ name: "Calories"})
+        alert("Milk นม")
     },
     Noodle() {
-        this.$router.push({ name: "Calories"})
+        alert("Noodle ก๋วยเตี๋ยว")
     },
     Nuts() {
-        this.$router.push({ name: "Calories"})
+        alert("Nuts ถั่ว")
     },
     RiceD() {
-        this.$router.push({ name: "Calories"})
+        alert("Rice ข้าวราดแกง")
     },
     RiceN() {
-        this.$router.push({ name: "Calories"})
+        alert("Rice ข้าว")
     },
     Vegetables() {
-        this.$router.push({ name: "Calories"})
+        alert("Vegetables ผัก")
     },
   },
 };
