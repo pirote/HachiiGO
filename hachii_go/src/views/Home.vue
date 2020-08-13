@@ -2,8 +2,34 @@
   <div class="home">
     <SumCalorie v-if="this.status === 'calories'"  @close_calories="closeCalories"/>
     <div class="con" v-if="this.status === 'default'">
-      <img src="../assets/bg1.jpg" width="100%" alt="">
-      <b-button class="btn" style="background-color: #F87030; border-color: #F87030; width:250px ;" v-on:click="show_sum_calorires">คำนวณแคลอรี่</b-button>
+       <vue-flux
+   :options="vfOptions"
+   :images="vfImages"
+   :transitions="vfTransitions"
+   ref="slider">
+
+   <template v-slot:preloader>
+      <flux-preloader />
+   </template>
+
+   <template v-slot:caption>
+      <flux-caption />
+   </template>
+
+   <template v-slot:controls>
+      <flux-controls /><b-button class="btn" style="background-color: #F87030; border-color: #F87030; width:250px ;" v-on:click="show_sum_calorires">คำนวณแคลอรี่</b-button>
+   </template>
+
+   <template v-slot:pagination>
+      <flux-pagination />
+   </template>
+
+   <template v-slot:index>
+      <flux-index />
+   </template>
+</vue-flux>
+      <!--img src="../assets/bg1.jpg" width="100%" alt=""-->
+      
       
     </div>
     <div class="div_calories" v-if="this.status === 'default'">
@@ -17,16 +43,43 @@
 // @ is an alias to /src
 import SumCalorie from '@/components/Sum_Calorie.vue'
 import Icon from '../components/icon'
+import {
+   VueFlux,
+   FluxCaption,
+   FluxControls,
+   FluxIndex,
+   FluxPagination,
+   FluxPreloader,
+} from 'vue-flux';
 export default {
   name: 'Home',
   components: {
     SumCalorie,
-    Icon
+    Icon,
+     VueFlux,
+      FluxCaption,
+      FluxControls,
+      FluxIndex,
+      FluxPagination,
+      FluxPreloader,
   },
   data() {
     return {
-      status: 'default'
+      status: 'default',
+      vfOptions: {
+         autoplay: true
+      },
+      vfImages: [ 'https://firebasestorage.googleapis.com/v0/b/hachiigodb.appspot.com/o/bg1.jpg?alt=media&token=e51d7c4d-8ee5-40a1-95c0-04dc2415ca1c', 
+      'https://firebasestorage.googleapis.com/v0/b/hachiigodb.appspot.com/o/bg3.png?alt=media&token=87ed442c-0a69-40ea-b0d8-0db30c0d3cbf' ],
+      vfTransitions: [ 'slide' ],
     }
+  },
+  created() {
+    setInterval(function(){ 
+      this.currentNumber += 1
+    
+    }, 2000);
+    console.log(this.currentNumber);
   },
   methods:{
     show_sum_calorires(){
@@ -59,7 +112,7 @@ export default {
 
 .con .btn {
   position: absolute;
-  top: 85%;
+  top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
