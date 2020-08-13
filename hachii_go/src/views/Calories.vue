@@ -164,7 +164,7 @@ export default {
             .split(" ")
             .every(
               (v) =>
-                item.itemID.toLowerCase().includes(v) ||
+                item.Food.toLowerCase().includes(v) ||
                 item.Unit.toLowerCase().includes(v) ||
                 item.Calories.toString().toLowerCase().includes(v)
             );
