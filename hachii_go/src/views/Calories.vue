@@ -1,26 +1,26 @@
 <template>
   <div class="about">
     <div class="search-wrapper panel-heading col-sm-12" style="padding:0px 35px 25px 35px;">
-          <h3>ค้นหา</h3>
-          <input
-            class="form-control"
-            type="text"
-            v-model="searchQuery"
-            placeholder="ชื่ออาหาร/ปริมาณ/แคลอรี่"
-            style="
+      <h3>ค้นหา</h3>
+      <input
+        class="form-control"
+        type="text"
+        v-model="searchQuery"
+        placeholder="ชื่ออาหาร/ปริมาณ/แคลอรี่"
+        style="
             box-shadow: -5px -5px 5px #ffffff, 5px 5px 10px #dbdada; 
             border-radius: 50px;
             background-color: #F9F9F9;
             "
-          />
-        </div>
-        <div class="div_table">
-          <div class="menu_bar">
-            <!--button v-no:click="all">ทั้งหมด</button-->
-            <b-form-group style="text-align: left; padding-left:16px;">
-              <b-form-radio-group v-model="collection" :options="op_collection" :key="collection.paId"></b-form-radio-group>
-          </b-form-group>
-          </div>
+      />
+    </div>
+    <div class="div_table">
+      <div class="menu_bar">
+        <!--button v-no:click="all">ทั้งหมด</button-->
+        <b-form-group style="text-align: left; padding-left:16px;">
+          <b-form-radio-group v-model="collection" :options="op_collection" :key="collection.paId"></b-form-radio-group>
+        </b-form-group>
+      </div>
       <table class="table table-hover">
         <thead>
           <tr>
@@ -32,7 +32,7 @@
         <tbody>
           <tr v-for="item in resultQuery" :key="item.id">
             <td>
-              <a target="_blank">{{ item.itemID }}</a>
+              <a target="_blank">{{ item.Food }}</a>
             </td>
             <td>
               <a target="_blank">{{ item.Unit }}</a>
@@ -49,13 +49,13 @@
         :perPageOptions="perPageOptions"
         v-model="pagination"
       />
-      </div>
+    </div>
   </div>
 </template>
 <script>
 import firebase from "firebase";
 import Pagination from "../components/Pagination";
-const db = firebase.firestore();
+var database = firebase.database();
 const perPageOptions = [20, 50, 100];
 export default {
   data() {
@@ -63,19 +63,19 @@ export default {
       searchQuery: null,
       perPageOptions,
       pagination: { page: 1, perPage: perPageOptions[1] },
-      dataAll:[],
-      sumdata:[],
-      dataEggs:[],
-      dataFish:[],
-      dataFruits:[],
-      dataMeat:[],
-      dataMilk:[],
-      dataNoodle:[],
-      dataNuts:[],
-      dataRice:[],
-      dataRiceN:[],
-      dataVegetables:[],
-      collection:"",
+      dataAll: [],
+      sumdata: [],
+      dataEggs: [],
+      dataFish: [],
+      dataFruits: [],
+      dataMeat: [],
+      dataMilk: [],
+      dataNoodle: [],
+      dataNuts: [],
+      dataRice: [],
+      dataRiceN: [],
+      dataVegetables: [],
+      collection: "",
       op_collection: [
         { value: "ไข่", text: "ไข่" },
         { value: "ปลา", text: "ปลา" },
@@ -86,26 +86,26 @@ export default {
         { value: "ถั่ว", text: "ถั่ว" },
         { value: "ข้าวแกง", text: "ข้าวแกง" },
         { value: "ข้าว", text: "ข้าว" },
-        { value: "ผัก", text: "ผัก" }
+        { value: "ผัก", text: "ผัก" },
       ],
-    }
+    };
   },
-  components:{
-    Pagination
+  components: {
+    Pagination,
   },
   created() {
-    this.gatEggs()
-    this.gatFish()
-    this.gatFruits()
-    this.gatMeat()
-    this.gatMilk()
-    this.gatNoodle()
-    this.gatNuts()
-    this.gatRiceD()
-    this.gatRiceN()
-    this.Vegetables()
+    this.gatEggs();
+    this.gatFish();
+    this.gatFruits();
+    this.gatMeat();
+    this.gatMilk();
+    this.gatNoodle();
+    this.gatNuts();
+    this.gatRiceD();
+    this.gatRiceN();
+    this.Vegetables();
     this.collection = "ไข่";
-    this.dataAll = this.dataEggs
+    this.dataAll = this.dataEggs;
 
     // ทั้งหมด
     // await this.sumdata.push(this.dataEggs)
@@ -124,47 +124,46 @@ export default {
     // if(this.collection === "ทั้งหมด"){
     //   this.dataAll = this.sumdata
     // }
-    if(this.collection === "ไข่"){
-      this.dataAll = this.dataEggs
+    if (this.collection === "ไข่") {
+      this.dataAll = this.dataEggs;
     }
-    if(this.collection === "ปลา"){
-      this.dataAll = this.dataFish
+    if (this.collection === "ปลา") {
+      this.dataAll = this.dataFish;
     }
-    if(this.collection === "ผลไม้"){
-      this.dataAll = this.dataFruits
+    if (this.collection === "ผลไม้") {
+      this.dataAll = this.dataFruits;
     }
-    if(this.collection === "เนื้อ"){
-      this.dataAll = this.dataMeat
+    if (this.collection === "เนื้อ") {
+      this.dataAll = this.dataMeat;
     }
-    if(this.collection === "นม"){
-      this.dataAll = this.dataMilk
+    if (this.collection === "นม") {
+      this.dataAll = this.dataMilk;
     }
-    if(this.collection === "ก๋วยเตี๋ยว"){
-      this.dataAll = this.dataNoodle
+    if (this.collection === "ก๋วยเตี๋ยว") {
+      this.dataAll = this.dataNoodle;
     }
-    if(this.collection === "ถั่ว"){
-      this.dataAll = this.dataNuts
+    if (this.collection === "ถั่ว") {
+      this.dataAll = this.dataNuts;
     }
-    if(this.collection === "ข้าวแกง"){
-      this.dataAll = this.dataRice
+    if (this.collection === "ข้าวแกง") {
+      this.dataAll = this.dataRice;
     }
-    if(this.collection === "ข้าว"){
-      this.dataAll = this.dataRiceN
+    if (this.collection === "ข้าว") {
+      this.dataAll = this.dataRiceN;
     }
-    if(this.collection === "ผัก"){
-      this.dataAll = this.dataVegetables
+    if (this.collection === "ผัก") {
+      this.dataAll = this.dataVegetables;
     }
-
   },
   computed: {
     resultQuery() {
-      if(this.searchQuery) {
-        return this.dataAll.filter(item => {
+      if (this.searchQuery) {
+        return this.dataAll.filter((item) => {
           return this.searchQuery
             .toLowerCase()
             .split(" ")
             .every(
-              v =>
+              (v) =>
                 item.itemID.toLowerCase().includes(v) ||
                 item.Unit.toLowerCase().includes(v) ||
                 item.Calories.toString().toLowerCase().includes(v)
@@ -178,12 +177,12 @@ export default {
       } else {
         return this.dataAll;
       }
-    }
+    },
   },
   methods: {
     // ทั้งหมด
     // all(){
-      
+
     //   var mergedArrNormalWay = [];
 
     //   this.sumdata.forEach(o => {
@@ -193,154 +192,96 @@ export default {
     //   var merged = [].concat.apply([], this.sumdata);
     //   this.dataAll = merged
     // },
-    gatEggs(){
-      db.collection("Eggs")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-           this.dataEggs.push(doc.data());
-          });
-        })
-        .catch((error) => {
-          console.log("Error getting documents: ", error);
-        });
+    async gatEggs() {
+      var dataRef = database.ref("/Eggs");
+      await dataRef.on("child_added", (snapshot) => {
+        this.dataEggs.push(snapshot.val());
+      });
     },
-    gatFish(){
-      db.collection("Fish, prawn,aquatic ani")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-           this.dataFish.push(doc.data());
-          });
-        })
-        .catch((error) => {
-          console.log("Error getting documents: ", error);
-        });
+    async gatFish() {
+      var dataRef = database.ref("/Fish");
+      await dataRef.on("child_added", (snapshot) => {
+        this.dataFish.push(snapshot.val());
+      });
     },
-    gatFruits(){
-      db.collection("Fruits")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-           this.dataFruits.push(doc.data());
-          });
-        })
-        .catch((error) => {
-          console.log("Error getting documents: ", error);
-        });
+    async gatFruits() {
+      var dataRef = database.ref("/Fruits");
+      await dataRef.on("child_added", (snapshot) => {
+        this.dataFruits.push(snapshot.val());
+      });
     },
-    gatMeat(){
-      db.collection("Meat")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-           this.dataMeat.push(doc.data());
-          });
-        })
-        .catch((error) => {
-          console.log("Error getting documents: ", error);
-        });
+    async gatMeat() {
+      var dataRef = database.ref("/Meat");
+      await dataRef.on("child_added", (snapshot) => {
+        this.dataMeat.push(snapshot.val());
+      });
     },
-    gatMilk(){
-      db.collection("Milk")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-           this.dataMilk.push(doc.data());
-          });
-        })
-        .catch((error) => {
-          console.log("Error getting documents: ", error);
-        });
+    async gatMilk() {
+      var dataRef = database.ref("/Milk");
+      await dataRef.on("child_added", (snapshot) => {
+        this.dataMilk.push(snapshot.val());
+      });
     },
-    gatNoodle(){
-      db.collection("Noodle dishes")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-           this.dataNoodle.push(doc.data());
-          });
-        })
-        .catch((error) => {
-          console.log("Error getting documents: ", error);
-        });
+    async gatNoodle() {
+      var dataRef = database.ref("/NoodleDishes");
+      await dataRef.on("child_added", (snapshot) => {
+        this.dataNoodle.push(snapshot.val());
+      });
     },
-    gatNuts(){
-      db.collection("Nuts, Sesame")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-           this.dataNuts.push(doc.data());
-          });
-        })
-        .catch((error) => {
-          console.log("Error getting documents: ", error);
-        });
+    async gatNuts() {
+      var dataRef = database.ref("/Nuts");
+      await dataRef.on("child_added", (snapshot) => {
+        this.dataNuts.push(snapshot.val());
+      });
     },
-    gatRiceD(){
-      db.collection("Rice dishes")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-           this.dataRice.push(doc.data());
-          });
-        })
-        .catch((error) => {
-          console.log("Error getting documents: ", error);
-        });
+    async gatRiceD() {
+      var dataRef = database.ref("/RiceDishes");
+      await dataRef.on("child_added", (snapshot) => {
+        this.dataRice.push(snapshot.val());
+      });
     },
-    gatRiceN(){
-      db.collection("Rice,Noodles ")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-           this.dataRiceN.push(doc.data());
-          });
-        })
-        .catch((error) => {
-          console.log("Error getting documents: ", error);
-        });
+    async gatRiceN() {
+      var dataRef = database.ref("/RiceNoodles");
+      await dataRef.on("child_added", (snapshot) => {
+        this.dataRiceN.push(snapshot.val());
+      });
     },
-    Vegetables(){
-      db.collection("Vegetables")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-           this.dataVegetables.push(doc.data());
-          });
-        })
-        .catch((error) => {
-          console.log("Error getting documents: ", error);
-        });
-    }
+    async Vegetables() {
+      var dataRef = database.ref("/Vegetables");
+      await dataRef.on("child_added", (snapshot) => {
+        this.dataVegetables.push(snapshot.val());
+      });
+    },
   },
-}
+};
 </script>
 <style>
-.div_table{
+.div_table {
   padding: 0px 32px 32px 32px;
   width: 100%;
 }
-.menu_bar{
+.menu_bar {
   width: 69%;
-  box-shadow: -5px -5px 5px #ffffff, 5px 5px 10px #dbdada; 
+  box-shadow: -5px -5px 5px #ffffff, 5px 5px 10px #dbdada;
   border-radius: 50px;
-  background-color: #F9F9F9;
+  background-color: #f9f9f9;
 }
-.btn_menu{
-  background-color: #ffffff00; 
-  border: 0; 
+.btn_menu {
+  background-color: #ffffff00;
+  border: 0;
   color: #636363;
   border-radius: 50px;
 }
-.btn_menu:hover, .btn_menu:focus, .btn_menu:active {
-  background-color: #F87030; 
-  border: 0; 
+.btn_menu:hover,
+.btn_menu:focus,
+.btn_menu:active {
+  background-color: #f87030;
+  border: 0;
   color: #ffffff;
   border-radius: 50px;
 }
 @media only screen and (max-width: 1024px) {
-  .menu_bar{
+  .menu_bar {
     width: 100%;
   }
 }
