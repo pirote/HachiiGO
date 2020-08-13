@@ -6,43 +6,43 @@
           <img
             src="../src/assets/logo2.png"
             height="30"
-            style="padding-left:32px;"
+            id="logo"
             class="d-inline-block align-top"
             alt
           />
         </a>
       </div>
-      <div class="col" style="max-width:60%; text-align: center;">
-        <router-link to="/" class="routerlink">Home</router-link>
-        <router-link to="/calories" class="routerlink">Calories</router-link>
-        <a href="#aboutus" class="routerlink">About Us</a>
+      <div class="col" style="max-width:55%; text-align: center;">
+        <router-link to="/" class="routerlink">หน้าหลัก</router-link>
+        <router-link v-if="this.uid === ''" to="/CaloriesLogin" class="routerlink">แคลอรี่</router-link>
+        <router-link v-else to="/calories" class="routerlink">แคลอรี่</router-link>
+        <a href="#aboutus" class="routerlink">เกี่ยวกับ</a>
       </div>
-      <div class="col" style="max-width:20%;">
-        <div v-if="this.uid === ''">
-          <button
-            type="button"
-            class="btn btn-light"
-            style="margin-right: 16px;"
-            v-on:click="signin"
-          >Sing in</button>
-          <button 
-            type="button" 
-            class="btn btn-light"
-            v-on:click="register">Register</button>
+      <div class="col" style="max-width:25%;">
+        <div v-if="this.uid === ''" class="row">
+          <div class="col" style="text-align: right;">
+            <div
+              type="button"
+              class="div_sign_re"
+              style="margin-right: 16px;"
+              v-on:click="signin"
+            >เข้าสู่ระบบ</div>
+          </div>
+          <div class="col">
+            <div type="button" class="div_sign_re" v-on:click="register">ลงทะเบียน</div>
+          </div>
         </div>
-        <div v-else>
-          <button
-            type="button"
-            class="btn btn-light"
-            style="margin-right: 16px;"
-            v-on:click="signin"
-          >Profile</button>
-          <button type="button" class="btn btn-light" v-on:click="logout">Log Out</button>
+        <div class="row" v-else>
+          <div class="col" style="text-align: right;">
+            <router-link to="/profile" class="routerlink">โปรไฟล์</router-link>
+          </div>
+          <div class="col">
+            <div type="button" class="div_btn" v-on:click="logout">ออกจากระบบ</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <router-view/>
     <!-- Sing in -->
     <div id="slide" class="signin" v-if="this.status === 'signin'">
       <div class="div_signin">
@@ -52,36 +52,36 @@
         <h1>Sing In</h1>
 
         <div class="form-group row">
-                <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+          <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
 
-                <div class="col-md-6">
-                  <input
-                    id="email"
-                    type="email"
-                    class="form-control"
-                    name="email"
-                    value
-                    required
-                    autofocus
-                    v-model="email"
-                  />
-                </div>
-              </div>
+          <div class="col-md-6">
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              name="email"
+              value
+              required
+              autofocus
+              v-model="email"
+            />
+          </div>
+        </div>
 
-              <div class="form-group row">
-                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+        <div class="form-group row">
+          <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
-                <div class="col-md-6">
-                  <input
-                    id="password"
-                    type="password"
-                    class="form-control"
-                    name="password"
-                    required
-                    v-model="password"
-                  />
-                </div>
-              </div>
+          <div class="col-md-6">
+            <input
+              id="password"
+              type="password"
+              class="form-control"
+              name="password"
+              required
+              v-model="password"
+            />
+          </div>
+        </div>
         <b-button
           class="btn"
           style="background-color: #F87030; border-color: #F87030; width:250px ;"
@@ -96,67 +96,81 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <h1>Register</h1>
-          <div class="card-body">
-            <div v-if="error" class="alert alert-danger">{{error}}</div>
-            <form action="#" @submit.prevent="submit">
-              <div class="form-group row">
-                <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+        <div class="card-body">
+          <div v-if="error" class="alert alert-danger">{{error}}</div>
+          <form action="#" @submit.prevent="submit">
+            <div class="form-group">
+              <img class="preview" :src="picture" />
+            </div>
+            <div class="form-group">
+              <p>อัพโหลดรูป:</p>
+              <input type="file" @change="previewImage" accept="image/*" style="font-family: auto;" />
+            </div>
+            <div class="form-group row">
+              <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
-                <div class="col-md-6">
-                  <input
-                    id="name"
-                    type="name"
-                    class="form-control"
-                    name="name"
-                    value
-                    required
-                    autofocus
-                    v-model="form.name"
-                  />
-                </div>
+              <div class="col-md-6">
+                <input
+                  id="name"
+                  type="name"
+                  class="form-control"
+                  name="name"
+                  value
+                  required
+                  autofocus
+                  v-model="form.name"
+                />
               </div>
+            </div>
 
-              <div class="form-group row">
-                <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+            <div class="form-group row">
+              <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
 
-                <div class="col-md-6">
-                  <input
-                    id="email"
-                    type="email"
-                    class="form-control"
-                    name="email"
-                    value
-                    required
-                    autofocus
-                    v-model="form.email"
-                  />
-                </div>
+              <div class="col-md-6">
+                <input
+                  id="email"
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  value
+                  required
+                  autofocus
+                  v-model="form.email"
+                />
               </div>
+            </div>
 
-              <div class="form-group row">
-                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+            <div class="form-group row">
+              <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
-                <div class="col-md-6">
-                  <input
-                    id="password"
-                    type="password"
-                    class="form-control"
-                    name="password"
-                    required
-                    v-model="form.password"
-                  />
-                </div>
+              <div class="col-md-6">
+                <input
+                  id="password"
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  required
+                  v-model="form.password"
+                />
               </div>
+            </div>
 
-              <div class="form-group row mb-0">
-                <div class="col-md-8 offset-md-4">
-                  <button v-on:click="authen" style="background-color: #F87030; border-color: #F87030; width:250px ;" class="btn btn-primary">Register</button>
-                </div>
+            <div class="form-group row mb-0">
+              <div class="col-md-8 offset-md-4">
+                <button
+                  v-on:click="authen"
+                  style="background-color: #F87030; border-color: #F87030; width:50% ;"
+                  class="btn btn-primary"
+                >Register</button>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
+
+    <router-view />
+
     <div id="aboutus">
       <div class="row">
         <div class="col">
@@ -210,29 +224,32 @@ export default {
       status: "default",
       password: "",
       email: "",
-      uid:'',
+      uid: "",
       form: {
         name: "",
         email: "",
-        password: ""
+        password: "",
       },
-      error: null
+      error: null,
+      imageData: null,
+      picture: null,
+      uploadValue: 0,
     };
   },
   created() {
     firebase.auth().onAuthStateChanged((firebaseUser) => {
-      this.uid = firebaseUser.email
+      this.uid = firebaseUser.email;
     });
   },
   methods: {
     logout() {
       firebase
-            .auth()
-            .signOut()
-            .then(() => {
-              this.status = "default";
-               window.location.reload();
-            });
+        .auth()
+        .signOut()
+        .then(() => {
+          this.status = "default";
+          window.location.reload();
+        });
     },
     signin() {
       this.status = "signin";
@@ -240,21 +257,22 @@ export default {
     close() {
       this.status = "default";
     },
-    register(){
+    register() {
       this.status = "register";
     },
     authen() {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.form.email, this.form.password)
-        .then(data => {
+        .then((data) => {
           data.user
             .updateProfile({
-              displayName: this.form.name
+              displayName: this.form.name,
+              photoURL: this.picture,
             })
             .then(() => {});
         })
-        .catch(err => {
+        .catch((err) => {
           this.error = err.message;
         });
     },
@@ -265,13 +283,52 @@ export default {
         .then(
           (data) => {
             this.status = "default";
-            this.uid = data.user.uid
+            this.uid = data.user.uid;
           },
           (err) => {
             alert("ับัญชี หรือ รหัสผ่าน ไม่ถูกต้อง!");
             console.log(err);
           }
         );
+    },
+    async previewImage(event) {
+      if(this.imageData){
+      await firebase
+        .storage()
+        .ref(`${this.imageData.name}`)
+        .delete()
+        .then(function () {
+          this.picture = null;
+        })
+        .catch(function (error) {
+          console.log(error);
+          // Uh-oh, an error occurred!
+        });}
+      this.uploadValue = 0;
+      this.imageData = event.target.files[0];
+
+      
+      const storageRef = firebase
+        .storage()
+        .ref(`${this.imageData.name}`)
+        .put(this.imageData);
+      await storageRef.on(
+        `state_changed`,
+        (snapshot) => {
+          this.uploadValue =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(snapshot);
+        },
+        (error) => {
+          console.log(error.message);
+        },
+        () => {
+          this.uploadValue = 100;
+          storageRef.snapshot.ref.getDownloadURL().then((url) => {
+            this.picture = url;
+          });
+        }
+      );
     },
   },
 };
@@ -323,8 +380,12 @@ body {
   margin: auto;
   box-shadow: 5px 10px 10px #888888;
 }
+.preview {
+  width: 150px;
+  height: auto;
+}
 #slide {
-  position: absolute;
+  position: relative;
   bottom: 90px;
   height: 90%;
   -webkit-animation: slide 0.5s forwards;
@@ -340,6 +401,59 @@ body {
 @keyframes slide {
   100% {
     bottom: 0;
+  }
+}
+#logo {
+  padding-left: 32px;
+}
+.div_btn:hover {
+  font-size: 18px;
+  color: #f87030;
+}
+.div_sign_re:hover {
+  font-size: 18px;
+  color: #f87030;
+}
+@media only screen and (max-width: 1024px) {
+  .routerlink {
+    padding-right: 16px;
+    font-size: 10px;
+  }
+  #logo {
+    padding-left: 5px;
+  }
+  .div_btn {
+    font-size: 10px;
+  }
+  .div_sign_re {
+    font-size: 10px;
+  }
+  .div_btn:hover {
+    font-size: 10px;
+    color: #f87030;
+  }
+  .div_sign_re:hover {
+    font-size: 10px;
+    color: #f87030;
+  }
+  .div_signin {
+    text-align: center;
+    width: 80%;
+    background-color: #ffffff;
+    color: #f87030;
+    margin-top: 50%;
+    border-radius: 25px;
+    padding: 32px;
+    margin: auto;
+    box-shadow: 5px 10px 10px #888888;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  #aboutus{
+    font-size: 10px;
+  }
+  li{
+    font-size: 10px;
   }
 }
 </style>

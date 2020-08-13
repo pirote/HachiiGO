@@ -7,7 +7,8 @@
       
     </div>
     <div class="div_calories" v-if="this.status === 'default'">
-      <h1>Calories</h1>
+      <h1>แคลอรี่</h1>
+      <Icon/>
     </div>
   </div>
 </template>
@@ -15,10 +16,12 @@
 <script>
 // @ is an alias to /src
 import SumCalorie from '@/components/Sum_Calorie.vue'
+import Icon from '../components/icon'
 export default {
   name: 'Home',
   components: {
-    SumCalorie
+    SumCalorie,
+    Icon
   },
   data() {
     return {
