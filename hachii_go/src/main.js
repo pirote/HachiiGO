@@ -8,10 +8,10 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import* as firebase from "firebase";
 import '@fortawesome/fontawesome-free/css/all.css'
 
-import liff from '@line/liff';
-liff.init({ liffId: '1654665014-qlP8X7Wd' });
-const context = liff.getContext();
-console.log(context);
+//import liff from '@line/liff';
+//liff.init({ liffId: '1654665014-qlP8X7Wd' });
+//const context = liff.getContext();
+//console.log(context);
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)
