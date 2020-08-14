@@ -193,61 +193,61 @@ export default {
     //   this.dataAll = merged
     // },
     async gatEggs() {
-      var dataRef = database.ref("/Eggs");
+      var dataRef = database.ref("/FoodData/Eggs");
       await dataRef.on("child_added", (snapshot) => {
         this.dataEggs.push(snapshot.val());
       });
     },
     async gatFish() {
-      var dataRef = database.ref("/Fish");
+      var dataRef = database.ref("/FoodData/Fish");
       await dataRef.on("child_added", (snapshot) => {
         this.dataFish.push(snapshot.val());
       });
     },
     async gatFruits() {
-      var dataRef = database.ref("/Fruits");
+      var dataRef = database.ref("/FoodData/Fruits");
       await dataRef.on("child_added", (snapshot) => {
         this.dataFruits.push(snapshot.val());
       });
     },
     async gatMeat() {
-      var dataRef = database.ref("/Meat");
+      var dataRef = database.ref("/FoodData/Meat");
       await dataRef.on("child_added", (snapshot) => {
         this.dataMeat.push(snapshot.val());
       });
     },
     async gatMilk() {
-      var dataRef = database.ref("/Milk");
+      var dataRef = database.ref("/FoodData/Milk");
       await dataRef.on("child_added", (snapshot) => {
         this.dataMilk.push(snapshot.val());
       });
     },
     async gatNoodle() {
-      var dataRef = database.ref("/NoodleDishes");
+      var dataRef = database.ref("/FoodData/NoodleDishes");
       await dataRef.on("child_added", (snapshot) => {
         this.dataNoodle.push(snapshot.val());
       });
     },
     async gatNuts() {
-      var dataRef = database.ref("/Nuts");
+      var dataRef = database.ref("/FoodData/Nuts");
       await dataRef.on("child_added", (snapshot) => {
         this.dataNuts.push(snapshot.val());
       });
     },
     async gatRiceD() {
-      var dataRef = database.ref("/RiceDishes");
+      var dataRef = database.ref("/FoodData/RiceDishes");
       await dataRef.on("child_added", (snapshot) => {
         this.dataRice.push(snapshot.val());
       });
     },
     async gatRiceN() {
-      var dataRef = database.ref("/RiceNoodles");
+      var dataRef = database.ref("/FoodData/RiceNoodles");
       await dataRef.on("child_added", (snapshot) => {
         this.dataRiceN.push(snapshot.val());
       });
     },
     async Vegetables() {
-      var dataRef = database.ref("/Vegetables");
+      var dataRef = database.ref("/FoodData/Vegetables");
       await dataRef.on("child_added", (snapshot) => {
         this.dataVegetables.push(snapshot.val());
       });
