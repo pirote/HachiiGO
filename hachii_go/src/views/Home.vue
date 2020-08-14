@@ -70,7 +70,7 @@ export default {
          autoplay: true
       },
       vfImages: [ 'https://firebasestorage.googleapis.com/v0/b/hachiigodb.appspot.com/o/bg1.jpg?alt=media&token=e51d7c4d-8ee5-40a1-95c0-04dc2415ca1c', 
-      'https://firebasestorage.googleapis.com/v0/b/hachiigodb.appspot.com/o/bg3.png?alt=media&token=87ed442c-0a69-40ea-b0d8-0db30c0d3cbf' ],
+      'https://firebasestorage.googleapis.com/v0/b/hachiigodb.appspot.com/o/bg3.png?alt=media&token=b65f0a43-b7a4-4a06-b785-4fb5f1d2969c' ],
       vfTransitions: [ 'slide' ],
     }
   },
