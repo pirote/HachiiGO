@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="col">
-        <div class="button button3" v-on:click="Eggs">
+        <div class="button button3" >
           <svg
             id="Layer_1"
             height="100"
@@ -25,7 +25,7 @@
         <p>ไข่</p>
       </div>
       <div class="col">
-        <div class="button button3" v-on:click="Fish">
+        <div class="button button3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             id="Outline"
@@ -49,7 +49,7 @@
         <p>ปลา</p>
       </div>
       <div class="col">
-        <div class="button button3" v-on:click="Fruits">
+        <div class="button button3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             id="Outline"
@@ -70,7 +70,7 @@
         <p>ผลไม้</p>
       </div>
       <div class="col">
-        <div class="button button3" v-on:click="Meat">
+        <div class="button button3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             id="Outline"
@@ -143,7 +143,7 @@
         <p>เนื้อ</p>
       </div>
       <div class="col">
-        <div class="button button3" v-on:click="Milk">
+        <div class="button button3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             id="Outline"
@@ -199,7 +199,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <div class="button button3" v-on:click="Noodle">
+        <div class="button button3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             id="Outline"
@@ -215,7 +215,7 @@
         <p>ก๋วยเตี๋ยว</p>
       </div>
       <div class="col">
-        <div class="button button3" v-on:click="Nuts">
+        <div class="button button3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             id="Outline"
@@ -303,7 +303,7 @@
         <p>ถั่ว</p>
       </div>
       <div class="col">
-        <div class="button button3" v-on:click="RiceD">
+        <div class="button button3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             id="Outline"
@@ -338,7 +338,7 @@
         <p>ข้าวแกง</p>
       </div>
       <div class="col">
-        <div class="button button3" v-on:click="RiceN">
+        <div class="button button3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             id="Outline"
@@ -371,7 +371,7 @@
         <p>ข้าว</p>
       </div>
       <div class="col">
-        <div class="button button3" v-on:click="Vegetables">
+        <div class="button button3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             id="Outline"
@@ -528,39 +528,6 @@
 
 <script>
 export default {
-  methods: {
-    Eggs() {
-        //this.$router.push({ name: "Calories"})
-        alert("Egg ไข่")
-    },
-    Fish() {
-        alert("Fish ปลา")
-    },
-    Fruits() {
-        alert("Fruits ผลไม้")
-    },
-    Meat() {
-        alert("Meat เนื้อ")
-    },
-    Milk() {
-        alert("Milk นม")
-    },
-    Noodle() {
-        alert("Noodle ก๋วยเตี๋ยว")
-    },
-    Nuts() {
-        alert("Nuts ถั่ว")
-    },
-    RiceD() {
-        alert("Rice ข้าวราดแกง")
-    },
-    RiceN() {
-        alert("Rice ข้าว")
-    },
-    Vegetables() {
-        alert("Vegetables ผัก")
-    },
-  },
 };
 </script>
 

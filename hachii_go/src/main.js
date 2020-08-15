@@ -7,8 +7,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import* as firebase from "firebase";
 import '@fortawesome/fontawesome-free/css/all.css'
+import VueSimpleAlert from "vue-simple-alert";
 
-
+Vue.use(VueSimpleAlert);
 // Install BootstrapVue
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin

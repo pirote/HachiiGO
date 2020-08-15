@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <div class="row" style="padding:10px 20px 10px 20px;">
+    <div class="row" style="padding:10px">
       <div class="col" style="max-width:20%;">
         <a class="navbar-brand" href="#">
           <img
-            src="../src/assets/logo2.png"
+            src=""
             height="30"
             id="logo"
             class="d-inline-block align-top"
@@ -218,6 +218,7 @@
 </template>
 <script>
 import firebase from "firebase";
+import Swal from "sweetalert2";
 export default {
   data() {
     return {
@@ -236,10 +237,15 @@ export default {
       uploadValue: 0,
     };
   },
-  created() {
-    firebase.auth().onAuthStateChanged((firebaseUser) => {
+  async created() {
+    await firebase.auth().onAuthStateChanged((firebaseUser) => {
       this.uid = firebaseUser.email;
+      
     });
+    console.log(this.uid);
+    if(await this.uid === ''){
+      Swal.fire('ลงทะเบียนแล้วเข้าสู่ระบบกับเราสิ!')
+    }
   },
   methods: {
     logout() {

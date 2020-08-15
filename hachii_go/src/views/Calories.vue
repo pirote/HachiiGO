@@ -27,6 +27,7 @@
             <th>ชื่ออาหาร</th>
             <th>ปริมาณ</th>
             <th>ค่าแคลอรี่</th>
+            <th>เพิ่ม</th>
           </tr>
         </thead>
         <tbody>
@@ -39,6 +40,9 @@
             </td>
             <td>
               <a target="_blank">{{ item.Calories }}</a>
+            </td>
+            <td>
+              <a class="btn_add" target="_blank" v-on:click="addCalory(item)">กด</a>
             </td>
           </tr>
         </tbody>
@@ -55,11 +59,13 @@
 <script>
 import firebase from "firebase";
 import Pagination from "../components/Pagination";
+import Swal from "sweetalert2";
 var database = firebase.database();
 const perPageOptions = [20, 50, 100];
 export default {
   data() {
     return {
+      nameDB: "",
       searchQuery: null,
       perPageOptions,
       pagination: { page: 1, perPage: perPageOptions[1] },
@@ -76,6 +82,8 @@ export default {
       dataRiceN: [],
       dataVegetables: [],
       collection: "",
+      checkTime: "",
+      sumtdee: "",
       op_collection: [
         { value: "ไข่", text: "ไข่" },
         { value: "ปลา", text: "ปลา" },
@@ -93,7 +101,15 @@ export default {
   components: {
     Pagination,
   },
-  created() {
+  async created() {
+    await firebase.auth().onAuthStateChanged((firebaseUser) => {
+      this.nameDB = firebaseUser.displayName + "(" + firebaseUser.uid + ")";
+    });
+    var dataTime = database.ref("/AuthenAcount/" + this.nameDB + "/Data/");
+    await dataTime.on("child_added", (snapshot) => {
+      this.checkTime = snapshot.val().date;
+      this.sumtdee = snapshot.val().tdee;
+    });
     this.gatEggs();
     this.gatFish();
     this.gatFruits();
@@ -106,7 +122,6 @@ export default {
     this.Vegetables();
     this.collection = "ไข่";
     this.dataAll = this.dataEggs;
-
     // ทั้งหมด
     // await this.sumdata.push(this.dataEggs)
     // await this.sumdata.push(this.dataFish)
@@ -252,6 +267,65 @@ export default {
         this.dataVegetables.push(snapshot.val());
       });
     },
+    async addCalory(value) {
+      const today = new Date();
+      var date =  today.getDate() + ":" + (today.getMonth() + 1) + ":" + today.getFullYear();
+      var dateT =
+        today.getDate() +
+        "/" +
+        (today.getMonth() + 1) +
+        "/" +
+        today.getFullYear();
+
+      //console.log("getdbin:", this.checkTime);
+      //console.log("getdb:", this.checkTime, "dateT:", dateT);
+      if (await this.checkTime === dateT) {
+      await this.sendData(value, dateT, date);
+      } else {
+        alert("ยังไม่มีการบันทึกข้อมูลแคลอรี่ต่อวัน");
+      }
+    },
+    async sendData(value, dateT, date) {
+      
+        var dataRef = database.ref(
+          "/AuthenAcount/" + this.nameDB + "/Calories/" + date + "/"
+        );
+        let data = [];
+        let key = "";
+        dataRef.on("child_added", (snapshot) => {
+          data = snapshot.val();
+          key = snapshot.key;
+        });
+        data.push({
+          Calories: value.Calories,
+          Food: value.Food,
+          Unit: value.Unit
+          })
+        Swal.fire({
+          title: "คุณแน่ใจหรือไม่ในการเพิ่ม?",
+          text: "คุณแน่ใจในการเพิ่ม " + value.Food + " ค่าแคลอรี่ " + value.Calories + '\nเพิ่มแล้วไม่สามารถลบได้',
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#f87030",
+          cancelButtonColor: "#444444",
+          confirmButtonText: "เพิ่ม",
+          cancelButtonText: "ยกเลิก",
+        }).then((result) => {
+          if (result.value) {
+            if (key) {
+                dataRef.child(key).update({...data});
+              
+            } else {
+              dataRef.push({...data});
+            }
+            Swal.fire("สำเร็จ!", "คุณได้ทำการเพิ่มแคลอรี่ต่อวันเรียบร้อย.", "success");
+          }
+        });
+
+        //dataRef.push({ Calories: value.Calories , Food: value.Food, Unit: value.Unit});
+        //console.log({ Calories: value.Calories , Food: value.Food, Unit: value.Unit});
+      
+    },
   },
 };
 </script>
@@ -279,6 +353,18 @@ export default {
   border: 0;
   color: #ffffff;
   border-radius: 50px;
+}
+.btn_add{
+  background-color: #f87030;
+  padding: 5px 16px 5px 16px;
+  border-radius: 5px;
+  color: #ffffff;
+}
+.btn_add:hover{
+  background-color: #444444;
+  padding: 5px 16px 5px 16px;
+  border-radius: 5px;
+  color: #ffffff;
 }
 @media only screen and (max-width: 1024px) {
   .menu_bar {

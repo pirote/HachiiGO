@@ -27,9 +27,7 @@
    <template v-slot:index>
       <flux-index />
    </template>
-</vue-flux>
-      <!--img src="../assets/bg1.jpg" width="100%" alt=""-->
-      
+</vue-flux>   
       
     </div>
     <div class="div_calories" v-if="this.status === 'default'">
@@ -78,7 +76,7 @@ export default {
     setInterval(function(){ 
       this.currentNumber += 1
     
-    }, 2000);
+    }, 3000);
     console.log(this.currentNumber);
   },
   methods:{
