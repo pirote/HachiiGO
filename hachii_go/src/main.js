@@ -7,8 +7,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import* as firebase from "firebase";
 import '@fortawesome/fontawesome-free/css/all.css'
-
-
+import liff from '@line/liff';
+//initial line LIFF
+liff.init({ liffId: "1654665014-qlP8X7Wd" });
 // Install BootstrapVue
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin

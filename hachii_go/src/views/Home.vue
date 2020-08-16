@@ -43,6 +43,9 @@
 // @ is an alias to /src
 import SumCalorie from '@/components/Sum_Calorie.vue'
 import Icon from '../components/icon'
+import liff from '@line/liff';
+//initial line LIFF
+
 import {
    VueFlux,
    FluxCaption,
@@ -62,6 +65,15 @@ export default {
       FluxIndex,
       FluxPagination,
       FluxPreloader,
+  },beforeCreate(){
+  liff
+      .init({ liffId: "1654665014-qlP8X7Wd" })
+      .then(function(){
+          window.alert('this on OS:' + liff.getOS);
+      })
+      .catch(function(error) {
+            window.alert('Error init msg: ' + error);
+        });
   },
   data() {
     return {
@@ -80,6 +92,22 @@ export default {
     
     }, 2000);
     console.log(this.currentNumber);
+    const context = liff.getContext();
+      if (!liff.isInClient()) {
+        liff.sendMessages([{
+            'type': 'text',
+            'text': "heelo" 
+        }])
+    } else {
+        liff.sendMessages([{
+            'type': 'text',
+            'text': context.userId
+        }]).then(function() {
+            window.alert('Message sent');
+        }).catch(function(error) {
+            window.alert('Error sending msg: ' + error);
+        });
+    }
   },
   methods:{
     show_sum_calorires(){

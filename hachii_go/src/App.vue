@@ -218,7 +218,11 @@
 </template>
 <script>
 import firebase from "firebase";
+
+
+
 export default {
+
   data() {
     return {
       status: "default",
@@ -234,6 +238,12 @@ export default {
       imageData: null,
       picture: null,
       uploadValue: 0,
+      line_profile: {
+        userId: '',
+        displayName: '',
+        pictureUrl: '',
+        statusMessage: ''
+    },
     };
   },
   created() {
