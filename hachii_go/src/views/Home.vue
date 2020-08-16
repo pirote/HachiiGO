@@ -67,7 +67,7 @@ export default {
   liff
       .init({ liffId: "1654665014-qlP8X7Wd" })
       .then(function(){
-          window.alert('this on OS:' + liff.getOS);
+          //window.alert('this on OS:' + liff.getOS);
       })
       .catch(function(error) {
             window.alert('Error init msg: ' + error);
@@ -90,21 +90,33 @@ export default {
     
     }, 3000);
     console.log(this.currentNumber);
-    const context = liff.getContext();
+    //const profile_line = liff.getProfile();
       if (!liff.isInClient()) {
-        liff.sendMessages([{
+        /*liff.sendMessages([{
             'type': 'text',
             'text': "heelo" 
-        }])
+        }])*/
     } else {
-        liff.sendMessages([{
+        
+        liff.getProfile()
+          .then(profile=>{
+            const name =profile.displayName
+            //const line_Uid = profile.userId
+            //const line_PUrl = profile.pictureUrl
+            // merge profile line to database
+            liff.sendMessages([{
+              'type': 'text',
+              'text': 'hello ' + name
+            }])
+          })
+        /*liff.sendMessages([{
             'type': 'text',
-            'text': context.userId
+            'text': 'hello ' + profile_line.
         }]).then(function() {
             window.alert('Message sent');
         }).catch(function(error) {
             window.alert('Error sending msg: ' + error);
-        });
+        });*/
     }
   },
   methods:{
