@@ -218,9 +218,8 @@
 </template>
 <script>
 import firebase from "firebase";
-
-
-
+import Swal from "sweetalert2";
+import liff from '@line/liff';
 export default {
 
   data() {
@@ -244,13 +243,86 @@ export default {
         pictureUrl: '',
         statusMessage: ''
     },
+    nameLine:'',
+    imgLine:'',
+    idLine:''
     };
+  },
+  beforeCreate(){
+  liff
+      .init({ liffId: "1654665014-qlP8X7Wd" })
+      .then(function(){
+          //window.alert('this on OS:' + liff.getOS);
+      })
+      .catch(function(error) {
+            window.alert('Error init msg: ' + error);
+        });
   },
   async created() {
     await firebase.auth().onAuthStateChanged((firebaseUser) => {
       this.uid = firebaseUser.email;
       
     });
+      if (!liff.isInClient()) {
+        /*liff.sendMessages([{
+            'type': 'text',
+            'text': "heelo" 
+        }])*/
+    } else {
+        
+        liff.getProfile()
+          .then(profile=>{
+            const name =profile.displayName
+            const line_email = liff.getDecodedIDToken().email
+            this.nameLine = profile.displayName
+            this.imgLine = profile.pictureUrl
+            this.idLine = profile.userId
+            //const line_Uid = profile.userId
+            //const line_PUrl = profile.pictureUrl
+            // merge profile line to database
+            liff.sendMessages([{
+              'type': 'text',
+              'text': 'hello ' + name+" "+line_email
+            }])
+          })
+        /*liff.sendMessages([{
+            'type': 'text',
+            'text': 'hello ' + profile_line.
+        }]).then(function() {
+            window.alert('Message sent');
+        }).catch(function(error) {
+            window.alert('Error sending msg: ' + error);
+        });*/
+    }
+    if(this.nameLine){
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.nameLine + '@line.com', this.idLine)
+        .then(
+          (data) => {
+            this.status = "default";
+            this.uid = data.user.uid;
+          },
+          (err) => {
+            firebase
+              .auth()
+              .createUserWithEmailAndPassword(this.nameLine + '@line.com', this.idLine)
+              .then((data) => {
+                data.user
+                  .updateProfile({
+                    displayName: this.nameLine,
+                    photoURL: this.idLine,
+                  })
+                  .then(() => {});
+              })
+              .catch((err) => {
+                this.error = err.message;
+              });
+            console.log(err);
+          }
+        );
+
+    }
     console.log(this.uid);
     if(await this.uid === ''){
       Swal.fire('ลงทะเบียนแล้วเข้าสู่ระบบกับเราสิ!')
