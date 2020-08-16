@@ -273,7 +273,7 @@ export default {
         liff.getProfile()
           .then(profile=>{
             const name =profile.displayName
-            const line_email = liff.getDecodedIDToken().email
+            //const line_email = liff.getDecodedIDToken().email
             this.nameLine = profile.displayName
             this.imgLine = profile.pictureUrl
             this.idLine = profile.userId
@@ -282,7 +282,7 @@ export default {
             // merge profile line to database
             liff.sendMessages([{
               'type': 'text',
-              'text': 'hello ' + name+" "+line_email
+              'text': 'hello ' + name+
             }])
           })
         /*liff.sendMessages([{

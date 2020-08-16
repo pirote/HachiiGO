@@ -101,13 +101,13 @@ export default {
         liff.getProfile()
           .then(profile=>{
             const name =profile.displayName
-            const line_email = liff.getDecodedIDToken().email
+            //const line_email = liff.getDecodedIDToken().email
             //const line_Uid = profile.userId
             //const line_PUrl = profile.pictureUrl
             // merge profile line to database
             liff.sendMessages([{
               'type': 'text',
-              'text': 'hello ' + name+" "+line_email
+              'text': 'hello ' + name
             }])
           })
         /*liff.sendMessages([{
