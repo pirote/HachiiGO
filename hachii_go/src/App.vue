@@ -294,7 +294,7 @@ export default {
             window.alert('Error sending msg: ' + error);
         });*/
     }
-    if(this.nameLine){
+    if(await this.nameLine){
       firebase
         .auth()
         .signInWithEmailAndPassword(this.nameLine + '@line.com', this.idLine)
