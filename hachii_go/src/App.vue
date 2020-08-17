@@ -289,7 +289,7 @@ export default {
       if (this.nameLine) {
         firebase
           .auth()
-          .signInWithEmailAndPassword(this.nameLine + "@line.com", this.idLine)
+          .signInWithEmailAndPassword(this.idLine + "@line.com", this.idLine)
           .then(
             (data) => {
               this.status = "default";
@@ -299,7 +299,7 @@ export default {
               firebase
                 .auth()
                 .createUserWithEmailAndPassword(
-                  this.nameLine + "@line.com",
+                  this.idLine + "@line.com",
                   this.idLine
                 )
                 .then((data) => {
@@ -311,7 +311,7 @@ export default {
                     .then(() => {
                       firebase
                         .auth()
-                        .signInWithEmailAndPassword(this.nameLine + "@line.com", this.idLine)
+                        .signInWithEmailAndPassword(this.idLine + "@line.com", this.idLine)
                         .then(
                           (data) => {
                             this.status = "default";
