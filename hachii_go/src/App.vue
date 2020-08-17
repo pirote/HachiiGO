@@ -256,6 +256,28 @@ export default {
     await firebase.auth().onAuthStateChanged((firebaseUser) => {
       this.uid = firebaseUser.email;
     });
+     if (!liff.isInClient()) {
+        /*liff.sendMessages([{
+            'type': 'text',
+            'text': "heelo" 
+        }])*/
+    } else {
+        liff.getProfile()
+          .then(profile=>{
+            const name =profile.displayName
+            //const line_email = liff.getDecodedIDToken().email
+            const line_Uid = profile.userId
+            const line_PUrl = profile.pictureUrl
+            // merge profile line to database
+            this.nameLine = name
+            this.idLine = line_Uid
+            this.imgLine = line_PUrl
+            liff.sendMessages([{
+              'type': 'text',
+              'text': 'hello ' + name
+            }])
+          })
+    }
     setTimeout(()=> this.loginLine(),1000)
     console.log(this.uid);
     if(await this.uid === ''){
@@ -284,7 +306,7 @@ export default {
                   data.user
                     .updateProfile({
                       displayName: this.nameLine,
-                      photoURL: this.idLine,
+                      photoURL: this.imgLine,
                     })
                     .then(() => {
                       firebase
