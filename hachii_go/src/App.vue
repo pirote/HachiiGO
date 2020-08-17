@@ -3,13 +3,7 @@
     <div class="row" style="padding:10px">
       <div class="col" style="max-width:20%;">
         <a class="navbar-brand" href="#">
-          <img
-            src=""
-            height="30"
-            id="logo"
-            class="d-inline-block align-top"
-            alt
-          />
+          <img src height="30" id="logo" class="d-inline-block align-top" alt />
         </a>
       </div>
       <div class="col" style="max-width:55%; text-align: center;">
@@ -170,7 +164,7 @@
     </div>
 
     <router-view />
-
+    <p>nameLine: {{nameLine}} idLine:{{idLine}} imgLine:{{imgLine}}</p>
     <div id="aboutus">
       <div class="row">
         <div class="col">
@@ -219,9 +213,8 @@
 <script>
 import firebase from "firebase";
 import Swal from "sweetalert2";
-import liff from '@line/liff';
+import liff from "@line/liff";
 export default {
-
   data() {
     return {
       status: "default",
@@ -238,21 +231,21 @@ export default {
       picture: null,
       uploadValue: 0,
       line_profile: {
-        userId: '',
-        displayName: '',
-        pictureUrl: '',
-        statusMessage: ''
-    },
-    nameLine:'',
-    imgLine:'',
-    idLine:''
+        userId: "",
+        displayName: "",
+        pictureUrl: "",
+        statusMessage: "",
+      },
+      nameLine: "",
+      imgLine: "",
+      idLine: "",
     };
   },
-  beforeCreate(){
-  liff
+  beforeCreate() {
+    liff
       .init({ liffId: "1654665014-qlP8X7Wd" })
-      .then(function(){
-          //window.alert('this on OS:' + liff.getOS);
+      .then(function () {
+        //window.alert('this on OS:' + liff.getOS);
       })
       .catch(function(error) {
             window.alert('Error init msg: ' + error);
@@ -307,7 +300,6 @@ export default {
           }
         );
 
-    }
     console.log(this.uid);
     if(await this.uid === ''){
       Swal.fire('ลงทะเบียนแล้วเข้าสู่ระบบกับเราสิ!')
@@ -316,6 +308,53 @@ export default {
 
   },
   methods: {
+    loginLine() {
+      if (this.nameLine) {
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(this.nameLine + "@line.com", this.idLine)
+          .then(
+            (data) => {
+              this.status = "default";
+              this.uid = data.user.uid;
+            },
+            (err) => {
+              firebase
+                .auth()
+                .createUserWithEmailAndPassword(
+                  this.nameLine + "@line.com",
+                  this.idLine
+                )
+                .then((data) => {
+                  data.user
+                    .updateProfile({
+                      displayName: this.nameLine,
+                      photoURL: this.idLine,
+                    })
+                    .then(() => {
+                      firebase
+                        .auth()
+                        .signInWithEmailAndPassword(this.nameLine + "@line.com", this.idLine)
+                        .then(
+                          (data) => {
+                            this.status = "default";
+                            this.uid = data.user.uid;
+                          },
+                          (err) => {
+                            alert("ับัญชี หรือ รหัสผ่าน ไม่ถูกต้อง!");
+                            console.log(err);
+                          }
+                        );
+                    });
+                })
+                .catch((err) => {
+                  this.error = err.message;
+                });
+              console.log(err);
+            }
+          );
+      }
+    },
     logout() {
       firebase
         .auth()
@@ -366,22 +405,22 @@ export default {
         );
     },
     async previewImage(event) {
-      if(this.imageData){
-      await firebase
-        .storage()
-        .ref(`${this.imageData.name}`)
-        .delete()
-        .then(function () {
-          this.picture = null;
-        })
-        .catch(function (error) {
-          console.log(error);
-          // Uh-oh, an error occurred!
-        });}
+      if (this.imageData) {
+        await firebase
+          .storage()
+          .ref(`${this.imageData.name}`)
+          .delete()
+          .then(function () {
+            this.picture = null;
+          })
+          .catch(function (error) {
+            console.log(error);
+            // Uh-oh, an error occurred!
+          });
+      }
       this.uploadValue = 0;
       this.imageData = event.target.files[0];
 
-      
       const storageRef = firebase
         .storage()
         .ref(`${this.imageData.name}`)
@@ -523,10 +562,10 @@ body {
   }
 }
 @media only screen and (max-width: 1024px) {
-  #aboutus{
+  #aboutus {
     font-size: 10px;
   }
-  li{
+  li {
     font-size: 10px;
   }
 }
