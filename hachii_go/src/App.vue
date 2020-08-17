@@ -180,7 +180,7 @@
           <p>ศูนย์บริการลูกค้า:</p>
           <ul>
             <li>หากมีข้อสงสัย สามารถติดต่อสอบถามได้ที่</li>
-            <li>Line ID : @hachiigo</li>
+            <li>Line ID : @147gmomt</li>
           </ul>
         </div>
         <div class="col">
@@ -199,7 +199,7 @@
         </div>
         <div class="col">
           <img
-            src="../src/assets/QR.jpg"
+            src="../src/assets/QRCode.png"
             height="150px"
             style="padding-left:32px;"
             class="d-inline-block align-top"

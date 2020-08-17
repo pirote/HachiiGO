@@ -269,62 +269,82 @@ export default {
     },
     async addCalory(value) {
       const today = new Date();
-      var date =  today.getDate() + ":" + (today.getMonth() + 1) + ":" + today.getFullYear();
-      var dateT =
-        today.getDate() +
-        "/" +
+      var date =
         (today.getMonth() + 1) +
+        ":" +
+        today.getDate()  +
+        ":" +
+        today.getFullYear();
+      var dateT =
+        (today.getMonth() + 1) +
+        "/" +
+        today.getDate() +
         "/" +
         today.getFullYear();
 
       //console.log("getdbin:", this.checkTime);
       //console.log("getdb:", this.checkTime, "dateT:", dateT);
-      if (await this.checkTime === dateT) {
-      await this.sendData(value, dateT, date);
+      var date1 = new Date(this.checkTime);
+      var date2 = new Date( dateT);
+
+      // To calculate the time difference of two dates
+      var Difference_In_Time = date2.getTime() - date1.getTime();
+
+      // To calculate the no. of days between two dates
+      var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+      if (await Difference_In_Days < 7) {
+        await this.sendData(value, dateT, date);
       } else {
-        alert("ยังไม่มีการบันทึกข้อมูลแคลอรี่ต่อวัน");
+        alert("สัปดาห์นี้ยังไม่มีการบันทึกข้อมูลแคลอรี่ต่อวัน");
       }
     },
     async sendData(value, dateT, date) {
-      
-        var dataRef = database.ref(
-          "/AuthenAcount/" + this.nameDB + "/Calories/" + date + "/"
-        );
-        let data = [];
-        let key = "";
-        dataRef.on("child_added", (snapshot) => {
-          data = snapshot.val();
-          key = snapshot.key;
-        });
-        data.push({
-          Calories: value.Calories,
-          Food: value.Food,
-          Unit: value.Unit
-          })
-        Swal.fire({
-          title: "คุณแน่ใจหรือไม่ในการเพิ่ม?",
-          text: "คุณแน่ใจในการเพิ่ม " + value.Food + " ค่าแคลอรี่ " + value.Calories + '\nเพิ่มแล้วไม่สามารถลบได้',
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#f87030",
-          cancelButtonColor: "#444444",
-          confirmButtonText: "เพิ่ม",
-          cancelButtonText: "ยกเลิก",
-        }).then((result) => {
-          if (result.value) {
-            if (key) {
-                dataRef.child(key).update({...data});
-              
-            } else {
-              dataRef.push({...data});
-            }
-            Swal.fire("สำเร็จ!", "คุณได้ทำการเพิ่มแคลอรี่ต่อวันเรียบร้อย.", "success");
+      var dataRef = database.ref(
+        "/AuthenAcount/" + this.nameDB + "/Calories/" + date + "/"
+      );
+      let data = [];
+      let key = "";
+      dataRef.on("child_added", (snapshot) => {
+        data = snapshot.val();
+        key = snapshot.key;
+      });
+      data.push({
+        Calories: value.Calories,
+        Food: value.Food,
+        Unit: value.Unit,
+        date:dateT
+      });
+      Swal.fire({
+        title: "คุณแน่ใจหรือไม่ในการเพิ่ม?",
+        text:
+          "คุณแน่ใจในการเพิ่ม " +
+          value.Food +
+          " ค่าแคลอรี่ " +
+          value.Calories +
+          "\nเพิ่มแล้วไม่สามารถลบได้",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#f87030",
+        cancelButtonColor: "#444444",
+        confirmButtonText: "เพิ่ม",
+        cancelButtonText: "ยกเลิก",
+      }).then((result) => {
+        if (result.value) {
+          if (key) {
+            dataRef.child(key).update({ ...data });
+          } else {
+            dataRef.push({ ...data });
           }
-        });
+          Swal.fire(
+            "สำเร็จ!",
+            "คุณได้ทำการเพิ่มแคลอรี่ต่อวันเรียบร้อย.",
+            "success"
+          );
+        }
+      });
 
-        //dataRef.push({ Calories: value.Calories , Food: value.Food, Unit: value.Unit});
-        //console.log({ Calories: value.Calories , Food: value.Food, Unit: value.Unit});
-      
+      //dataRef.push({ Calories: value.Calories , Food: value.Food, Unit: value.Unit});
+      //console.log({ Calories: value.Calories , Food: value.Food, Unit: value.Unit});
     },
   },
 };
@@ -354,13 +374,13 @@ export default {
   color: #ffffff;
   border-radius: 50px;
 }
-.btn_add{
+.btn_add {
   background-color: #f87030;
   padding: 5px 16px 5px 16px;
   border-radius: 5px;
   color: #ffffff;
 }
-.btn_add:hover{
+.btn_add:hover {
   background-color: #444444;
   padding: 5px 16px 5px 16px;
   border-radius: 5px;

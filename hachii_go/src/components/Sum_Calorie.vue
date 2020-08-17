@@ -144,11 +144,11 @@ export default {
       if (this.tdee) {
         const today = new Date();
         const date =
-          today.getDate() +
-          "/" +
-          (today.getMonth() + 1) +
-          "/" +
-          today.getFullYear();
+        (today.getMonth() + 1) +
+        "/" +
+        today.getDate() +
+        "/" +
+        today.getFullYear();
         var dataCheck = database.ref("/AuthenAcount/" + this.nameDB + "/Data/");
 
         var checkTime = "true";

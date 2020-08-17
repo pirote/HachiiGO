@@ -96,7 +96,7 @@ export default {
     var dataRef = database.ref("/AuthenAcount/" + this.nameDB + "/Data/");
 
     await dataRef.on("child_added", (snapshot) => {
-      this.date = snapshot.val().date;
+      //this.date = snapshot.val().date;
       this.tdee = snapshot.val().tdee;
       this.bmr = snapshot.val().bmr;
       this.bmi = snapshot.val().bmi;
@@ -105,9 +105,9 @@ export default {
 
     const today = new Date();
     var date =
-      today.getDate() +
-      ":" +
       (today.getMonth() + 1) +
+      ":" +
+      today.getDate() +
       ":" +
       today.getFullYear();
     var dataCalUser = database.ref(
@@ -116,6 +116,7 @@ export default {
 
     dataCalUser.on("child_added", (snapshot2) => {
       this.data = snapshot2.val();
+      this.date = snapshot2.val()[0].date;
     });
     setTimeout(() => this.click(), 2000);
     //await this.click();
