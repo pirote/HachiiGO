@@ -279,7 +279,7 @@ export default {
             //const line_Uid = profile.userId
             //const line_PUrl = profile.pictureUrl
             // merge profile line to database
-            if(await this.nameLine){
+            if(this.nameLine){
               firebase
                 .auth()
                 .signInWithEmailAndPassword(this.nameLine + '@line.com', this.idLine)
