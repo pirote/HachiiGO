@@ -97,7 +97,7 @@ export default {
             'text': "heelo" 
         }])*/
     } else {
-        
+        /*
         liff.getProfile()
           .then(profile=>{
             const name =profile.displayName
@@ -109,7 +109,7 @@ export default {
               'type': 'text',
               'text': 'hello ' + name
             }])
-          })
+          })*/
         /*liff.sendMessages([{
             'type': 'text',
             'text': 'hello ' + profile_line.

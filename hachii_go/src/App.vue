@@ -197,7 +197,7 @@
             <li>โทร. 0980978465</li>
             <li>E-mail sales@biopeninsula.com</li>
           </ul>
-          <p>สงวนลิขสิทธิ์:</p>
+          <p>{{this.nameLine}}</p>
           <ul>
             <li>Engine by Commerzy Co.,Ltd.</li>
             <li>v1.7.1.5.4</li>
@@ -257,43 +257,28 @@ export default {
       .catch(function(error) {
             window.alert('Error init msg: ' + error);
         });
+  
   },
   async created() {
     await firebase.auth().onAuthStateChanged((firebaseUser) => {
       this.uid = firebaseUser.email;
-      
     });
-      if (!liff.isInClient()) {
-        /*liff.sendMessages([{
-            'type': 'text',
-            'text': "heelo" 
-        }])*/
-    } else {
-        
+    if (!liff.isInClient()) {
+        console.log('none using line')
+  }else {
         liff.getProfile()
           .then(profile=>{
             const name =profile.displayName
-            //const line_email = liff.getDecodedIDToken().email
-            this.nameLine = profile.displayName
-            this.imgLine = profile.pictureUrl
-            this.idLine = profile.userId
-            //const line_Uid = profile.userId
-            //const line_PUrl = profile.pictureUrl
-            // merge profile line to database
+            const line_Uid = profile.userId
+            const line_PUrl = profile.pictureUrl
+            this.nameLine = name
+            this.imgLine = line_PUrl
+            this.idLine = line_Uid
             liff.sendMessages([{
               'type': 'text',
-              'text': 'hello ' + name+
+              'text': 'hello ' + this.idLine
             }])
           })
-        /*liff.sendMessages([{
-            'type': 'text',
-            'text': 'hello ' + profile_line.
-        }]).then(function() {
-            window.alert('Message sent');
-        }).catch(function(error) {
-            window.alert('Error sending msg: ' + error);
-        });*/
-    }
     if(await this.nameLine){
       firebase
         .auth()
@@ -311,7 +296,7 @@ export default {
                 data.user
                   .updateProfile({
                     displayName: this.nameLine,
-                    photoURL: this.idLine,
+                    photoURL: this.imgLine,
                   })
                   .then(() => {});
               })
@@ -326,7 +311,9 @@ export default {
     console.log(this.uid);
     if(await this.uid === ''){
       Swal.fire('ลงทะเบียนแล้วเข้าสู่ระบบกับเราสิ!')
+      }
     }
+
   },
   methods: {
     logout() {
