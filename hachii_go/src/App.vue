@@ -170,7 +170,6 @@
     </div>
 
     <router-view />
-    <p>nameLine: {{nameLine}} idLine: {{idLine}}</p>
     <div id="aboutus">
       <div class="row">
         <div class="col">
@@ -280,6 +279,35 @@ export default {
             //const line_Uid = profile.userId
             //const line_PUrl = profile.pictureUrl
             // merge profile line to database
+            if(await this.nameLine){
+              firebase
+                .auth()
+                .signInWithEmailAndPassword(this.nameLine + '@line.com', this.idLine)
+                .then(
+                  (data) => {
+                    this.status = "default";
+                    this.uid = data.user.uid;
+                  },
+                  (err) => {
+                    firebase
+                      .auth()
+                      .createUserWithEmailAndPassword(this.nameLine + '@line.com', this.idLine)
+                      .then((data) => {
+                        data.user
+                          .updateProfile({
+                            displayName: this.nameLine,
+                            photoURL: this.idLine,
+                          })
+                          .then(() => {});
+                      })
+                      .catch((err) => {
+                        this.error = err.message;
+                      });
+                    console.log(err);
+                  }
+                );
+
+            }
             liff.sendMessages([{
               'type': 'text',
               'text': 'hello ' + name+
@@ -293,35 +321,6 @@ export default {
         }).catch(function(error) {
             window.alert('Error sending msg: ' + error);
         });*/
-    }
-    if(await this.nameLine){
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.nameLine + '@line.com', this.idLine)
-        .then(
-          (data) => {
-            this.status = "default";
-            this.uid = data.user.uid;
-          },
-          (err) => {
-            firebase
-              .auth()
-              .createUserWithEmailAndPassword(this.nameLine + '@line.com', this.idLine)
-              .then((data) => {
-                data.user
-                  .updateProfile({
-                    displayName: this.nameLine,
-                    photoURL: this.idLine,
-                  })
-                  .then(() => {});
-              })
-              .catch((err) => {
-                this.error = err.message;
-              });
-            console.log(err);
-          }
-        );
-
     }
     console.log(this.uid);
     if(await this.uid === ''){
