@@ -7,12 +7,6 @@
       <div class="col" id="div_det">
         <h1>{{name}}</h1>
         <p>{{email}}</p>
-        <button
-          type="button"
-          class="btn btn-default"
-          style="background-color: #dddddd;"
-          v-on:click="click"
-        >แสดงกราฟ</button>
       </div>
       <div class="col">
         <div class="row" id="showBBT">
@@ -123,7 +117,8 @@ export default {
     dataCalUser.on("child_added", (snapshot2) => {
       this.data = snapshot2.val();
     });
-    await this.click();
+    setTimeout(() => this.click(), 500);
+    //await this.click();
   },
   updated() {
     this.sum_cal[0] = parseFloat(this.tdee);
