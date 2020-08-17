@@ -170,7 +170,7 @@
     </div>
 
     <router-view />
-
+    <p>nameLine: {{nameLine}} idLine: {{idLine}}</p>
     <div id="aboutus">
       <div class="row">
         <div class="col">
