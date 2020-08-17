@@ -287,7 +287,7 @@ export default {
             window.alert('Error sending msg: ' + error);
         });*/
     }
-    setTimeout(() => this.loginLine(), 1000);
+    setTimeout(() => this.loginLine(), 2000);
 
     console.log(this.uid);
     if ((await this.uid) === "") {

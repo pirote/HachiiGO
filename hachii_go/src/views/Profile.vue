@@ -117,7 +117,7 @@ export default {
     dataCalUser.on("child_added", (snapshot2) => {
       this.data = snapshot2.val();
     });
-    setTimeout(() => this.click(), 500);
+    setTimeout(() => this.click(), 2000);
     //await this.click();
   },
   updated() {
