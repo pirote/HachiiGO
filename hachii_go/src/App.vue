@@ -256,57 +256,12 @@ export default {
     await firebase.auth().onAuthStateChanged((firebaseUser) => {
       this.uid = firebaseUser.email;
     });
-    if (!liff.isInClient()) {
-        console.log('none using line')
-  }else {
-        liff.getProfile()
-          .then(profile=>{
-            const name =profile.displayName
-            const line_Uid = profile.userId
-            const line_PUrl = profile.pictureUrl
-            this.nameLine = name
-            this.imgLine = line_PUrl
-            this.idLine = line_Uid
-            liff.sendMessages([{
-              'type': 'text',
-              'text': 'hello ' + this.idLine
-            }])
-          })
-    if(await this.nameLine){
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.nameLine + '@line.com', this.idLine)
-        .then(
-          (data) => {
-            this.status = "default";
-            this.uid = data.user.uid;
-          },
-          (err) => {
-            firebase
-              .auth()
-              .createUserWithEmailAndPassword(this.nameLine + '@line.com', this.idLine)
-              .then((data) => {
-                data.user
-                  .updateProfile({
-                    displayName: this.nameLine,
-                    photoURL: this.imgLine,
-                  })
-                  .then(() => {});
-              })
-              .catch((err) => {
-                this.error = err.message;
-              });
-            console.log(err);
-          }
-        );
-
+    setTimeout(()=> this.loginLine(),1000)
     console.log(this.uid);
     if(await this.uid === ''){
       Swal.fire('ลงทะเบียนแล้วเข้าสู่ระบบกับเราสิ!')
       }
-    }
-
-  },
+},
   methods: {
     loginLine() {
       if (this.nameLine) {
