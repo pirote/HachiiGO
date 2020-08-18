@@ -97,7 +97,7 @@ export default {
   },
   created() {
     firebase.auth().onAuthStateChanged((firebaseUser) => {
-      this.nameDB = firebaseUser.displayName + "(" + firebaseUser.uid + ")";
+      this.nameDB = firebaseUser.uid;
       console.log("firebaseUser", this.nameDB);
     });
   },
