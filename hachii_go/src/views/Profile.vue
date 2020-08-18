@@ -72,7 +72,8 @@ export default {
   data() {
     return {
       nameDB: "",
-      date: "",
+      dateCal: "",
+      dateData: "",
       tdee: "",
       bmi: "",
       bmr: "",
@@ -83,6 +84,8 @@ export default {
       sum_cal: [],
       sum_date: [],
       data: [],
+      AllDate: [],
+      AllCal: [],
       // all_date: [],
     };
   },
@@ -96,39 +99,39 @@ export default {
     var dataRef = database.ref("/AuthenAcount/" + this.nameDB + "/Data/");
 
     await dataRef.on("child_added", (snapshot) => {
-      //this.date = snapshot.val().date;
+      this.dateData = snapshot.val().date;
       this.tdee = snapshot.val().tdee;
       this.bmr = snapshot.val().bmr;
       this.bmi = snapshot.val().bmi;
       // this.all_date.push(snapshot.val());
     });
+    //await this.gatSevDay();
 
     const today = new Date();
     var date =
-      (today.getMonth() + 1) +
-      ":" +
-      today.getDate() +
-      ":" +
-      today.getFullYear();
+      today.getMonth() + 1 + ":" + today.getDate() + ":" + today.getFullYear();
     var dataCalUser = database.ref(
       "/AuthenAcount/" + this.nameDB + "/Calories/" + date + "/"
     );
-
     dataCalUser.on("child_added", (snapshot2) => {
       this.data = snapshot2.val();
-      this.date = snapshot2.val()[0].date;
+      this.dateCal = snapshot2.val()[0].date;
     });
-    setTimeout(() => this.click(), 2000);
+    
     //await this.click();
   },
-  updated() {
+  async updated() {
+    if(await this.dateData){
+      this.gatSevDay()
+    }
+    await setTimeout(() => this.click(), 2500);
     this.sum_cal[0] = parseFloat(this.tdee);
-    this.sum_date[0] = this.date;
+    this.sum_date[0] = this.dateCal;
     for (var i = 0; i < this.data.length; i++) {
       this.sum_cal[i + 1] = (
         this.sum_cal[i] - parseFloat(this.data[i].Calories)
       ).toFixed(2);
-      this.sum_date[i + 1] = this.date;
+      this.sum_date[i + 1] = this.dateCal;
     }
     this.Remaining_calories = this.sum_cal[this.sum_cal.length - 1];
   },
@@ -140,11 +143,11 @@ export default {
       var myLineChart = new Chart(ctx, {
         type: "line",
         data: {
-          labels: this.sum_date,
+          labels: this.AllDate,
           datasets: [
             {
               label: "แคลอรี่",
-              data: this.sum_cal,
+              data: this.AllCal,
               backgroundColor: ["rgba(255, 159, 64, 0.2)"],
               borderColor: ["rgba(255, 159, 64, 1)"],
             },
@@ -162,6 +165,52 @@ export default {
       });
       // this.get_all_cal();
       console.log(myLineChart);
+    },
+    async gatSevDay(){
+      var count = 0;
+      var countDate = 0;
+      for (var j = 0; j < 7; j++) {
+        var day = new Date(this.dateData);
+        var nextDay = new Date(day);
+        nextDay.setDate(day.getDate() + j);
+        var getdata =
+          nextDay.getMonth() +
+          1 +
+          ":" +
+          nextDay.getDate() +
+          ":" +
+          nextDay.getFullYear();
+        //console.log(getdata);
+        var dataCalUser = database.ref(
+          "/AuthenAcount/" + this.nameDB + "/Calories/" + getdata + "/"
+        );
+        var collection = [];
+        await dataCalUser.on("child_added", (snap) => {
+          collection = snap.val();
+          //console.log("collectionin", collection);
+        });
+        await console.log("collection", collection);
+        this.AllCal[count] = parseFloat(this.tdee);
+        for (var k = 0; k < collection.length; k++) {
+          count += 1;
+          if (k == collection.length - 1) {
+            this.AllDate[countDate] = collection[j].date;
+            countDate += 1;
+            this.AllDate[countDate] = collection[j].date;
+          } else {
+            this.AllDate[countDate] = collection[j].date;
+          }
+
+          //this.AllCal.push(collection[j].Calories)
+          this.AllCal[count] =
+            parseFloat(this.AllCal[count - 1]) -
+            parseFloat(collection[k].Calories);
+          countDate += 1;
+        }
+        count += 1;
+      }
+      await console.log("AllDate",this.AllDate);
+      await console.log("AllCal",this.AllCal);
     },
     // get_all_cal() {
     //   // get date

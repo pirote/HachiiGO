@@ -31,7 +31,7 @@
             <router-link to="/profile" class="routerlink">โปรไฟล์</router-link>
           </div>
           <div class="col">
-            <div type="button" class="div_btn" v-on:click="logout">ออกจากระบบ</div>
+            <div type="button" v-if="!this.nameLine" class="div_btn" v-on:click="logout">ออกจากระบบ</div>
           </div>
         </div>
       </div>
@@ -148,9 +148,10 @@
                 />
               </div>
             </div>
-
+ <p style="font-size:12px; color:#ababab;">*แนะนำให้เลือกใช้ Email ที่ผูกกับ line</p>
             <div class="form-group row mb-0">
               <div class="col-md-8 offset-md-4">
+               
                 <button
                   v-on:click="authen"
                   style="background-color: #F87030; border-color: #F87030; width:50% ;"
@@ -180,7 +181,7 @@
           <p>ศูนย์บริการลูกค้า:</p>
           <ul>
             <li>หากมีข้อสงสัย สามารถติดต่อสอบถามได้ที่</li>
-            <li>Line ID : @147gmomt</li>
+            <li>Line official : @147gmomt</li>
           </ul>
         </div>
         <div class="col">
@@ -189,15 +190,11 @@
             <li>https://www.hachiistore.com/</li>
             <li>บริษัท ไบโอเพนนินซูล่า จำกัด (สำนักงานใหญ่) 435 หมู่ที่ 1 ต.ศิลา อ.เมืองขอนแก่น จ.ขอนแก่น 40000</li>
             <li>โทร. 0980978465</li>
-            <li>E-mail sales@biopeninsula.com</li>
-          </ul>
-          <p>{{this.nameLine}}</p>
-          <ul>
-            <li>Engine by Commerzy Co.,Ltd.</li>
-            <li>v1.7.1.5.4</li>
+            <li>E-mail global@biopeninsula.com</li>
           </ul>
         </div>
         <div class="col">
+          <p>Scan Line Offcial:</p>
           <img
             src="../src/assets/QRCode.png"
             height="150px"

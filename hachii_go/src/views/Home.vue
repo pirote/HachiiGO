@@ -32,7 +32,7 @@
     </div>
     <div class="div_calories" v-if="this.status === 'default'">
       <h1>แคลอรี่</h1>
-      <Icon/>
+      <Icon v-if="!this.nameLine" />
     </div>
   </div>
 </template>
@@ -82,6 +82,7 @@ export default {
       vfImages: [ 'https://firebasestorage.googleapis.com/v0/b/hachiigodb.appspot.com/o/bg1.jpg?alt=media&token=e51d7c4d-8ee5-40a1-95c0-04dc2415ca1c', 
       'https://firebasestorage.googleapis.com/v0/b/hachiigodb.appspot.com/o/bg3.png?alt=media&token=b65f0a43-b7a4-4a06-b785-4fb5f1d2969c' ],
       vfTransitions: [ 'slide' ],
+      nameLine:'',
     }
   },
   created() {
@@ -97,7 +98,7 @@ export default {
             'text': "heelo" 
         }])*/
     } else {
-        /*
+        
         liff.getProfile()
           .then(profile=>{
             const name =profile.displayName
@@ -105,11 +106,12 @@ export default {
             //const line_Uid = profile.userId
             //const line_PUrl = profile.pictureUrl
             // merge profile line to database
+            this.nameLine = name
             liff.sendMessages([{
               'type': 'text',
               'text': 'hello ' + name
             }])
-          })*/
+          })
         /*liff.sendMessages([{
             'type': 'text',
             'text': 'hello ' + profile_line.

@@ -81,6 +81,7 @@ export default {
       dataRice: [],
       dataRiceN: [],
       dataVegetables: [],
+      dataOther: [],
       collection: "",
       checkTime: "",
       sumtdee: "",
@@ -95,6 +96,7 @@ export default {
         { value: "ข้าวแกง", text: "ข้าวแกง" },
         { value: "ข้าว", text: "ข้าว" },
         { value: "ผัก", text: "ผัก" },
+        { value: "อื่นๆ", text: "อื่นๆ" }
       ],
     };
   },
@@ -120,6 +122,7 @@ export default {
     this.gatRiceD();
     this.gatRiceN();
     this.Vegetables();
+    this.Other();
     this.collection = "ไข่";
     this.dataAll = this.dataEggs;
     // ทั้งหมด
@@ -168,6 +171,9 @@ export default {
     }
     if (this.collection === "ผัก") {
       this.dataAll = this.dataVegetables;
+    }
+    if (this.collection === "อื่นๆ") {
+      this.dataAll = this.dataOther;
     }
   },
   computed: {
@@ -265,6 +271,12 @@ export default {
       var dataRef = database.ref("/FoodData/Vegetables");
       await dataRef.on("child_added", (snapshot) => {
         this.dataVegetables.push(snapshot.val());
+      });
+    },
+    async Other() {
+      var dataRef = database.ref("/FoodData/Other");
+      await dataRef.on("child_added", (snapshot) => {
+        this.dataOther.push(snapshot.val());
       });
     },
     async addCalory(value) {
