@@ -105,7 +105,7 @@ export default {
   },
   async created() {
     await firebase.auth().onAuthStateChanged((firebaseUser) => {
-      this.nameDB = firebaseUser.displayName + "(" + firebaseUser.uid + ")";
+      this.nameDB = firebaseUser.uid;
     });
     var dataTime = database.ref("/AuthenAcount/" + this.nameDB + "/Data/");
     await dataTime.on("child_added", (snapshot) => {

@@ -91,7 +91,7 @@ export default {
   },
   async created() {
     await firebase.auth().onAuthStateChanged((firebaseUser) => {
-      this.nameDB = firebaseUser.displayName + "(" + firebaseUser.uid + ")";
+      this.nameDB = firebaseUser.uid;
       this.name = firebaseUser.displayName;
       this.email = firebaseUser.email;
       this.img = firebaseUser.photoURL;
