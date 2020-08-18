@@ -6,7 +6,6 @@
       </div>
       <div class="col" id="div_det">
         <h1>{{name}}</h1>
-        <p>{{email}}</p>
       </div>
       <div class="col">
         <div class="row" id="showBBT">
