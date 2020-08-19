@@ -2,7 +2,7 @@
   <div>
     <div class="row" style="padding: 50px 50px 25px 50px;">
       <div class="col" id="div_img">
-        <img :src="img" style="width: 100%;  height: 100%;" alt />
+        <img :src="img" style="width: 120px;  height: 120px; border: 4px solid #f87030; border-radius: 100%;" alt />
       </div>
       <div class="col" id="div_det">
         <h1>{{name}}</h1>
@@ -90,7 +90,7 @@ export default {
   },
   async created() {
     await firebase.auth().onAuthStateChanged((firebaseUser) => {
-      this.nameDB = firebaseUser.displayName + "(" + firebaseUser.uid + ")";
+      this.nameDB = firebaseUser.uid;
       this.name = firebaseUser.displayName;
       this.email = firebaseUser.email;
       this.img = firebaseUser.photoURL;
@@ -107,23 +107,26 @@ export default {
     //await this.gatSevDay();
 
     const today = new Date();
-    var date =
-      today.getMonth() + 1 + ":" + today.getDate() + ":" + today.getFullYear();
-    var dataCalUser = database.ref(
-      "/AuthenAcount/" + this.nameDB + "/Calories/" + date + "/"
+    var onedate =
+      (today.getMonth() + 1) + ":" + today.getDate() + ":" + today.getFullYear();
+    var dataCalUserOne = database.ref(
+      "/AuthenAcount/" + this.nameDB + "/Calories/" + onedate + "/"
     );
-    dataCalUser.on("child_added", (snapshot2) => {
-      this.data = snapshot2.val();
-      this.dateCal = snapshot2.val()[0].date;
+    dataCalUserOne.on("child_added", (snap1) => {
+      this.data = snap1.val();
+      this.dateCal = snap1.val()[0].date;
     });
+    console.log(this.data);
     
+
     //await this.click();
   },
   async updated() {
-    if(await this.dateData){
-      this.gatSevDay()
-    }
-    await setTimeout(() => this.click(), 2500);
+     if(await this.dateData){
+       this.gatSevDay()
+       setTimeout(() => this.gatSevDay(), 2000);
+     }
+    //await setTimeout(() => this.click(), 3000);
     this.sum_cal[0] = parseFloat(this.tdee);
     this.sum_date[0] = this.dateCal;
     for (var i = 0; i < this.data.length; i++) {
@@ -165,7 +168,7 @@ export default {
       // this.get_all_cal();
       console.log(myLineChart);
     },
-    async gatSevDay(){
+    async gatSevDay() {
       var count = 0;
       var countDate = 0;
       for (var j = 0; j < 7; j++) {
@@ -184,23 +187,22 @@ export default {
           "/AuthenAcount/" + this.nameDB + "/Calories/" + getdata + "/"
         );
         var collection = [];
-        await dataCalUser.on("child_added", (snap) => {
+        dataCalUser.on("child_added", (snap) => {
           collection = snap.val();
-          //console.log("collectionin", collection);
+        //console.log("collectionin", collection);
         });
-        await console.log("collection", collection);
+        //await console.log("collection", collection);
         this.AllCal[count] = parseFloat(this.tdee);
-        for (var k = 0; k < collection.length; k++) {
+        for (var k = 0; k < await collection.length; k++) {
           count += 1;
+
+          this.AllDate[countDate] = collection[j].date;
+          
           if (k == collection.length - 1) {
             this.AllDate[countDate] = collection[j].date;
             countDate += 1;
             this.AllDate[countDate] = collection[j].date;
-          } else {
-            this.AllDate[countDate] = collection[j].date;
           }
-
-          //this.AllCal.push(collection[j].Calories)
           this.AllCal[count] =
             parseFloat(this.AllCal[count - 1]) -
             parseFloat(collection[k].Calories);
@@ -208,8 +210,8 @@ export default {
         }
         count += 1;
       }
-      await console.log("AllDate",this.AllDate);
-      await console.log("AllCal",this.AllCal);
+      this.click() 
+      
     },
     // get_all_cal() {
     //   // get date
@@ -239,7 +241,6 @@ export default {
 <style>
 #div_img {
   max-width: 15%;
-  border: 2px solid #f87030;
   width: 50px;
   height: 150px;
 }
@@ -259,7 +260,6 @@ export default {
 @media only screen and (max-width: 1024px) {
   #div_img {
     max-width: 50%;
-    border: 2px solid #f87030;
     width: 200px;
     height: 100px;
   }
