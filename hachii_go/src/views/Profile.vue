@@ -17,14 +17,18 @@
             <h1>{{bmr}}</h1>
             <p>BMR</p>
           </div>
-          <div class="col" style="max-width: 100%;">
+          </div>
+          <div class="row" id="showBBT">
+            <div class="col" style="max-width: 100%;">
             <h1>
               <span style="color:#F87030;">{{Remaining_calories}}</span>/
               <span>{{tdee}}</span>
             </h1>
             <p>TDEE</p>
           </div>
-        </div>
+          </div>
+          
+        
       </div>
     </div>
     <div class="div_table">
@@ -255,6 +259,10 @@ export default {
 .div_table {
   padding: 50px;
 }
+#div_det {
+    max-width: 50%;
+    width: 200px;
+  }
 @media only screen and (max-width: 1024px) {
   #div_img {
     max-width: 50%;
