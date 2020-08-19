@@ -65,12 +65,15 @@ export default {
       FluxPreloader,
   },beforeCreate(){
   liff
-      .init({ liffId: "1654665014-qlP8X7Wd" })
+      .init({ liffId: "1654799361-w7ag58KX" })
       .then(function(){
           //window.alert('this on OS:' + liff.getOS);
       })
       .catch(function(error) {
-            window.alert('Error init msg: ' + error);
+            //window.alert('Error init msg: ' + error);
+            //Swal.fire('กรุณารอสักครู่...');
+            window.alert('กรุณารอสักครู่...');
+            console.log(error);
         });
   },
   data() {
@@ -108,6 +111,7 @@ export default {
             // merge profile line to database
             this.nameLine = name
 
+          })
         /*liff.sendMessages([{
             'type': 'text',
             'text': 'hello ' + profile_line.
