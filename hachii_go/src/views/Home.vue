@@ -31,7 +31,7 @@
       
     </div>
     <div class="div_calories" v-if="this.status === 'default'">
-      <h1>แคลอรี่</h1>
+      <h1 v-if="!this.nameLine">แคลอรี่</h1>
       <Icon v-if="!this.nameLine" />
     </div>
   </div>
