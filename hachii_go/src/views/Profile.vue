@@ -263,6 +263,9 @@ export default {
     max-width: 50%;
     width: 200px;
   }
+  .row{
+    margin-right: 0px;
+  }
 @media only screen and (max-width: 1024px) {
   #div_img {
     max-width: 50%;
