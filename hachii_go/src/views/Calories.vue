@@ -27,7 +27,7 @@
             <th>ชื่ออาหาร</th>
             <th>ปริมาณ</th>
             <th>ค่าแคลอรี่</th>
-            <th>เพิ่ม</th>
+            <th v-if="nameDB">เพิ่ม</th>
           </tr>
         </thead>
         <tbody>
@@ -41,7 +41,7 @@
             <td>
               <a target="_blank">{{ item.Calories }}</a>
             </td>
-            <td>
+            <td  v-if="nameDB">
               <a class="btn_add" target="_blank" v-on:click="addCalory(item)">กด</a>
             </td>
           </tr>
@@ -367,7 +367,7 @@ export default {
   width: 100%;
 }
 .menu_bar {
-  width: 69%;
+  width: 50%;
   box-shadow: -5px -5px 5px #ffffff, 5px 5px 10px #dbdada;
   border-radius: 50px;
   background-color: #f9f9f9;

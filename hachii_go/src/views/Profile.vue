@@ -116,7 +116,7 @@ export default {
       this.data = snap1.val();
       this.dateCal = snap1.val()[0].date;
     });
-    console.log(this.data);
+    //console.log(this.data);
     
 
     //await this.click();
@@ -156,14 +156,12 @@ export default {
           ],
         },
         options: {
-          scales: {
-            yAxes: [
-              {
-                stacked: true,
-              },
-            ],
-          },
-        },
+        scales: {
+            yAxes: [{
+                stacked: true
+            }]
+        }
+    }
       });
       // this.get_all_cal();
       console.log(myLineChart);
