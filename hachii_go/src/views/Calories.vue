@@ -18,7 +18,7 @@
       <div class="menu_bar">
         <!--button v-no:click="all">ทั้งหมด</button-->
         <b-form-group style="text-align: left; padding-left:16px;">
-          <b-form-radio-group v-model="collection" :options="op_collection" :key="collection.paId"></b-form-radio-group>
+          <b-form-radio-group style="padding:5px; " v-model="collection" :options="op_collection" :key="collection.paId"></b-form-radio-group>
         </b-form-group>
       </div>
       <table class="table table-hover">

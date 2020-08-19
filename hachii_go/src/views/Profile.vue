@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="row" style="padding: 50px 50px 25px 50px;">
+  <div class="profile">
+    <div class="row" style="padding: 50px 50px 25px 50px; background-color: #ffffff; margin: 0px 0px 25px 0px;  border-radius: 0px 0px 10px 10px;">
       <div class="col" id="div_img">
         <img :src="img" style="width: 120px;  height: 120px; border: 4px solid #f87030; border-radius: 100%;" alt />
       </div>
@@ -31,7 +31,7 @@
         
       </div>
     </div>
-    <div class="div_table">
+    <div class="div_table" style="padding: 50px 50px 25px 50px; background-color: #ffffff; margin: 0px 0px 25px 0px;  border-radius: 10px 10px 10px 10px;">
       <h4>รายการสิ่งที่ทานในวันนี้</h4>
       <div v-if="!this.data" style="text-align: center; padding:5%;">
         <p>ยังไม่มีการเลือกสิ่งที่ทานของวันนี้</p>
@@ -61,7 +61,7 @@
         </table>
       </div>
     </div>
-    <div class="row" id="div_chart">
+    <div class="row" id="div_chart" style="padding: 50px 50px 25px 50px; background-color: #ffffff; margin: 0px 0px 25px 0px;  border-radius: 10px 10px 0px 0px;">
       <canvas class="chart" id="my-chart"></canvas>
     </div>
   </div>
@@ -265,6 +265,9 @@ export default {
   }
   .row{
     margin-right: 0px;
+  }
+  .profile{
+    background-color: #efefef;
   }
 @media only screen and (max-width: 1024px) {
   #div_img {

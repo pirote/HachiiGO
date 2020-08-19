@@ -17,14 +17,14 @@ Vue.use(IconsPlugin)
 Vue.config.productionTip = false
 
 const firebaseconfig = {
-  apiKey: "AIzaSyDI1Bx296V40BTX2h2GlGakpDGOcRUxoF0",
-  authDomain: "hachiigodb.firebaseapp.com",
-  databaseURL: "https://hachiigodb.firebaseio.com",
-  projectId: "hachiigodb",
-  storageBucket: "hachiigodb.appspot.com",
-  messagingSenderId: "397447330792",
-  appId: "1:397447330792:web:27010e7def7f2a29ee425d",
-  measurementId: "G-XMBG5W463Z"
+  apiKey: "AIzaSyChIqtEcv7mJAAjoZjuXmuFnZvywMl4Eu4",
+  authDomain: "hachiigo-lineapp.firebaseapp.com",
+  databaseURL: "https://hachiigo-lineapp.firebaseio.com",
+  projectId: "hachiigo-lineapp",
+  storageBucket: "hachiigo-lineapp.appspot.com",
+  messagingSenderId: "770420685488",
+  appId: "1:770420685488:web:8bcc8cec2a0e2e92c1d975",
+  measurementId: "G-RLZB8RQFFK"
 };
 
 if (!firebase.apps.length) {
