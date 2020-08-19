@@ -269,10 +269,10 @@ export default {
             this.nameLine = name
             this.idLine = line_Uid
             this.imgLine = line_PUrl
-            liff.sendMessages([{
+            /*liff.sendMessages([{
               'type': 'text',
               'text': 'hello ' + name
-            }])
+            }])*/
           })
     }
     setTimeout(()=> this.loginLine(),1000)

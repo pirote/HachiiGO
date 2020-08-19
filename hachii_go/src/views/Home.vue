@@ -107,11 +107,7 @@ export default {
             //const line_PUrl = profile.pictureUrl
             // merge profile line to database
             this.nameLine = name
-            liff.sendMessages([{
-              'type': 'text',
-              'text': 'hello ' + name
-            }])
-          })
+
         /*liff.sendMessages([{
             'type': 'text',
             'text': 'hello ' + profile_line.
