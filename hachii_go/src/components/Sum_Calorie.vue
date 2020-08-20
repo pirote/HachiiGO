@@ -127,9 +127,7 @@ export default {
           this.tdee = (this.bmr * this.exercise).toFixed(2);
         }
         if (this.sex === "หญิง") {
-          this.bmr = (66.5 + (9.6 * weight) + (1.8 * height) - (4.7 * age)).toFixed(
-            2
-          );
+          this.bmr = (665 + (9.6 * weight) + (1.8 * height) - (4.7 * age)).toFixed(2);
           this.tdee = (this.bmr * this.exercise).toFixed(2);
         }
         this.show_age = age;
