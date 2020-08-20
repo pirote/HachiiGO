@@ -123,7 +123,7 @@ export default {
         this.bmi = (weight / ((height / 100) * (height / 100))).toFixed(2);
         console.log(this.bmi);
         if (this.sex === "ชาย") {
-          this.bmr = (66 + (13.7 * weight) + (5 * height - 6.8 * age)).toFixed(2);
+          this.bmr = (66 + (13.7 * weight) + (5 * height) - (6.8 * age)).toFixed(2);
           this.tdee = (this.bmr * this.exercise).toFixed(2);
         }
         if (this.sex === "หญิง") {
