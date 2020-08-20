@@ -65,14 +65,14 @@ export default {
       FluxPreloader,
   },beforeCreate(){
   liff
-      .init({ liffId: "1654799361-w7ag58KX" })
+      .init({ liffId: "1654665014-qlP8X7Wd" })
       .then(function(){
           //window.alert('this on OS:' + liff.getOS);
       })
       .catch(function(error) {
             //window.alert('Error init msg: ' + error);
             //Swal.fire('กรุณารอสักครู่...');
-            window.alert('กรุณารอสักครู่...');
+            //window.alert('กรุณารอสักครู่...');
             console.log(error);
         });
   },
