@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h3>คํานวณแคลอรี่</h3>
+    <h3>คํานวณแคลอรี</h3>
     <hr />
     <div class="row" id="sum">
       <div class="col">
@@ -37,11 +37,14 @@
         <b-button style="background-color: #F87030; border-color: #F87030;" v-on:click="sum">คำนวณ</b-button>
       </div>
       <div class="col" id="show">
+        <div class="div_dit" style="padding-top:16px;">
+          <h1>TDEE</h1>
+        </div>
         <div class="tdee">
           <h1 style="font-size: 64px;">{{this.tdee}}</h1>
         </div>
         <div class="div_dit">
-          <p style="padding-top: 100px;">แคลอรี่ที่ร่างกายต้องการต่อวัน</p>
+          <p style="padding-top: 100px;">พลังงานสูงสุดที่ร่างกายต้องการ</p>
         </div>
 
         <hr />
@@ -120,11 +123,11 @@ export default {
         this.bmi = (weight / ((height / 100) * (height / 100))).toFixed(2);
         console.log(this.bmi);
         if (this.sex === "ชาย") {
-          this.bmr = (66 + 13.7 * weight + 5 * height - 6.8 * age).toFixed(2);
+          this.bmr = (66 + (13.7 * weight) + (5 * height - 6.8 * age)).toFixed(2);
           this.tdee = (this.bmr * this.exercise).toFixed(2);
         }
         if (this.sex === "หญิง") {
-          this.bmr = (66.5 + 9.6 * weight + 1.8 * height - 4.7 * age).toFixed(
+          this.bmr = (66.5 + (9.6 * weight) + (1.8 * height) - (4.7 * age)).toFixed(
             2
           );
           this.tdee = (this.bmr * this.exercise).toFixed(2);
@@ -166,7 +169,7 @@ export default {
             bmi: this.bmi,
           });
         } else {
-          alert("คุณได้บันทึกข้อมูลแคลอรี่ของวันนี้แล้ว!!!");
+          alert("คุณได้บันทึกข้อมูลแคลอรีของวันนี้แล้ว!!!");
         }
 
         this.clear();
