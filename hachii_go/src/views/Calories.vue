@@ -6,7 +6,7 @@
         class="form-control"
         type="text"
         v-model="searchQuery"
-        placeholder="ชื่ออาหาร/ปริมาณ/แคลอรี่"
+        placeholder="ชื่ออาหาร/ปริมาณ/แคลอรี"
         style="
             box-shadow: -5px -5px 5px #ffffff, 5px 5px 10px #dbdada; 
             border-radius: 50px;
@@ -15,8 +15,17 @@
       />
     </div>
     <div class="div_table">
+      <div class="div_hachii">
+        <hr>
+        <div class="row" >
+          <div class="col">Hachii meal bar</div>
+          <div class="col">1 แท่น</div>
+          <div class="col">170 cal</div>
+          <div class="col"><a class="btn_add" target="_blank" v-on:click="addCalory(hachii)">กด</a></div>
+        </div>
+        <hr>
+      </div>
       <div class="menu_bar">
-        <!--button v-no:click="all">ทั้งหมด</button-->
         <b-form-group style="text-align: left; padding-left:16px;">
           <b-form-radio-group style="padding:5px; " v-model="collection" :options="op_collection" :key="collection.paId"></b-form-radio-group>
         </b-form-group>
@@ -26,7 +35,7 @@
           <tr>
             <th>ชื่ออาหาร</th>
             <th>ปริมาณ</th>
-            <th>ค่าแคลอรี่</th>
+            <th>ค่าแคลอรี</th>
             <th v-if="nameDB">เพิ่ม</th>
           </tr>
         </thead>
@@ -85,6 +94,11 @@ export default {
       collection: "",
       checkTime: "",
       sumtdee: "",
+      hachii:{
+        Calories: 170,
+        Food:"Hachii meal bar",
+        Unit:"1 แท่น"
+      },
       op_collection: [
         { value: "ไข่", text: "ไข่" },
         { value: "ปลา", text: "ปลา" },
@@ -253,6 +267,7 @@ export default {
       });
     },
     async addCalory(value) {
+      console.log(value);
       const today = new Date();
       var date =
         (today.getMonth() + 1) +
@@ -277,7 +292,7 @@ export default {
       if (await Difference_In_Days < 7) {
         await this.sendData(value, dateT, date);
       } else {
-        alert("สัปดาห์นี้ยังไม่มีการบันทึกข้อมูลแคลอรี่ต่อวัน");
+        alert("สัปดาห์นี้ยังไม่มีการบันทึกข้อมูลแคลอรีต่อวัน");
       }
     },
     async sendData(value, dateT, date) {
@@ -301,7 +316,7 @@ export default {
         text:
           "คุณแน่ใจในการเพิ่ม " +
           value.Food +
-          " ค่าแคลอรี่ " +
+          " ค่าแคลอรี " +
           value.Calories +
           "\nเพิ่มแล้วไม่สามารถลบได้",
         icon: "warning",
@@ -319,7 +334,7 @@ export default {
           }
           Swal.fire(
             "สำเร็จ!",
-            "คุณได้ทำการเพิ่มแคลอรี่ต่อวันเรียบร้อย.",
+            "คุณได้ทำการเพิ่มแคลอรีต่อวันเรียบร้อย.",
             "success"
           );
         }
@@ -365,9 +380,17 @@ export default {
   border-radius: 5px;
   color: #ffffff;
 }
+.div_hachii{
+padding:0px 100px 0px 100px;
+text-align: center;
+}
 @media only screen and (max-width: 1024px) {
   .menu_bar {
     width: 100%;
   }
+  .div_hachii{
+padding:0px 10px 0px 10px;
+text-align: left;
+}
 }
 </style>
