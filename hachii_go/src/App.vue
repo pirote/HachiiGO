@@ -8,7 +8,7 @@
       </div>
       <div class="col" style="max-width:55%; text-align: center;">
         <router-link to="/" class="routerlink">หน้าหลัก</router-link>
-        <router-link v-if="this.uid" to="/calories" class="routerlink">แคลอรี</router-link>
+        <router-link v-if="this.uid !== ''" to="/calories" class="routerlink">แคลอรี</router-link>
         <a href="#aboutus" class="routerlink">เกี่ยวกับ</a>
       </div>
       <div class="col" style="max-width:25%;">
