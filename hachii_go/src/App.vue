@@ -278,7 +278,7 @@ export default {
           })
     }
     setTimeout(()=> this.loginLine(),1000)
-    console.log(this.uid);
+    //console.log(this.uid);
     if(await this.uid === ''){
       Swal.fire('ลงทะเบียนแล้วเข้าสู่ระบบกับเราสิ!')
       }

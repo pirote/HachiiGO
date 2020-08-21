@@ -103,7 +103,6 @@ export default {
       AllCal: [],
       chartTdee: [],
       chartBmr: [],
-      // all_date: [],
     };
   },
   async created() {
@@ -120,9 +119,7 @@ export default {
       this.tdee = snapshot.val().tdee;
       this.bmr = snapshot.val().bmr;
       this.bmi = snapshot.val().bmi;
-      // this.all_date.push(snapshot.val());
     });
-    //await this.gatSevDay();
 
     const today = new Date();
     var onedate =
@@ -134,14 +131,10 @@ export default {
       this.data = snap1.val();
       this.dateCal = snap1.val()[0].date;
     });
-    //console.log(this.data);
-
-    //await this.click();
   },
   updated() {
       this.gatSevDay();
       setTimeout(() => this.gatSevDay(), 2000);
-    //await setTimeout(() => this.click(), 3000);
     this.sum_cal[0] = parseFloat(0);
     this.sum_date[0] = this.dateCal;
     for (var i = 0; i < this.data.length; i++) {
@@ -243,35 +236,9 @@ export default {
        
         }
         count += 1;
-        // console.log("j",j)
       }
-      
-      //await console.log("this.AllDate",this.AllDate);
-      //await console.log("this.chartTdee",this.chartTdee);
-      //await console.log("this.chartBmr",this.chartBmr);
       await this.click();
     },
-    // get_all_cal() {
-    //   // get date
-    //   var date_all = [];
-    //   for (var k = 0; k < this.all_date.length; k++) {
-    //     date_all[k] = this.all_date[k].date;
-    //   }
-    //   this.all_date = date_all;
-    //   console.log("all_date", this.all_date);
-    //   for (var i = 0; i < this.all_date.length; i++) {
-    //     var str_date = this.all_date[i];
-    //     str_date = str_date.replace("/", ":");
-    //     str_date = str_date.replace("/", ":");
-    //     var dataCalUser = database.ref(
-    //       "/AuthenAcount/" + this.nameDB + "/Calories/" + str_date + "/"
-    //     );
-
-    //     dataCalUser.on("child_added", (snapshot2) => {
-    //       this.data = snapshot2.val();
-    //     });
-    //   }
-    // },
   },
 };
 </script>

@@ -101,7 +101,7 @@ export default {
   created() {
     firebase.auth().onAuthStateChanged((firebaseUser) => {
       this.nameDB = firebaseUser.uid;
-      console.log("firebaseUser", this.nameDB);
+      //console.log("firebaseUser", this.nameDB);
     });
   },
   methods: {
@@ -121,7 +121,7 @@ export default {
         var height = parseInt(this.height);
         var age = parseInt(this.age);
         this.bmi = (weight / ((height / 100) * (height / 100))).toFixed(2);
-        console.log(this.bmi);
+        //console.log(this.bmi);
         if (this.sex === "ชาย") {
           this.bmr = (66 + (13.7 * weight) + (5 * height) - (6.8 * age)).toFixed(2);
           this.tdee = (this.bmr * this.exercise).toFixed(2);
@@ -133,8 +133,8 @@ export default {
         this.show_age = age;
         this.show_height = height;
         this.show_weight = weight;
-        console.log("BMR: ", this.bmr);
-        console.log("TDEE: ", this.tdee);
+        //console.log("BMR: ", this.bmr);
+        //console.log("TDEE: ", this.tdee);
       }
     },
     back() {

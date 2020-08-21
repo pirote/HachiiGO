@@ -125,23 +125,8 @@ export default {
     this.Other();
     this.collection = "ไข่";
     this.dataAll = this.dataEggs;
-    // ทั้งหมด
-    // await this.sumdata.push(this.dataEggs)
-    // await this.sumdata.push(this.dataFish)
-    //await this.sumdata.push(this.dataFruits)
-    //await this.sumdata.push(this.dataMeat)
-    //await this.sumdata.push(this.dataMilk)
-    //await this.sumdata.push(this.dataNoodle)
-    //await this.sumdata.push(this.dataNuts)
-    //await this.sumdata.push(this.dataRice)
-    //await this.sumdata.push(this.dataRiceN)
-    //await this.sumdata.push(this.dataVegetables)
   },
   updated() {
-    //  ทั้งหมด
-    // if(this.collection === "ทั้งหมด"){
-    //   this.dataAll = this.sumdata
-    // }
     if (this.collection === "ไข่") {
       this.dataAll = this.dataEggs;
     }
@@ -201,18 +186,6 @@ export default {
     },
   },
   methods: {
-    // ทั้งหมด
-    // all(){
-
-    //   var mergedArrNormalWay = [];
-
-    //   this.sumdata.forEach(o => {
-    //   o.forEach(so => mergedArrNormalWay.push(so))
-    //   })
-
-    //   var merged = [].concat.apply([], this.sumdata);
-    //   this.dataAll = merged
-    // },
     async gatEggs() {
       var dataRef = database.ref("/FoodData/Eggs");
       await dataRef.on("child_added", (snapshot) => {
@@ -293,9 +266,6 @@ export default {
         today.getDate() +
         "/" +
         today.getFullYear();
-
-      //console.log("getdbin:", this.checkTime);
-      //console.log("getdb:", this.checkTime, "dateT:", dateT);
       var date1 = new Date(this.checkTime);
       var date2 = new Date( dateT);
 
@@ -354,9 +324,6 @@ export default {
           );
         }
       });
-
-      //dataRef.push({ Calories: value.Calories , Food: value.Food, Unit: value.Unit});
-      //console.log({ Calories: value.Calories , Food: value.Food, Unit: value.Unit});
     },
   },
 };
