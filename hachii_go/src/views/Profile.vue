@@ -138,11 +138,9 @@ export default {
 
     //await this.click();
   },
-  async updated() {
-    if (await this.dateData) {
+  updated() {
       this.gatSevDay();
       setTimeout(() => this.gatSevDay(), 2000);
-    }
     //await setTimeout(() => this.click(), 3000);
     this.sum_cal[0] = parseFloat(0);
     this.sum_date[0] = this.dateCal;
@@ -197,13 +195,13 @@ export default {
     async gatSevDay() {
       var count = 0;
       var countDate = 0;
+      
       for (var j = 0; j < 7; j++) {
         var day = new Date(this.dateData);
         var nextDay = new Date(day);
         nextDay.setDate(day.getDate() + j);
         var getdata =
-          nextDay.getMonth() +
-          1 +
+          (nextDay.getMonth() +1) +
           ":" +
           nextDay.getDate() +
           ":" +
@@ -215,22 +213,26 @@ export default {
         var collection = [];
         dataCalUser.on("child_added", (snap) => {
           collection = snap.val();
-          //console.log("collectionin", collection);
+          console.log("collectionin", collection);
         });
-        //await console.log("collection", collection);
+        
         this.AllCal[count] = parseFloat(0);
+        if(collection.length === 0){
+          break;
+         }
+         console.log(collection.length);
         for (var k = 0; k < (await collection.length); k++) {
           count += 1;
 
-          this.AllDate[countDate] = collection[j].date;
+          this.AllDate[countDate] = collection[k].date;
           this.chartTdee[countDate] = this.tdee;
           this.chartBmr[countDate] = this.bmr;
           if (k == collection.length - 1) {
-            this.AllDate[countDate] = collection[j].date;
+            this.AllDate[countDate] = collection[k].date;
             this.chartTdee[countDate] = this.tdee;
             this.chartBmr[countDate] = this.bmr;
             countDate += 1;
-            this.AllDate[countDate] = collection[j].date;
+            this.AllDate[countDate] = collection[k].date;
             this.chartTdee[countDate] = this.tdee;
             this.chartBmr[countDate] = this.bmr;
           }
@@ -238,10 +240,16 @@ export default {
             parseFloat(this.AllCal[count - 1]) +
             parseFloat(collection[k].Calories);
           countDate += 1;
+       
         }
         count += 1;
+        console.log("j",j)
       }
-      this.click();
+      
+      //await console.log("this.AllDate",this.AllDate);
+      //await console.log("this.chartTdee",this.chartTdee);
+      //await console.log("this.chartBmr",this.chartBmr);
+      await this.click();
     },
     // get_all_cal() {
     //   // get date

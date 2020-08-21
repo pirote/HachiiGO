@@ -14,11 +14,6 @@ Vue.use(VueRouter)
     component: Home,
   },
   {
-    path: '/caloriesLogin',
-    name: 'CaloriesLogin',
-    component: Calories,
-  },
-  {
     path: '/Home',
     name: 'Home',
     component: Home,
