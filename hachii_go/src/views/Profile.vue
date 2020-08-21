@@ -213,14 +213,14 @@ export default {
         var collection = [];
         dataCalUser.on("child_added", (snap) => {
           collection = snap.val();
-          console.log("collectionin", collection);
+          // console.log("collectionin", collection);
         });
         
         this.AllCal[count] = parseFloat(0);
         if(collection.length === 0){
           break;
          }
-         console.log(collection.length);
+        //  console.log(collection.length);
         for (var k = 0; k < (await collection.length); k++) {
           count += 1;
 
@@ -243,7 +243,7 @@ export default {
        
         }
         count += 1;
-        console.log("j",j)
+        // console.log("j",j)
       }
       
       //await console.log("this.AllDate",this.AllDate);
