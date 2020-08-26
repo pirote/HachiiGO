@@ -1,5 +1,6 @@
 <template>
   <div class="profile">
+    <div>
     <div
       class="row"
       style="padding: 50px 50px 25px 50px; background-color: #ffffff; margin: 0px 0px 25px 0px;  border-radius: 0px 0px 10px 10px;"
@@ -76,12 +77,21 @@
     >
       <canvas class="chart" id="my-chart"></canvas>
     </div>
+
+    <div class="row"
+      id="div_chart"
+      style="padding: 50px 10px 25px 10px; background-color: #ffffff; margin: 0px 0px 25px 0px;  border-radius: 10px 10px 0px 0px;"
+    >
+      <DataWaitCon/>
+    </div>
+    </div>
   </div>
 </template>
 
 <script>
 import firebase from "firebase";
 import Chart from "chart.js";
+import DataWaitCon from "../components/DataWaitCon"
 var database = firebase.database();
 export default {
   data() {
@@ -104,6 +114,9 @@ export default {
       chartTdee: [],
       chartBmr: [],
     };
+  },
+  components:{
+    DataWaitCon
   },
   async created() {
     await firebase.auth().onAuthStateChanged((firebaseUser) => {
@@ -272,6 +285,16 @@ export default {
 .profile {
   background-color: #efefef;
 }
+.btn_cal {
+  width: 50%;
+  padding: 10px;
+  border-radius: 25px;
+  background-color: #f87030;
+  border: 0;
+  color: #ffffff;
+  margin: 25px auto 25px auto;
+  box-shadow: -5px -5px 5px #ffffff, 5px 5px 10px #dbdada;
+}
 @media only screen and (max-width: 1024px) {
   #div_img {
     max-width: 50%;
@@ -301,6 +324,17 @@ export default {
   }
   .div_table {
     padding: 50px;
+  }
+   .btn_cal {
+    width: 100%;
+    padding: 5px;
+    border-radius: 25px;
+    background-color: #f87030;
+    border: 0;
+    font-size: 12px;
+    color: #ffffff;
+    margin-bottom: 16px;
+    box-shadow: -5px -5px 5px #ffffff, 5px 5px 10px #dbdada;
   }
 }
 </style>

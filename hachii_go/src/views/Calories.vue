@@ -102,7 +102,7 @@
       </div>
 
       <div style="text-align: center;">
-        <button class="btn_add_cal" v-on:click="addNewCal()">+ เพิ่มรายการแคลอรี</button>
+        <button class="btn_add_cal" v-on:click="addNewCal()">+ เพิ่มข้อมูลอาหาร</button>
       </div>
 
       <table class="table table-hover">
@@ -485,11 +485,12 @@ export default {
         cancelButtonText: "ยกเลิก",
       }).then((result) => {
         if (result.value) {
-          Swal.fire(
-            "ลบเสร็จสิ้น!",
-            "คุณได้ลบข้อมูลสำเร็จเรียบร้อยแล้ว.",
-            "success"
-          );
+          Swal.fire({
+            title: "ลบเสร็จสิ้น!",
+            text: "คุณได้ลบข้อมูลสำเร็จเรียบร้อยแล้ว.",
+            icon: "success",
+            confirmButtonColor: "#f87030",
+          });
           dataRef.child(value).remove();
         }
       });
@@ -499,10 +500,10 @@ export default {
       Swal.fire({
         title: "<h3>เพิ่มรายการอาหาร</h3>",
         html:
-          "<p>เพิ่มรายการอาหารและค่าแคลอรี ทั้งนี้รายการที่คุณเพิ่มจะยังไม่เข้าสู่ฐานข้อมูลรายการอาหารต้องรอการยืนยันจากทางแพทย์ของทางเราก่อน</p>" +
-          '<div class="form-row"><div class="col-md-4 mb-3" style="text-align: left; padding:5px;"><label for="validationCustom01">ชื่ออาหาร:</label><input type="text" class="form-control" id="validationCustom01" placeholder="ชื่ออาหาร" required> ' +
-          '<div class="form-row"><div class="col-md-4 mb-3" style="text-align: left; padding:5px;"><label for="validationCustom01">ปริมาณ:</label><input type="text" class="form-control" id="validationCustom01" placeholder="123 g" required> ' +
-          '<div class="form-row"><div class="col-md-4 mb-3" style="text-align: left; padding:5px;"><label for="validationCustom01">ค่าแคลอรี:</label><input type="text" class="form-control" id="validationCustom01" placeholder="123"  required> ',
+          `<p>เพิ่มรายการอาหารและค่าแคลอรี ทั้งนี้รายการที่คุณเพิ่มจะยังไม่เข้าสู่ฐานข้อมูลรายการอาหารต้องรอการยืนยันจากทางแพทย์ของทางเราก่อน</p>` +
+          `<div class="form-row"><div style="text-align: left; padding:5px;"><label for="validationCustom01">ชื่ออาหาร:</label><input type="text" class="form-control" id="addFood" placeholder="ชื่ออาหาร" >` +
+          `<div class="form-row"><div  style="text-align: left; padding:5px;"><label for="validationCustom01">ปริมาณ:</label><input type="text" class="form-control" id="addUnit" placeholder="123 g" > ` +
+          `<div class="form-row"><div style="text-align: left; padding:5px;"><label for="validationCustom01">ค่าแคลอรี:</label><input type="text" class="form-control" id="addCal" placeholder="123" >`,
         showCloseButton: true,
         showCancelButton: true,
         focusConfirm: false,
@@ -510,9 +511,21 @@ export default {
         confirmButtonAriaLabel: "Thumbs up, great!",
         cancelButtonText: "ยกเลิก",
         cancelButtonAriaLabel: "Thumbs down",
+        confirmButtonColor: "#f87030",
+        cancelButtonColor: "#313131",
+        preConfirm: () => [
+          document.getElementById("addCal").value,
+          document.getElementById("addFood").value,
+          document.getElementById("addUnit").value
+        ]
       }).then((result) => {
         if (result.value) {
-          console.log("ok");
+          var dataRef = database.ref("/DataWaitConfirm/");
+          dataRef.push({
+            Calories: result.value[0],
+            Food: result.value[1],
+            Unit: result.value[2]
+          });
         }
       });
     },
@@ -580,7 +593,7 @@ export default {
     font-size: 12px;
   }
   .div_hachii {
-    padding: 0px 10px 0px 10px;
+    padding: 0px 0px 0px 0px;
     text-align: left;
     font-size: 12px;
   }
@@ -610,5 +623,9 @@ export default {
     margin-bottom: 16px;
     box-shadow: -5px -5px 5px #ffffff, 5px 5px 10px #dbdada;
   }
+  .div_table {
+  padding: 0px 10px 10px 10px;
+  width: 100%;
+}
 }
 </style>
