@@ -211,7 +211,7 @@ export default {
         
         this.AllCal[count] = parseFloat(0);
         if(collection.length === 0){
-          break;
+          count += 1;
          }
         //  console.log(collection.length);
         for (var k = 0; k < (await collection.length); k++) {
@@ -235,7 +235,7 @@ export default {
           countDate += 1;
        
         }
-        count += 1;
+        
       }
       await this.click();
     },

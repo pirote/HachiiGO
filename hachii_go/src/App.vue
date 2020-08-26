@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="row" style="padding:10px">
+    <div class="row" style="margin: 10px 0px 10px 0px;">
       <div class="col" style="max-width:20%;">
         <a class="navbar-brand" href="#">
           <img src height="30" id="logo" class="d-inline-block align-top" alt />
@@ -186,7 +186,7 @@
         <div class="col">
           <p>ติดต่อเรา:</p>
           <ul>
-            <li>https://www.hachiistore.com/</li>
+            <li><a href="https://www.hachiigo.com/" style="color:#ffffff;" target="_blank">https://www.hachiigo.com/</a></li>
             <li>บริษัท ไบโอเพนนินซูล่า จำกัด (สำนักงานใหญ่) 435 หมู่ที่ 1 ต.ศิลา อ.เมืองขอนแก่น จ.ขอนแก่น 40000</li>
             <li>โทร. 0980978465</li>
             <li>E-mail global@biopeninsula.com</li>
@@ -451,8 +451,8 @@ body {
 }
 .routerlink {
   padding-right: 25px;
-  color: #2f255a;
-  font-size: 20px;
+  color: #313131;
+  font-size: 25px;
 }
 .signin {
   width: 100%;
@@ -506,7 +506,7 @@ body {
 @media only screen and (max-width: 1024px) {
   .routerlink {
     padding-right: 16px;
-    font-size: 10px;
+    font-size: 12px;
   }
   #logo {
     padding-left: 5px;
@@ -536,8 +536,9 @@ body {
     margin: auto;
     box-shadow: 5px 10px 10px #888888;
   }
-}
-@media only screen and (max-width: 1024px) {
+  .row{
+    margin-right: 0;
+  }
   #aboutus {
     font-size: 10px;
   }
