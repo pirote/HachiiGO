@@ -106,7 +106,7 @@
             <th>ชื่ออาหาร</th>
             <th>ปริมาณ</th>
             <th>ค่าแคลอรี</th>
-            <th v-if="nameDB">เพิ่ม</th>
+            <th style="padding: 0.75rem 0px 0.75rem 0px; text-align: right;">เพิ่ม</th>
             <th style="padding: 0.75rem 0.85rem 0.75rem 0px; text-align: right;">รายการโปรด</th>
           </tr>
         </thead>
