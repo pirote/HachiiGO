@@ -500,16 +500,20 @@ export default {
         title: "<h3>เพิ่มรายการอาหาร</h3>",
         html:
           "<p>เพิ่มรายการอาหารและค่าแคลอรี ทั้งนี้รายการที่คุณเพิ่มจะยังไม่เข้าสู่ฐานข้อมูลรายการอาหารต้องรอการยืนยันจากทางแพทย์ของทางเราก่อน</p>" +
-          '<div class="form-row"><div class="col-md-4 mb-3"><label for="validationCustom01">ชื่ออาหาร</label><input type="text" class="form-control" id="validationCustom01" placeholder="ชื่ออาหาร" value="Mark" required> ' +
-          '<div class="form-row"><div class="col-md-4 mb-3"><label for="validationCustom01">ปริมาณ</label><input type="text" class="form-control" id="validationCustom01" placeholder="ปริมาณ" value="Mark" required> ' +
-          '<div class="form-row"><div class="col-md-4 mb-3"><label for="validationCustom01">ค่าแคลอรี</label><input type="text" class="form-control" id="validationCustom01" placeholder="ค่าแคลอรี" value="Mark" required> ',
+          '<div class="form-row"><div class="col-md-4 mb-3" style="text-align: left; padding:5px;"><label for="validationCustom01">ชื่ออาหาร:</label><input type="text" class="form-control" id="validationCustom01" placeholder="ชื่ออาหาร" required> ' +
+          '<div class="form-row"><div class="col-md-4 mb-3" style="text-align: left; padding:5px;"><label for="validationCustom01">ปริมาณ:</label><input type="text" class="form-control" id="validationCustom01" placeholder="123 g" required> ' +
+          '<div class="form-row"><div class="col-md-4 mb-3" style="text-align: left; padding:5px;"><label for="validationCustom01">ค่าแคลอรี:</label><input type="text" class="form-control" id="validationCustom01" placeholder="123"  required> ',
         showCloseButton: true,
         showCancelButton: true,
         focusConfirm: false,
-        confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
+        confirmButtonText: "ตกลง",
         confirmButtonAriaLabel: "Thumbs up, great!",
-        cancelButtonText: '<i class="fa fa-thumbs-down"></i>',
+        cancelButtonText: "ยกเลิก",
         cancelButtonAriaLabel: "Thumbs down",
+      }).then((result) => {
+        if (result.value) {
+          console.log("ok");
+        }
       });
     },
   },
