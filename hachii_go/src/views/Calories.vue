@@ -26,70 +26,70 @@
           </div>
         </div>
         <hr />
-        
       </div>
       <div v-if="this.dataFavorite.length !== 0 ">
-          <h6>รายการโปรด</h6>
-          <table class="table borderless" cellspacing="0" cellpadding="0">
-            <thead>
-              <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in dataFavorite" :key="item.id">
-                <td>
-                  <a target="_blank">{{ item.Food }}</a>
-                </td>
-                <td>
-                  <a target="_blank">{{ item.Unit }}</a>
-                </td>
-                <td>
-                  <a target="_blank">{{ item.Calories }}</a>
-                </td>
-                <td style="padding: 0.75rem 0px 0.75rem 0px; text-align: right;">
-                  <a class="btn_add" target="_blank" v-on:click="addCalory(item)">กด</a>
-                </td>
-                <td style="text-align: right;">
-                  <a
-                    target="_blank"
-                    class="card-link"
-                    style="color: #ff4a4a;"
-                    v-on:click="delfavorite(item.key)"
+        <h6>รายการโปรด</h6>
+        <table class="table borderless" cellspacing="0" cellpadding="0">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in dataFavorite" :key="item.id">
+              <td>
+                <a target="_blank">{{ item.Food }}</a>
+              </td>
+              <td>
+                <a target="_blank">{{ item.Unit }}</a>
+              </td>
+              <td>
+                <a target="_blank">{{ item.Calories }}</a>
+              </td>
+              <td style="padding: 0.75rem 0px 0.75rem 0px; text-align: right;">
+                <a class="btn_add" target="_blank" v-on:click="addCalory(item)">กด</a>
+              </td>
+              <td style="text-align: right;">
+                <a
+                  target="_blank"
+                  class="card-link"
+                  style="color: #ff4a4a;"
+                  v-on:click="delfavorite(item.key)"
+                >
+                  <svg
+                    id="Layer_1"
+                    enable-background="new 0 0 512 512"
+                    height="18"
+                    viewBox="0 0 512 512"
+                    width="18"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <svg
-                      id="Layer_1"
-                      enable-background="new 0 0 512 512"
-                      height="18"
-                      viewBox="0 0 512 512"
-                      width="18"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g>
-                        <path
-                          d="m424 64h-88v-16c0-26.467-21.533-48-48-48h-64c-26.467 0-48 21.533-48 48v16h-88c-22.056 0-40 17.944-40 40v56c0 8.836 7.164 16 16 16h8.744l13.823 290.283c1.221 25.636 22.281 45.717 47.945 45.717h242.976c25.665 0 46.725-20.081 47.945-45.717l13.823-290.283h8.744c8.836 0 16-7.164 16-16v-56c0-22.056-17.944-40-40-40zm-216-16c0-8.822 7.178-16 16-16h64c8.822 0 16 7.178 16 16v16h-96zm-128 56c0-4.411 3.589-8 8-8h336c4.411 0 8 3.589 8 8v40c-4.931 0-331.567 0-352 0zm313.469 360.761c-.407 8.545-7.427 15.239-15.981 15.239h-242.976c-8.555 0-15.575-6.694-15.981-15.239l-13.751-288.761h302.44z"
-                        />
-                        <path
-                          d="m256 448c8.836 0 16-7.164 16-16v-208c0-8.836-7.164-16-16-16s-16 7.164-16 16v208c0 8.836 7.163 16 16 16z"
-                        />
-                        <path
-                          d="m336 448c8.836 0 16-7.164 16-16v-208c0-8.836-7.164-16-16-16s-16 7.164-16 16v208c0 8.836 7.163 16 16 16z"
-                        />
-                        <path
-                          d="m176 448c8.836 0 16-7.164 16-16v-208c0-8.836-7.164-16-16-16s-16 7.164-16 16v208c0 8.836 7.163 16 16 16z"
-                        />
-                      </g>
-                    </svg>
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+                    <g>
+                      <path
+                        d="m424 64h-88v-16c0-26.467-21.533-48-48-48h-64c-26.467 0-48 21.533-48 48v16h-88c-22.056 0-40 17.944-40 40v56c0 8.836 7.164 16 16 16h8.744l13.823 290.283c1.221 25.636 22.281 45.717 47.945 45.717h242.976c25.665 0 46.725-20.081 47.945-45.717l13.823-290.283h8.744c8.836 0 16-7.164 16-16v-56c0-22.056-17.944-40-40-40zm-216-16c0-8.822 7.178-16 16-16h64c8.822 0 16 7.178 16 16v16h-96zm-128 56c0-4.411 3.589-8 8-8h336c4.411 0 8 3.589 8 8v40c-4.931 0-331.567 0-352 0zm313.469 360.761c-.407 8.545-7.427 15.239-15.981 15.239h-242.976c-8.555 0-15.575-6.694-15.981-15.239l-13.751-288.761h302.44z"
+                      />
+                      <path
+                        d="m256 448c8.836 0 16-7.164 16-16v-208c0-8.836-7.164-16-16-16s-16 7.164-16 16v208c0 8.836 7.163 16 16 16z"
+                      />
+                      <path
+                        d="m336 448c8.836 0 16-7.164 16-16v-208c0-8.836-7.164-16-16-16s-16 7.164-16 16v208c0 8.836 7.163 16 16 16z"
+                      />
+                      <path
+                        d="m176 448c8.836 0 16-7.164 16-16v-208c0-8.836-7.164-16-16-16s-16 7.164-16 16v208c0 8.836 7.163 16 16 16z"
+                      />
+                    </g>
+                  </svg>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="menu_bar">
         <b-form-group style="text-align: left; padding-left:16px;">
           <b-form-radio-group
@@ -100,6 +100,11 @@
           ></b-form-radio-group>
         </b-form-group>
       </div>
+
+      <div style="text-align: center;">
+        <button class="btn_add_cal" v-on:click="addNewCal()">+ เพิ่มรายการแคลอรี</button>
+      </div>
+
       <table class="table table-hover">
         <thead>
           <tr>
@@ -463,13 +468,7 @@ export default {
       });
     },
     addfavorite(value) {
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "เพิ่มรายการอาหารโปรดเรียบร้อย",
-        showConfirmButton: false,
-        timer: 1000,
-      });
+      Swal.fire("เพิ่มรายการโปรด", "เพิ่มรายการอาหารโปรดเรียบร้อย", "success");
       var dataRef = database.ref("/AuthenAcount/" + this.nameDB + "/Favorite/");
       dataRef.push({ ...value });
     },
@@ -493,6 +492,24 @@ export default {
           );
           dataRef.child(value).remove();
         }
+      });
+    },
+    addNewCal() {
+      console.log("Add New Cal");
+      Swal.fire({
+        title: "<h3>เพิ่มรายการอาหาร</h3>",
+        html:
+          "<p>เพิ่มรายการอาหารและค่าแคลอรี ทั้งนี้รายการที่คุณเพิ่มจะยังไม่เข้าสู่ฐานข้อมูลรายการอาหารต้องรอการยืนยันจากทางแพทย์ของทางเราก่อน</p>" +
+          '<div class="form-row"><div class="col-md-4 mb-3"><label for="validationCustom01">ชื่ออาหาร</label><input type="text" class="form-control" id="validationCustom01" placeholder="ชื่ออาหาร" value="Mark" required> ' +
+          '<div class="form-row"><div class="col-md-4 mb-3"><label for="validationCustom01">ปริมาณ</label><input type="text" class="form-control" id="validationCustom01" placeholder="ปริมาณ" value="Mark" required> ' +
+          '<div class="form-row"><div class="col-md-4 mb-3"><label for="validationCustom01">ค่าแคลอรี</label><input type="text" class="form-control" id="validationCustom01" placeholder="ค่าแคลอรี" value="Mark" required> ',
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
+        confirmButtonAriaLabel: "Thumbs up, great!",
+        cancelButtonText: '<i class="fa fa-thumbs-down"></i>',
+        cancelButtonAriaLabel: "Thumbs down",
       });
     },
   },
@@ -543,6 +560,16 @@ export default {
 .borderless th {
   border: none;
 }
+.btn_add_cal {
+  width: 50%;
+  padding: 16px;
+  border-radius: 25px;
+  background-color: #f87030;
+  border: 0;
+  color: #ffffff;
+  margin: 25px auto 25px auto;
+  box-shadow: -5px -5px 5px #ffffff, 5px 5px 10px #dbdada;
+}
 @media only screen and (max-width: 1024px) {
   .menu_bar {
     width: 100%;
@@ -568,6 +595,16 @@ export default {
     padding: 4px 7px 4px 7px;
     border-radius: 5px;
     color: #ffffff;
+  }
+  .btn_add_cal {
+    width: 100%;
+    padding: 5px;
+    border-radius: 25px;
+    background-color: #f87030;
+    border: 0;
+    color: #ffffff;
+    margin-bottom: 16px;
+    box-shadow: -5px -5px 5px #ffffff, 5px 5px 10px #dbdada;
   }
 }
 </style>
