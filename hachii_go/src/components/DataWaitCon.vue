@@ -176,7 +176,6 @@ export default {
   methods: {
     async dataStatus(datafilterStatus) {
       this.data = []
-      console.log("datafilterStatus", datafilterStatus);
       if (await this.email === "hachiigo@admin.com") {
         this.data = datafilterStatus;
         this.status = "admin";
@@ -186,7 +185,6 @@ export default {
             this.data.push(datafilterStatus[i])
           }
         }
-        await console.log("this.data",this.data);
         this.status = "user";
       }
     },
