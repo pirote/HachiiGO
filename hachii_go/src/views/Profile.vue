@@ -78,7 +78,7 @@
       <canvas class="chart" id="my-chart"></canvas>
     </div>
 
-    <div class="row"
+    <div v-if="this.dataWait > 0" class="row"
       id="div_chart"
       style="padding: 50px 10px 25px 10px; background-color: #ffffff; margin: 0px 0px 25px 0px;  border-radius: 10px 10px 0px 0px;"
     >
@@ -113,6 +113,7 @@ export default {
       AllCal: [],
       chartTdee: [],
       chartBmr: [],
+      dataWait:0
     };
   },
   components:{
@@ -127,6 +128,15 @@ export default {
     });
     var dataRef = database.ref("/AuthenAcount/" + this.nameDB + "/Data/");
 
+    var dataWait = database.ref("/DataWaitConfirm/");
+    await dataWait.on("child_added", (snapshot) => {
+      if(this.email === "hachiigo@admin.com"){
+        this.dataWait = 1;
+      }
+      else if(this.email !== "hachiigo@admin.com" && snapshot.val().credit === this.email){
+        this.dataWait =  1;
+      }
+    });
     await dataRef.on("child_added", (snapshot) => {
       this.dateData = snapshot.val().date;
       this.tdee = snapshot.val().tdee;
@@ -143,7 +153,7 @@ export default {
     dataCalUserOne.on("child_added", (snap1) => {
       this.data = snap1.val();
       this.dateCal = snap1.val()[0].date;
-    });
+    })
   },
   updated() {
       this.gatSevDay();

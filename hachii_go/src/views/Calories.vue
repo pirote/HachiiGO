@@ -224,6 +224,7 @@ export default {
         { value: "อื่นๆ", text: "อื่นๆ" },
       ],
       dataFavorite: [],
+      email:""
     };
   },
   components: {
@@ -232,6 +233,7 @@ export default {
   async created() {
     await firebase.auth().onAuthStateChanged((firebaseUser) => {
       this.nameDB = firebaseUser.uid;
+      this.email = firebaseUser.email;
     });
     var dataTime = database.ref("/AuthenAcount/" + this.nameDB + "/Data/");
     await dataTime.on("child_added", (snapshot) => {
@@ -524,7 +526,8 @@ export default {
           dataRef.push({
             Calories: result.value[0],
             Food: result.value[1],
-            Unit: result.value[2]
+            Unit: result.value[2],
+            credit: this.email 
           });
         }
       });
