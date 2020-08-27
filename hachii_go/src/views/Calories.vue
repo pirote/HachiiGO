@@ -535,7 +535,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .div_table {
   padding: 0px 32px 32px 32px;
   width: 100%;
@@ -627,7 +627,7 @@ export default {
     box-shadow: -5px -5px 5px #ffffff, 5px 5px 10px #dbdada;
   }
   .div_table {
-  padding: 0px 10px 10px 10px;
+  padding: 0px 20px 10px 20px;
   width: 100%;
 }
 }

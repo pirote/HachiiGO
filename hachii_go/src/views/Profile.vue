@@ -88,7 +88,7 @@
   </div>
 </template>
 
-<script>
+<script scope="this api replaced by slot-scope in 2.5.0+">
 import firebase from "firebase";
 import Chart from "chart.js";
 import DataWaitCon from "../components/DataWaitCon"
@@ -266,7 +266,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #div_img {
   max-width: 15%;
   width: 50px;
