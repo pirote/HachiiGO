@@ -202,6 +202,7 @@ export default {
       dataRiceN: [],
       dataVegetables: [],
       dataOther: [],
+      dataWait:[],
       collection: "",
       checkTime: "",
       sumtdee: "",
@@ -222,6 +223,7 @@ export default {
         { value: "ข้าว", text: "ข้าว" },
         { value: "ผัก", text: "ผัก" },
         { value: "อื่นๆ", text: "อื่นๆ" },
+        { value: "จากผู้ใช้", text: "เพิ่มจากผู้ใช้" }
       ],
       dataFavorite: [],
       email:""
@@ -264,6 +266,7 @@ export default {
     this.gatRiceN();
     this.Vegetables();
     this.Other();
+    this.DataWait();
     this.collection = "ไข่";
     this.dataAll = this.dataEggs;
   },
@@ -300,6 +303,9 @@ export default {
     }
     if (this.collection === "อื่นๆ") {
       this.dataAll = this.dataOther;
+    }
+    if (this.collection === "จากผู้ใช้") {
+      this.dataAll = this.dataWait;
     }
   },
   computed: {
@@ -391,6 +397,12 @@ export default {
       var dataRef = database.ref("/FoodData/Other");
       await dataRef.on("child_added", (snapshot) => {
         this.dataOther.push(snapshot.val());
+      });
+    },
+    async DataWait() {
+      var dataRef = database.ref("/FoodData/DataWaitConfirm");
+      await dataRef.on("child_added", (snapshot) => {
+        this.dataWait.push(snapshot.val());
       });
     },
     async addCalory(value) {
@@ -522,12 +534,12 @@ export default {
         ]
       }).then((result) => {
         if (result.value) {
-          var dataRef = database.ref("/DataWaitConfirm/");
+          var dataRef = database.ref("/FoodData/DataWaitConfirm/");
           dataRef.push({
             Calories: result.value[0],
             Food: result.value[1],
             Unit: result.value[2],
-            credit: this.email 
+            status: "wait"
           });
         }
       });

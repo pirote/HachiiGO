@@ -3,23 +3,12 @@
     <h4>ข้อมูลรอการยืนยัน</h4>
     <div v-if="this.status === 'admin'">
       <label>จัดกลุ่ม</label>
-      <div class="menu_bar">
-        <b-form-group style="text-align: left; padding-left:16px;">
-          <b-form-radio-group
-            style="padding:5px; "
-            v-model="collection"
-            :options="op_collection"
-            :key="collection.paId"
-          ></b-form-radio-group>
-        </b-form-group>
-      </div>
       <table class="table borderless">
         <thead>
           <tr>
             <th>ชื่ออาหาร</th>
             <th>ปริมาณ</th>
             <th>ค่าแคลอรี</th>
-            <th>กลุ่ม</th>
             <th style="padding: 0.75rem 3px 0.75rem 0px; text-align: right;">ยืนยัน</th>
             <th style="padding: 0.75rem 0.85rem 0.75rem 0px; text-align: right;">ยกเลิก</th>
           </tr>
@@ -34,9 +23,6 @@
             </td>
             <td>
               <a target="_blank">{{ item.Calories }}</a>
-            </td>
-            <td>
-              <a target="_blank">{{ collection }}</a>
             </td>
             <td style="padding: 0.75rem 0px 0.75rem 0px; text-align: right;">
               <a target="_blank" v-on:click="addCaloryDB(item)">
@@ -137,29 +123,18 @@ export default {
   data() {
     return {
       data: [],
-      op_collection: [
-        { value: "ไข่", text: "ไข่" },
-        { value: "ปลา", text: "ปลา" },
-        { value: "ผลไม้", text: "ผลไม้" },
-        { value: "เนื้อ", text: "เนื้อ" },
-        { value: "นม", text: "นม" },
-        { value: "ก๋วยเตี๋ยว", text: "ก๋วยเตี๋ยว" },
-        { value: "ถั่ว", text: "ถั่ว" },
-        { value: "ข้าวแกง", text: "ข้าวแกง" },
-        { value: "ข้าว", text: "ข้าว" },
-        { value: "ผัก", text: "ผัก" },
-        { value: "อิ่นๆ", text: "อื่นๆ" },
-      ],
-      collection: "",
       email: "",
       status: "",
     };
   },
   async created() {
     var datafilterStatus = [];
-    var dataRef = database.ref("/DataWaitConfirm/");
+    var dataRef = database.ref("/FoodData/DataWaitConfirm");
     await dataRef.on("child_added", (snapshot) => {
-      datafilterStatus.push({ ...snapshot.val(), key: snapshot.key });
+      if(snapshot.val().status === 'wait'){
+        datafilterStatus.push({ ...snapshot.val(), key: snapshot.key });
+      }
+     
     });
     dataRef.on("child_removed", (snapshot) => {
       const del = this.data.find((mgs) => mgs.key == snapshot.key);
@@ -189,54 +164,19 @@ export default {
       }
     },
     async addCaloryDB(value) {
-      var nameDB = "";
-      if (this.collection === "ไข่") {
-        nameDB = "Eggs";
-      }
-      if (this.collection === "ปลา") {
-        nameDB = "Fish";
-      }
-      if (this.collection === "ผลไม้") {
-        nameDB = "Fruits";
-      }
-      if (this.collection === "เนื้อ") {
-        nameDB = "Meat";
-      }
-      if (this.collection === "นม") {
-        nameDB = "Milk";
-      }
-      if (this.collection === "ก๋วยเตี๋ยว") {
-        nameDB = "NoodleDishes";
-      }
-      if (this.collection === "ถั่ว") {
-        nameDB = "Nuts";
-      }
-      if (this.collection === "ข้าวแกง") {
-        nameDB = "RiceDishes";
-      }
-      if (this.collection === "ข้าว") {
-        nameDB = "RiceNoodles";
-      }
-      if (this.collection === "ผัก") {
-        nameDB = "Vegetables";
-      } else {
-        nameDB = "Other";
-      }
-      if (this.collection.length === 0) {
-        alert("คุณยังไม่เลือกกลุ่มอาหาร");
-      } else {
-        var dataRef = database.ref("/FoodData/" + nameDB + "/");
+        var dataRef = database.ref("/FoodData/DataWaitConfirm/");
         await dataRef.push({
           Calories: value.Calories,
           Food: value.Food,
           Unit: value.Unit,
+          status: "confirm"
         });
-        var dataRefDel = database.ref("/DataWaitConfirm/");
+        var dataRefDel = database.ref("/FoodData/DataWaitConfirm/");
         await dataRefDel.child(value.key).remove();
-      }
+
     },
     delCaloryDB(value) {
-      var dataRef = database.ref("/DataWaitConfirm/");
+      var dataRef = database.ref("/FoodData/DataWaitConfirm/");
       Swal.fire({
         title: "ลบข้อมูล?",
         text: "คุณแน่ใจที่จะลบข้อมูลออกจากรายการฐานข้อมูล",

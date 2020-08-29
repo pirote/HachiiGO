@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <div class="row" style="margin: 10px 0px 10px 0px;">
-      <div class="col" style="max-width:20%;">
+      <div class="col" style="max-width:5%;">
         <a class="navbar-brand" href="#">
           <img src height="30" id="logo" class="d-inline-block align-top" alt />
         </a>
       </div>
-      <div class="col" style="max-width:55%; text-align: center;">
+      <div class="col" style="max-width:70%; text-align: center;">
         <router-link to="/" class="routerlink">หน้าหลัก</router-link>
         <router-link v-if="this.uid !== ''" to="/calories" class="routerlink">แคลอรี</router-link>
         <a href="#aboutus" class="routerlink">เกี่ยวกับ</a>
@@ -506,7 +506,7 @@ body {
 @media only screen and (max-width: 1024px) {
   .routerlink {
     padding-right: 16px;
-    font-size: 12px;
+    font-size: 16px;
   }
   #logo {
     padding-left: 5px;
@@ -544,6 +544,12 @@ body {
   }
   li {
     font-size: 10px;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .routerlink {
+    padding-right: 16px;
+    font-size: 12px;
   }
 }
 </style>

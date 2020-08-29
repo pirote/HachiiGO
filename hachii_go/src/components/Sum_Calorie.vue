@@ -16,6 +16,15 @@
             <label for="exampleInputEmail1">น้ำหนัก</label>
             <input type="number" class="form-control" v-model="weight" placeholder="กิโลกรัม" />
           </div>
+          <div class="col" style="margin-top:20px;">
+            <b-button
+              id="saveWeight"
+              class="previous round"
+              v-on:click="sendWeight"
+            >บันทึกน้ำหนักในแต่ละวัน</b-button>
+          </div>
+        </div>
+        <div class="row" style="text-align: left;">
           <div class="col">
             <label for="exampleInputEmail1">ส่วนสูง</label>
             <input type="number" class="form-control" v-model="height" placeholder="เซนติเมตร" />
@@ -65,6 +74,7 @@
 
 <script>
 import firebase from "firebase";
+import Swal from "sweetalert2";
 var database = firebase.database();
 export default {
   name: "HelloWorld",
@@ -123,11 +133,11 @@ export default {
         this.bmi = (weight / ((height / 100) * (height / 100))).toFixed(2);
         //console.log(this.bmi);
         if (this.sex === "ชาย") {
-          this.bmr = (66 + (13.7 * weight) + (5 * height) - (6.8 * age)).toFixed(2);
+          this.bmr = (66 + 13.7 * weight + 5 * height - 6.8 * age).toFixed(2);
           this.tdee = (this.bmr * this.exercise).toFixed(2);
         }
         if (this.sex === "หญิง") {
-          this.bmr = (665 + (9.6 * weight) + (1.8 * height) - (4.7 * age)).toFixed(2);
+          this.bmr = (665 + 9.6 * weight + 1.8 * height - 4.7 * age).toFixed(2);
           this.tdee = (this.bmr * this.exercise).toFixed(2);
         }
         this.show_age = age;
@@ -145,11 +155,12 @@ export default {
       if (this.tdee) {
         const today = new Date();
         const date =
-        (today.getMonth() + 1) +
-        "/" +
-        today.getDate() +
-        "/" +
-        today.getFullYear();
+          today.getMonth() +
+          1 +
+          "/" +
+          today.getDate() +
+          "/" +
+          today.getFullYear();
         var dataCheck = database.ref("/AuthenAcount/" + this.nameDB + "/Data/");
 
         var checkTime = "true";
@@ -159,18 +170,49 @@ export default {
           }
         });
         if (checkTime === "true") {
-          var dataRef = database.ref("/AuthenAcount/" + this.nameDB + "/Data/");
-          await dataRef.push({
-            tdee: this.tdee,
-            date: date,
-            bmr: this.bmr,
-            bmi: this.bmi,
+          Swal.fire({
+            title: "คุณแน่ใจที่จะบันทึก?",
+            text: "คุณแน่ใจที่จะบันทึกข้อมูลแคลอรี่",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#f87030",
+            cancelButtonColor: "#444444",
+            confirmButtonText: "บันทึก",
+            cancelButtonText: "ยกเลิก",
+          }).then((result) => {
+            if (result.value) {
+              var dataRef = database.ref(
+                "/AuthenAcount/" + this.nameDB + "/Data/"
+              );
+              dataRef.push({
+                tdee: this.tdee,
+                date:
+                  today.getMonth() +
+                  1 +
+                  "/" +
+                  today.getDate() +
+                  "/" +
+                  today.getFullYear(),
+                bmr: this.bmr,
+                bmi: this.bmi,
+              });
+              Swal.fire({
+                title: "สำเร็จ!",
+                text: "คุณได้ทำการเก็บข้อมูลน้ำหนักเรียบร้อยแล้ว.",
+                icon: "success",
+              }).then((result) => {
+                if (result.value) {
+                  this.clear();
+                }
+                else{
+                  setTimeout(() => this.clear(), 1000);
+                }
+              });
+            }
           });
         } else {
           alert("คุณได้บันทึกข้อมูลแคลอรีของวันนี้แล้ว!!!");
         }
-
-        this.clear();
       } else {
         alert("กรุณากรอกข้อมูลก่อนบันทึก");
       }
@@ -187,10 +229,63 @@ export default {
       this.bmr = null;
       this.tdee = null;
     },
+    sendWeight() {
+      var weight = parseInt(this.weight);
+      var dataRef = database.ref("/AuthenAcount/" + this.nameDB + "/Weight/");
+      const today = new Date();
+      var date =
+        today.getMonth() +
+        1 +
+        "/" +
+        today.getDate() +
+        "/" +
+        today.getFullYear();
+      var status = "";
+      dataRef.on("child_added", (snap) => {
+        if (snap.val().date === date) {
+          status = "true";
+        } else {
+          status = "else";
+        }
+      });
+      if (status === "else") {
+        Swal.fire({
+          title: "คุณแน่ใจหรือไม่ในการบันทึก?",
+          text: "คุณแน่ใจในการเก็บข้อมูลน้ำหนักแต่ละวัน ",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#f87030",
+          cancelButtonColor: "#444444",
+          confirmButtonText: "บันทึก",
+          cancelButtonText: "ยกเลิก",
+        }).then((result) => {
+          if (result.value) {
+            dataRef.push({
+              weight: weight,
+              date: date,
+            });
+            Swal.fire(
+              "สำเร็จ!",
+              "คุณได้ทำการเก็บข้อมูลน้ำหนักเรียบร้อยแล้ว.",
+              "success"
+            );
+            this.weight = null;
+          }
+        });
+      } else {
+        alert("คุณได้ทำการบันทึกน้ำหนักในแต่ละวันของวันนี้แล้ว");
+      }
+    },
   },
 };
 </script>
 <style>
+#saveWeight {
+  background-color: #f87030;
+  border-color: #f87030;
+  color: #ffffff;
+  margin: 10px;
+}
 .hello {
   margin: 10px 50px 50px 50px;
   background-color: #ffffff;
@@ -214,6 +309,13 @@ export default {
   background-color: #fbfbfb;
 }
 @media only screen and (max-width: 1024px) {
+  #saveWeight {
+    background-color: #f87030;
+    border-color: #f87030;
+    color: #ffffff;
+    margin: 10px;
+    font-size: 12px;
+  }
   .col {
     max-width: 100%;
   }
