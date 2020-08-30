@@ -75,11 +75,20 @@
             />
           </div>
         </div>
+        
         <b-button
           class="btn"
           style="background-color: #F87030; border-color: #F87030; width:250px ;"
           v-on:click="login"
         >Login</b-button>
+        <VueLineLogin 
+            client-id="1654880492"
+            callback-uri="https://hachiigo-lineapp.web.app/"
+            client-secret="1b1b4b86a4cb3dced521d0d27a1ff823"
+            v-on:click="result" 
+            add-friend 
+            class="line"
+            friend-required></VueLineLogin >
       </div>
     </div>
     <!-- Register -->
@@ -210,7 +219,11 @@
 import firebase from "firebase";
 import Swal from "sweetalert2";
 import liff from "@line/liff";
+import VueLineLogin from '@team-decorate/vue-line-login'
 export default {
+  components:{
+    VueLineLogin
+  },
   data() {
     return {
       status: "default",
@@ -284,6 +297,9 @@ export default {
       }
 },
   methods: {
+    result(res) {
+            console.log("res",res)
+        },
     loginLine() {
       if (this.nameLine) {
         firebase
@@ -423,6 +439,77 @@ export default {
 };
 </script>
 <style>
+.line{
+  background-color: #00b900; 
+  margin:10px 30% 0px 30%; 
+  color:#ffffff;
+}
+.btn-block + .btn-block {
+        margin-top: 5px;
+    }
+    .btn-social {
+        position: relative;
+        padding-left: 44px;
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .btn-block {
+        display: block;
+        width: 100%;
+    }
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+    .btn-line {
+        color: #fff;
+        background-color: #00b900;
+        border-color: rgba(0,0,0,0.2);
+    }
+    .btn-social>:first-child {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 32px;
+        line-height: 34px;
+        font-size: 1.6em;
+        text-align: center;
+        border-right: 1px solid rgba(0,0,0,0.2);
+    }
+    .fa-line {
+        background: url("https://d.line-scdn.net/r/web/social-plugin/img/common/line_v3.png") 3px 4px no-repeat;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 32px;
+        height: 100%;
+        line-height: 34px;
+        font-size: 1.6em;
+        text-align: center;
+        border-right: 1px solid rgba(0,0,0,0.2);
+        background-size: 26px 24px;
+    }
 html,
 body {
   width: 100%;
@@ -503,7 +590,13 @@ body {
   font-size: 18px;
   color: #f87030;
 }
+
 @media only screen and (max-width: 1024px) {
+  .line{
+  background-color: #00b900; 
+  margin:10px 6% 0px 6%; 
+  color:#ffffff;
+}
   .routerlink {
     padding-right: 16px;
     font-size: 16px;

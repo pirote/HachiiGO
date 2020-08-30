@@ -11,6 +11,7 @@
     "@fortawesome/fontawesome-free": "^5.14.0",
     "@fortawesome/vue-fontawesome": "^0.1.10",
     "@line/liff": "^2.3.1",
+    "@team-decorate/vue-line-login": "^1.3.0",
     "bootstrap": "^4.5.2",
     "bootstrap-vue": "^2.16.0",
     "chart.js": "^2.9.3",
