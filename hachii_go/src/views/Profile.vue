@@ -193,6 +193,7 @@ export default {
   updated() {
       //this.gatSevDay();
       setTimeout(() => this.gatSevDay(), 2000);
+      this.gat21Day()
       setTimeout(() => this.gat21Day(), 2000);
     this.sum_cal[0] = parseFloat(0);
     this.sum_date[0] = this.dateCal;
