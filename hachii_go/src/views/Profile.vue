@@ -277,8 +277,8 @@ export default {
       console.log(myLineChart);
     },
     async gatSevDay() {
-      var count = 0;
-      var countDate = 0;
+      // var count = 0;
+      // var countDate = 0;
       
       for (var j = 0; j < 7; j++) {
         var day = new Date(this.dateData);
@@ -300,32 +300,39 @@ export default {
           // console.log("collectionin", collection);
         });
         
-        this.AllCal[count] = parseFloat(0);
+        // this.AllCal[count] = parseFloat(0);
         //  console.log(collection.length);
+        var sumcalories = parseFloat(0);
         for (var k = 0; k < (await collection.length); k++) {
-          count += 1;
+          // count += 1;
 
-          this.AllDate[countDate] = collection[k].date;
-          this.chartTdee[countDate] = this.tdee;
-          this.chartBmr[countDate] = this.bmr;
-          if (k == collection.length - 1) {
-            this.AllDate[countDate] = collection[k].date;
-            this.chartTdee[countDate] = this.tdee;
-            this.chartBmr[countDate] = this.bmr;
-            countDate += 1;
-            this.AllDate[countDate] = collection[k].date;
-            this.chartTdee[countDate] = this.tdee;
-            this.chartBmr[countDate] = this.bmr;
-          }
-          this.AllCal[count] =
-            parseFloat(this.AllCal[count - 1]) +
-            parseFloat(collection[k].Calories);
-          countDate += 1;
-       
-        }
-         if(collection.length !== 0){
-          count += 1;
-        }
+          // this.AllDate[countDate] = collection[k].date;
+          // this.chartTdee[countDate] = this.tdee;
+          // this.chartBmr[countDate] = this.bmr;
+          // if (k == collection.length - 1) {
+          //   this.AllDate[countDate] = collection[k].date;
+          //   this.chartTdee[countDate] = this.tdee;
+          //   this.chartBmr[countDate] = this.bmr;
+          //   countDate += 1;
+          //   this.AllDate[countDate] = collection[k].date;
+          //   this.chartTdee[countDate] = this.tdee;
+          //   this.chartBmr[countDate] = this.bmr;
+          // }
+          // this.AllCal[count] =
+          //   parseFloat(this.AllCal[count - 1]) +
+          //   parseFloat(collection[k].Calories);
+            sumcalories = parseFloat(sumcalories)  + parseFloat(collection[k].Calories)
+          // countDate += 1;
+         
+        } 
+        
+          this.AllDate[j] = (nextDay.getMonth() +1) + "/" + nextDay.getDate() + "/" + nextDay.getFullYear();
+          this.chartTdee[j] = this.tdee;
+          this.chartBmr[j] = this.bmr;
+          this.AllCal[j] = sumcalories;
+        //  if(collection.length !== 0){
+        //   count += 1;
+        // }
         
       }
       await this.graphCal();
