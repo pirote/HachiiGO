@@ -106,6 +106,7 @@ export default {
         { value: 1.9, text: "ออกกำลังกายหนักมาก (ทุกวัน วันละ 2 เวลา)" },
       ],
       nameDB: "",
+      statusWeight:""
     };
   },
   created() {
@@ -113,6 +114,7 @@ export default {
       this.nameDB = firebaseUser.uid;
       //console.log("firebaseUser", this.nameDB);
     });
+    
   },
   methods: {
     sum() {
@@ -229,7 +231,7 @@ export default {
       this.bmr = null;
       this.tdee = null;
     },
-    sendWeight() {
+    async sendWeight() {
       var weight = parseInt(this.weight);
       var dataRef = database.ref("/AuthenAcount/" + this.nameDB + "/Weight/");
       const today = new Date();
@@ -240,15 +242,16 @@ export default {
         today.getDate() +
         "/" +
         today.getFullYear();
-      var status = "";
-      dataRef.on("child_added", (snap) => {
+        dataRef.on("child_added", (snap) => {
         if (snap.val().date === date) {
-          status = "true";
+          this.statusWeight = "true";
         } else {
-          status = "else";
+          this.statusWeight = "false";
         }
-      });
-      if (status === "else") {
+        });
+      if (await this.statusWeight === "true") {
+        alert("คุณได้ทำการบันทึกน้ำหนักในแต่ละวันของวันนี้แล้ว");
+      } else {
         Swal.fire({
           title: "คุณแน่ใจหรือไม่ในการบันทึก?",
           text: "คุณแน่ใจในการเก็บข้อมูลน้ำหนักแต่ละวัน ",
@@ -272,8 +275,6 @@ export default {
             this.weight = null;
           }
         });
-      } else {
-        alert("คุณได้ทำการบันทึกน้ำหนักในแต่ละวันของวันนี้แล้ว");
       }
     },
   },
