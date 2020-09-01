@@ -3,7 +3,7 @@
     <div>
     <div
       class="row"
-      style="padding: 50px 50px 25px 50px; background-color: #ffffff; margin: 0px 0px 25px 0px;  border-radius: 0px 0px 10px 10px;"
+      style="padding: 50px 40px 25px 40px; background-color: #ffffff; margin: 0px 0px 25px 0px;  border-radius: 0px 0px 10px 10px;"
     >
       <div class="col" id="div_img">
         <img
@@ -36,7 +36,9 @@
           </div>
         </div>
         <div id="reTDEE">
-          <p>สามารถทานได้อีก <b>{{remainingTDEE}}</b> Cal.</p>
+          <p style="font-size:17px;" v-if="parseFloat(this.remainingTDEE) > parseFloat(this.bmr)+200.00">สามารถทานได้อีก <b style="color:#80e12a;">{{remainingTDEE}}</b> แคลอรี.</p>
+          <p style="font-size:17px;" v-else-if="parseFloat(this.remainingTDEE) <= parseFloat(this.bmr) + 100.00 && (this.remainingTDEE) == (this.bmr)">สามารถทานได้อีก <b style="color:#F87030;">{{remainingTDEE}}</b> แคลอรี.</p>
+          <p style="font-size:17px;" v-else-if="parseFloat(this.remainingTDEE) < parseFloat(100)">สามารถทานได้อีก <b style="color:#ff0000;">{{remainingTDEE}}</b> แคลอรี.</p>
         </div>
         
       </div>
@@ -414,7 +416,27 @@ export default {
           this.dayCha.push(snap.val().date)
           this.weightCha.push(snap.val().weight)
         }
+        else{
+           this.weight7Day()
+        }
       })
+      if(this.startDay !== 'start'){
+        this.weight7Day()
+      }
+      await this.graphWeight();
+    },
+    async weight7Day() {
+      this.dayCha = []
+      this.weightCha = []
+      var dataweight7day = []
+      var weight7Day = database.ref("/AuthenAcount/" + this.nameDB + "/Weight/");
+      await weight7Day.on("child_added", (snap) => {
+        dataweight7day.push(snap.val())
+      })
+      for(var i = 0; i < dataweight7day.length; i++){
+        this.dayCha.push(dataweight7day[i].date)
+        this.weightCha.push(dataweight7day[i].weight)
+      }
       await this.graphWeight();
     },
     async weight7day(){

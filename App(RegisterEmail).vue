@@ -95,7 +95,7 @@
         <h1>Register</h1>
         <div class="card-body">
           <div v-if="error" class="alert alert-danger">{{error}}</div>
-          <!-- <form action="#" @submit.prevent="submit">
+          <form action="#" @submit.prevent="submit">
             <div class="form-group">
               <img class="preview" :src="picture" />
             </div>
@@ -162,9 +162,7 @@
                 >Register</button>
               </div>
             </div>
-          </form> -->
-          <img src="../src/assets/qrodeLine.png" alt="">
-          <p style="color:#000000;">  สแกนเพื่อทำการสร้างบัญชีด้วยไลน์ </p>
+          </form>
         </div>
       </div>
     </div>
@@ -429,7 +427,7 @@ export default {
       Swal.fire({
         title: "<h3>Account Line ของคุณ</h3>",
         html:
-          `<p>สามารถนำ Email และ Password นี้ ไปเข้าระบบที่หน้าเว็บได้</p>`+
+          `<p>สามาารถนำ Email และ Password นี้ ไปเข้าระบบที่หน้าเว็บได้</p>`+
           `<b>Email: `+ this.idLine + `@line.com</b><br>` +
           `<b>Password: `+ this.idLine + `</b>`,
         showCloseButton: true,
@@ -569,7 +567,7 @@ body {
     color: #f87030;
     margin-top: 50%;
     border-radius: 25px;
-    padding: 10px;
+    padding: 32px;
     margin: auto;
     box-shadow: 5px 10px 10px #888888;
   }
