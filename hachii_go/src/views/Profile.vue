@@ -197,8 +197,8 @@ export default {
       var date2weight = new Date((toDayweight.getMonth() +1) + "/" + toDayweight.getDate() + "/" +  toDayweight.getFullYear());
       var Difference_In_Timeweight = date2weight.getTime() - date1weight.getTime();
       var Difference_In_Daysweight = Difference_In_Timeweight / (1000 * 3600 * 24);
-      console.log("date2weight", date2weight);
-      console.log("Difference_In_Daysweight", Difference_In_Daysweight);
+      // console.log("date2weight", date2weight);
+      // console.log("Difference_In_Daysweight", Difference_In_Daysweight);
       if(Difference_In_Daysweight >= 0 && Difference_In_Daysweight < 21){
         this.gat21Day()
         //setTimeout(() => this.gat21Day(), 2000);
