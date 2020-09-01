@@ -178,7 +178,6 @@ export default {
         this.dateChallenge = snap.val()
         this.keyCha = snap.key
       })
-
     const today = new Date();
     var onedate =
       today.getMonth() + 1 + ":" + today.getDate() + ":" + today.getFullYear();
@@ -193,8 +192,27 @@ export default {
   updated() {
       //this.gatSevDay();
       setTimeout(() => this.gatSevDay(), 2000);
-      this.gat21Day()
-      setTimeout(() => this.gat21Day(), 2000);
+      var toDayweight = new Date();
+      var date1weight = new Date(this.startDay);
+      var date2weight = new Date((toDayweight.getMonth() +1) + "/" + toDayweight.getDate() + "/" +  toDayweight.getFullYear());
+      var Difference_In_Timeweight = date2weight.getTime() - date1weight.getTime();
+      var Difference_In_Daysweight = Difference_In_Timeweight / (1000 * 3600 * 24);
+      console.log("date2weight", date2weight);
+      console.log("Difference_In_Daysweight", Difference_In_Daysweight);
+      if(Difference_In_Daysweight >= 0 && Difference_In_Daysweight < 21){
+        this.gat21Day()
+        //setTimeout(() => this.gat21Day(), 2000);
+      }
+      // console.log(this.startDay.length);
+      // if(this.startDay.length > 0){
+      //    this.gat21Day()
+      //   setTimeout(() => this.gat21Day(), 2000);
+      // }
+      else{
+        this.weight7day()
+        //setTimeout(() => this.weight7day(), 2000);
+      }
+      
     this.sum_cal[0] = parseFloat(0);
     this.sum_date[0] = this.dateCal;
     var reTDEE = [];
@@ -399,6 +417,25 @@ export default {
       })
       await this.graphWeight();
     },
+    async weight7day(){
+      this.dayCha = []
+      this.weightCha = []
+      var afterDay = new Date();
+      var today = (afterDay.getMonth() +1) + "/" + afterDay.getDate() + "/" +  afterDay.getFullYear();
+      var date1 = new Date(today);
+      
+      var weight7day = database.ref("/AuthenAcount/" + this.nameDB + "/Weight/");
+      weight7day.on("child_added", (snap) => {
+        var date2 = new Date(snap.val().date);
+        var Difference_In_Time = date2.getTime() - date1.getTime();
+        var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+        if(Difference_In_Days <= 0 && Difference_In_Days > -7){
+          this.dayCha.push(snap.val().date)
+          this.weightCha.push(snap.val().weight)
+        }
+      })
+      await this.graphWeight();
+    }
   },
 };
 </script>
