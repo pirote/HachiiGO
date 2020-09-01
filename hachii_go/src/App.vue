@@ -365,7 +365,9 @@ export default {
               displayName: this.form.name,
               photoURL: this.picture,
             })
-            .then(() => {});
+            .then(() => {
+               window.location.reload();
+            });
         })
         .catch((err) => {
           this.error = err.message;
