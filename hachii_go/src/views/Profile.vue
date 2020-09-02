@@ -416,13 +416,7 @@ export default {
           this.dayCha.push(snap.val().date)
           this.weightCha.push(snap.val().weight)
         }
-        else{
-           this.weight7Day()
-        }
       })
-      if(this.startDay !== 'start'){
-        this.weight7Day()
-      }
       await this.graphWeight();
     },
     async weight7Day() {
