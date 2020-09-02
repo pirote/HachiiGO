@@ -36,9 +36,9 @@
           </div>
         </div>
         <div id="reTDEE">
-          <p style="font-size:17px;" v-if="parseFloat(this.remainingTDEE) > parseFloat(this.bmr)+200.00">สามารถทานได้อีก <b style="color:#80e12a;">{{remainingTDEE}}</b> แคลอรี.</p>
-          <p style="font-size:17px;" v-else-if="parseFloat(this.remainingTDEE) <= parseFloat(this.bmr) + 100.00 && (this.remainingTDEE) == (this.bmr)">สามารถทานได้อีก <b style="color:#F87030;">{{remainingTDEE}}</b> แคลอรี.</p>
-          <p style="font-size:17px;" v-else-if="parseFloat(this.remainingTDEE) < parseFloat(100)">สามารถทานได้อีก <b style="color:#ff0000;">{{remainingTDEE}}</b> แคลอรี.</p>
+          <p style="font-size:17px;" v-if="parseFloat(this.remainingTDEE) > parseFloat(this.bmr)">สามารถทานได้อีก <b style="color:#80e12a;">{{remainingTDEE}}</b> แคลอรี</p>
+          <p style="font-size:17px;" v-else-if="parseFloat(this.remainingTDEE) === parseFloat(this.bmr) || parseFloat(this.remainingTDEE) >= (parseFloat(this.tdee) - parseFloat(this.bmr) )/ 2">สามารถทานได้อีก <b style="color:#F87030;">{{remainingTDEE}}</b> แคลอรี</p>
+          <p style="font-size:17px;" v-else-if="parseFloat(this.remainingTDEE) < (parseFloat(this.tdee) - parseFloat(this.bmr) )/ 2">สามารถทานได้อีก <b style="color:#ff0000;">{{remainingTDEE}}</b> แคลอรี</p>
         </div>
         
       </div>
