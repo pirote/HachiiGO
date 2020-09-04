@@ -174,7 +174,6 @@
     </div>
 
     <router-view />
-    
     <div id="aboutus">
       <div class="row">
         <div class="col">
@@ -220,6 +219,7 @@
 import firebase from "firebase";
 import Swal from "sweetalert2";
 import liff from "@line/liff";
+
 export default {
   data() {
     return {
@@ -445,7 +445,7 @@ export default {
         cancelButtonAriaLabel: "Thumbs down",
         confirmButtonColor: "#f87030",
       })
-    }
+    },
   },
 };
 </script>

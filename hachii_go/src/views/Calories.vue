@@ -174,16 +174,22 @@ export default {
       pagination: { page: 1, perPage: perPageOptions[1] },
       dataAll: [],
       sumdata: [],
-      dataEggs: [],
-      dataFish: [],
-      dataFruits: [],
-      dataMeat: [],
-      dataMilk: [],
-      dataNoodle: [],
-      dataNuts: [],
-      dataRice: [],
-      dataRiceN: [],
-      dataVegetables: [],
+      // dataEggs: [],
+      // dataFish: [],
+      // dataFruits: [],
+      // dataMeat: [],
+      // dataMilk: [],
+      // dataNoodle: [],
+      // dataNuts: [],
+      // dataRice: [],
+      // dataRiceN: [],
+      // dataVegetables: [],
+      dataFoods: [],
+      dataSweet: [],
+      dataDrink: [],
+      dataMeats: [],
+      dataMixedFruit: [],
+      dataStore: [],
       dataOther: [],
       dataWait: [],
       collection: "",
@@ -195,16 +201,22 @@ export default {
         Unit: "1 แท่น",
       },
       op_collection: [
-        { value: "ไข่", text: "ไข่" },
-        { value: "ปลา", text: "ปลา" },
+        // { value: "ไข่", text: "ไข่" },
+        // { value: "ปลา", text: "ปลา" },
+        // { value: "ผลไม้", text: "ผลไม้" },
+        // { value: "เนื้อ", text: "เนื้อ" },
+        // { value: "นม", text: "นม" },
+        // { value: "ก๋วยเตี๋ยว", text: "ก๋วยเตี๋ยว" },
+        // { value: "ถั่ว", text: "ถั่ว" },
+        // { value: "ข้าวแกง", text: "ข้าวแกง" },
+        // { value: "ข้าว", text: "ข้าว" },
+        // { value: "ผัก", text: "ผัก" },
+        { value: "อาหาร", text: "อาหาร" },
+        { value: "ขนมและของว่าง", text: "ขนมและของว่าง" },
+        { value: "เครื่องดื่ม", text: "เครื่องดื่ม" },
+        { value: "เนื้อสัตว์", text: "เนื้อสัตว์" },
         { value: "ผลไม้", text: "ผลไม้" },
-        { value: "เนื้อ", text: "เนื้อ" },
-        { value: "นม", text: "นม" },
-        { value: "ก๋วยเตี๋ยว", text: "ก๋วยเตี๋ยว" },
-        { value: "ถั่ว", text: "ถั่ว" },
-        { value: "ข้าวแกง", text: "ข้าวแกง" },
-        { value: "ข้าว", text: "ข้าว" },
-        { value: "ผัก", text: "ผัก" },
+        { value: "เมนูร้านดัง", text: "เมนูร้านดัง" },
         { value: "อื่นๆ", text: "อื่นๆ" },
         { value: "จากผู้ใช้", text: "เพิ่มจากผู้ใช้" },
       ],
@@ -238,51 +250,75 @@ export default {
       this.dataFavorite.splice(index, 1);
     });
 
-    this.gatEggs();
-    this.gatFish();
-    this.gatFruits();
-    this.gatMeat();
-    this.gatMilk();
-    this.gatNoodle();
-    this.gatNuts();
-    this.gatRiceD();
-    this.gatRiceN();
-    this.Vegetables();
+    // this.gatEggs();
+    // this.gatFish();
+    // this.gatFruits();
+    // this.gatMeat();
+    // this.gatMilk();
+    // this.gatNoodle();
+    // this.gatNuts();
+    // this.gatRiceD();
+    // this.gatRiceN();
+    // this.Vegetables();
+    this.Foods();
+    this.Sweet();
+    this.Meats();
+    this.Drink();
+    this.MixedFruit();
+    this.Store();
     this.Other();
     this.DataWait();
-    this.collection = "ไข่";
+    this.collection = "อาหาร";
     this.dataAll = this.dataEggs;
   },
   updated() {
-    if (this.collection === "ไข่") {
-      this.dataAll = this.dataEggs;
+    // if (this.collection === "ไข่") {
+    //   this.dataAll = this.dataEggs;
+    // }
+    // if (this.collection === "ปลา") {
+    //   this.dataAll = this.dataFish;
+    // }
+    // if (this.collection === "ผลไม้") {
+    //   this.dataAll = this.dataFruits;
+    // }
+    // if (this.collection === "เนื้อ") {
+    //   this.dataAll = this.dataMeat;
+    // }
+    // if (this.collection === "นม") {
+    //   this.dataAll = this.dataMilk;
+    // }
+    // if (this.collection === "ก๋วยเตี๋ยว") {
+    //   this.dataAll = this.dataNoodle;
+    // }
+    // if (this.collection === "ถั่ว") {
+    //   this.dataAll = this.dataNuts;
+    // }
+    // if (this.collection === "ข้าวแกง") {
+    //   this.dataAll = this.dataRice;
+    // }
+    // if (this.collection === "ข้าว") {
+    //   this.dataAll = this.dataRiceN;
+    // }
+    // if (this.collection === "ผัก") {
+    //   this.dataAll = this.dataVegetables;
+    // }
+    if (this.collection === "อาหาร") {
+      this.dataAll = this.dataFoods;
     }
-    if (this.collection === "ปลา") {
-      this.dataAll = this.dataFish;
+    if (this.collection === "ขนมและของว่าง") {
+      this.dataAll = this.dataSweet;
+    }
+    if (this.collection === "เครื่องดื่ม") {
+      this.dataAll = this.dataDrink;
+    }
+    if (this.collection === "เนื้อสัตว์") {
+      this.dataAll = this.dataMeats;
     }
     if (this.collection === "ผลไม้") {
-      this.dataAll = this.dataFruits;
+      this.dataAll = this.dataMixedFruit;
     }
-    if (this.collection === "เนื้อ") {
-      this.dataAll = this.dataMeat;
-    }
-    if (this.collection === "นม") {
-      this.dataAll = this.dataMilk;
-    }
-    if (this.collection === "ก๋วยเตี๋ยว") {
-      this.dataAll = this.dataNoodle;
-    }
-    if (this.collection === "ถั่ว") {
-      this.dataAll = this.dataNuts;
-    }
-    if (this.collection === "ข้าวแกง") {
-      this.dataAll = this.dataRice;
-    }
-    if (this.collection === "ข้าว") {
-      this.dataAll = this.dataRiceN;
-    }
-    if (this.collection === "ผัก") {
-      this.dataAll = this.dataVegetables;
+    if (this.collection === "เมนูร้านดัง") {
+      this.dataAll = this.dataStore;
     }
     if (this.collection === "อื่นๆ") {
       this.dataAll = this.dataOther;
@@ -316,64 +352,100 @@ export default {
     },
   },
   methods: {
-    async gatEggs() {
-      var dataRef = database.ref("/FoodData/Eggs");
+    // async gatEggs() {
+    //   var dataRef = database.ref("/FoodData/Eggs");
+    //   await dataRef.on("child_added", (snapshot) => {
+    //     this.dataEggs.push(snapshot.val());
+    //   });
+    // },
+    // async gatFish() {
+    //   var dataRef = database.ref("/FoodData/Fish");
+    //   await dataRef.on("child_added", (snapshot) => {
+    //     this.dataFish.push(snapshot.val());
+    //   });
+    // },
+    // async gatFruits() {
+    //   var dataRef = database.ref("/FoodData/Fruits");
+    //   await dataRef.on("child_added", (snapshot) => {
+    //     this.dataFruits.push(snapshot.val());
+    //   });
+    // },
+    // async gatMeat() {
+    //   var dataRef = database.ref("/FoodData/Meat");
+    //   await dataRef.on("child_added", (snapshot) => {
+    //     this.dataMeat.push(snapshot.val());
+    //   });
+    // },
+    // async gatMilk() {
+    //   var dataRef = database.ref("/FoodData/Milk");
+    //   await dataRef.on("child_added", (snapshot) => {
+    //     this.dataMilk.push(snapshot.val());
+    //   });
+    // },
+    // async gatNoodle() {
+    //   var dataRef = database.ref("/FoodData/NoodleDishes");
+    //   await dataRef.on("child_added", (snapshot) => {
+    //     this.dataNoodle.push(snapshot.val());
+    //   });
+    // },
+    // async gatNuts() {
+    //   var dataRef = database.ref("/FoodData/Nuts");
+    //   await dataRef.on("child_added", (snapshot) => {
+    //     this.dataNuts.push(snapshot.val());
+    //   });
+    // },
+    // async gatRiceD() {
+    //   var dataRef = database.ref("/FoodData/RiceDishes");
+    //   await dataRef.on("child_added", (snapshot) => {
+    //     this.dataRice.push(snapshot.val());
+    //   });
+    // },
+    // async gatRiceN() {
+    //   var dataRef = database.ref("/FoodData/RiceNoodles");
+    //   await dataRef.on("child_added", (snapshot) => {
+    //     this.dataRiceN.push(snapshot.val());
+    //   });
+    // },
+    // async Vegetables() {
+    //   var dataRef = database.ref("/FoodData/Vegetables");
+    //   await dataRef.on("child_added", (snapshot) => {
+    //     this.dataVegetables.push(snapshot.val());
+    //   });
+    // },
+    async Foods() {
+      var dataRef = database.ref("/FoodData/Foods");
       await dataRef.on("child_added", (snapshot) => {
-        this.dataEggs.push(snapshot.val());
+        this.dataFoods.push(snapshot.val());
       });
     },
-    async gatFish() {
-      var dataRef = database.ref("/FoodData/Fish");
+    async Sweet() {
+      var dataRef = database.ref("/FoodData/Sweet");
       await dataRef.on("child_added", (snapshot) => {
-        this.dataFish.push(snapshot.val());
+        this.dataSweet.push(snapshot.val());
       });
     },
-    async gatFruits() {
-      var dataRef = database.ref("/FoodData/Fruits");
+    async Meats() {
+      var dataRef = database.ref("/FoodData/Meats");
       await dataRef.on("child_added", (snapshot) => {
-        this.dataFruits.push(snapshot.val());
+        this.dataMeats.push(snapshot.val());
       });
     },
-    async gatMeat() {
-      var dataRef = database.ref("/FoodData/Meat");
+    async Drink() {
+      var dataRef = database.ref("/FoodData/Drink");
       await dataRef.on("child_added", (snapshot) => {
-        this.dataMeat.push(snapshot.val());
+        this.dataDrink.push(snapshot.val());
       });
     },
-    async gatMilk() {
-      var dataRef = database.ref("/FoodData/Milk");
+    async MixedFruit() {
+      var dataRef = database.ref("/FoodData/MixedFruit");
       await dataRef.on("child_added", (snapshot) => {
-        this.dataMilk.push(snapshot.val());
+        this.dataMixedFruit.push(snapshot.val());
       });
     },
-    async gatNoodle() {
-      var dataRef = database.ref("/FoodData/NoodleDishes");
+    async Store() {
+      var dataRef = database.ref("/FoodData/Store");
       await dataRef.on("child_added", (snapshot) => {
-        this.dataNoodle.push(snapshot.val());
-      });
-    },
-    async gatNuts() {
-      var dataRef = database.ref("/FoodData/Nuts");
-      await dataRef.on("child_added", (snapshot) => {
-        this.dataNuts.push(snapshot.val());
-      });
-    },
-    async gatRiceD() {
-      var dataRef = database.ref("/FoodData/RiceDishes");
-      await dataRef.on("child_added", (snapshot) => {
-        this.dataRice.push(snapshot.val());
-      });
-    },
-    async gatRiceN() {
-      var dataRef = database.ref("/FoodData/RiceNoodles");
-      await dataRef.on("child_added", (snapshot) => {
-        this.dataRiceN.push(snapshot.val());
-      });
-    },
-    async Vegetables() {
-      var dataRef = database.ref("/FoodData/Vegetables");
-      await dataRef.on("child_added", (snapshot) => {
-        this.dataVegetables.push(snapshot.val());
+        this.dataStore.push(snapshot.val());
       });
     },
     async Other() {
