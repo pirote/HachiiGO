@@ -34,19 +34,15 @@
       <h1 v-if="!this.nameLine">แคลอรี</h1>
       <Icon v-if="!this.nameLine" />
     </div>
-    <b-button v-on:click="up">click</b-button>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import firebase from "firebase";
 import SumCalorie from '@/components/Sum_Calorie.vue'
 import Icon from '../components/icon'
 import liff from '@line/liff';
-import json from '../hachiigodb.json'
 //initial line LIFF
-var database = firebase.database();
 import {
    VueFlux,
    FluxCaption,
@@ -132,21 +128,6 @@ export default {
     closeCalories(e){
       this.status = e
     },
-    
-    up(){
-      console.log(json.FoodData);
-      var dataRef = database.ref("/FoodData/Drink");
-      var d = json.FoodData["เนื้อสัตว์ "]
-      for(var i = 0; i< d.length; i++){
-      dataRef.push({
-        Calories: d[i].Calories,
-        Food: d[i].Food,
-        Unit: d[i].Unit
-      })
-      console.log(i, "com");
-    }
-      console.log(dataRef);
-    }
   }
 }
 </script>
