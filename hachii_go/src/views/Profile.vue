@@ -89,7 +89,7 @@
         <b-button class="previous round" id="saveWeight" v-on:click="start21DayChallenge">เริ่ม 21 Day Challenge</b-button>
       </div>
     
-      <canvas class="chart" id="my-chart-Weight" v-if="this.startDay.length > 0"></canvas>
+      <canvas class="chart" id="my-chart-Weight"></canvas>
     </div>
     <div
       class="row"
@@ -200,19 +200,19 @@ export default {
       var Difference_In_Timeweight = date2weight.getTime() - date1weight.getTime();
       var Difference_In_Daysweight = Difference_In_Timeweight / (1000 * 3600 * 24);
       // console.log("date2weight", date2weight);
-      // console.log("Difference_In_Daysweight", Difference_In_Daysweight);
+      // console.log("Difference_In_Daysweight", !Difference_In_Daysweight);
       if(Difference_In_Daysweight >= 0 && Difference_In_Daysweight < 21){
         this.gat21Day()
-        //setTimeout(() => this.gat21Day(), 2000);
+        // setTimeout(() => this.gat21Day(), 2000);
       }
       // console.log(this.startDay.length);
       // if(this.startDay.length > 0){
       //    this.gat21Day()
       //   setTimeout(() => this.gat21Day(), 2000);
       // }
-      else{
+      else if(!Difference_In_Daysweight){
         this.weight7day()
-        //setTimeout(() => this.weight7day(), 2000);
+        // setTimeout(() => this.weight7day(), 2000);
       }
       
     this.sum_cal[0] = parseFloat(0);
@@ -272,7 +272,7 @@ export default {
       var ctx = document.getElementById("my-chart-Weight");
       Chart.defaults.line.spanGaps = true;
 
-      var myLineChart = new Chart(ctx, {
+      var myLineChartWeight = new Chart(ctx, {
         type: "line",
         data: {
           labels: this.dayCha,
@@ -294,7 +294,7 @@ export default {
         },
       });
       // this.get_all_cal();
-      console.log(myLineChart);
+      console.log(myLineChartWeight);
     },
     async gatSevDay() {
       // var count = 0;
@@ -419,20 +419,20 @@ export default {
       })
       await this.graphWeight();
     },
-    async weight7Day() {
-      this.dayCha = []
-      this.weightCha = []
-      var dataweight7day = []
-      var weight7Day = database.ref("/AuthenAcount/" + this.nameDB + "/Weight/");
-      await weight7Day.on("child_added", (snap) => {
-        dataweight7day.push(snap.val())
-      })
-      for(var i = 0; i < dataweight7day.length; i++){
-        this.dayCha.push(dataweight7day[i].date)
-        this.weightCha.push(dataweight7day[i].weight)
-      }
-      await this.graphWeight();
-    },
+    // async weight7Day() {
+    //   this.dayCha = []
+    //   this.weightCha = []
+    //   var dataweight7day = []
+    //   var weight7Day = database.ref("/AuthenAcount/" + this.nameDB + "/Weight/");
+    //   await weight7Day.on("child_added", (snap) => {
+    //     dataweight7day.push(snap.val())
+    //   })
+    //   for(var i = 0; i < dataweight7day.length; i++){
+    //     this.dayCha.push(dataweight7day[i].date)
+    //     this.weightCha.push(dataweight7day[i].weight)
+    //   }
+    //   await this.graphWeight();
+    // },
     async weight7day(){
       this.dayCha = []
       this.weightCha = []
@@ -450,7 +450,8 @@ export default {
           this.weightCha.push(snap.val().weight)
         }
       })
-      await this.graphWeight();
+      await this.graphWeight()
+    
     }
   },
 };
