@@ -232,7 +232,7 @@ export default {
       this.tdee = null;
     },
     async sendWeight() {
-      var weight = parseInt(this.weight);
+      var weight = parseFloat(this.weight);
       var dataRef = database.ref("/AuthenAcount/" + this.nameDB + "/Weight/");
       const today = new Date();
       var date =
