@@ -449,7 +449,7 @@ export default {
       });
     },
     async Other() {
-      var dataRef = database.ref("/FoodData/Other");
+      var dataRef = database.ref("/FoodData/Others");
       await dataRef.on("child_added", (snapshot) => {
         this.dataOther.push(snapshot.val());
       });
