@@ -43,7 +43,6 @@ import SumCalorie from '@/components/Sum_Calorie.vue'
 import Icon from '../components/icon'
 import liff from '@line/liff';
 //initial line LIFF
-
 import {
    VueFlux,
    FluxCaption,

@@ -163,14 +163,17 @@
               </div>
             </div>
           </form> -->
-          <img src="../src/assets/qrodeLine.png" alt="">
-          <p style="color:#000000;">  สแกนเพื่อทำการสร้างบัญชีด้วยไลน์ </p>
+          <img style="width: 50%; height: 50%;" src="../src/assets/qrodeLine.jpg" alt="">
+          <div style="text-align:center;">
+            <p style="color:#BEBEBE;" id="regis">  Add LINE Friends via QR Code</p>
+          <p style="color:#000000;"  id="regis">  สแกนเพื่อทำลงทะเบียน และ เข้าสู่ระบบผ่าน Line</p>
+          </div>
+          
         </div>
       </div>
     </div>
 
     <router-view />
-    
     <div id="aboutus">
       <div class="row">
         <div class="col">
@@ -216,6 +219,7 @@
 import firebase from "firebase";
 import Swal from "sweetalert2";
 import liff from "@line/liff";
+
 export default {
   data() {
     return {
@@ -441,7 +445,7 @@ export default {
         cancelButtonAriaLabel: "Thumbs down",
         confirmButtonColor: "#f87030",
       })
-    }
+    },
   },
 };
 </script>
@@ -582,6 +586,9 @@ body {
     font-size: 10px;
   }
   li {
+    font-size: 10px;
+  }
+  #regis{
     font-size: 10px;
   }
 }
