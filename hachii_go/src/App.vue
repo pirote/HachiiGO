@@ -24,6 +24,13 @@
           <div class="col">
             <div type="button" class="div_sign_re" v-on:click="register">ลงทะเบียน</div>
           </div>
+          <div class="col" v-if="!this.nameLine">
+            <b-button
+              class="btn"
+              style="background-color: #00c300; border-color: #00c300;"
+              v-on:click="loginline"
+            >line</b-button>
+          </div>
         </div>
         <div class="row" v-else>
           <div class="col" style="text-align: right;">
@@ -39,69 +46,15 @@
       </div>
     </div>
 
-    <!-- Sing in -->
-    <div id="slide" class="signin" v-if="this.status === 'signin'">
-      <div class="div_signin">
-        <button type="button" class="close" aria-label="Close" v-on:click="close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h1>Sing In</h1>
-
-        <div class="form-group row">
-          <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
-
-          <div class="col-md-6">
-            <input
-              id="email"
-              type="email"
-              class="form-control"
-              name="email"
-              value
-              required
-              autofocus
-              v-model="email"
-            />
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
-
-          <div class="col-md-6">
-            <input
-              id="password"
-              type="password"
-              class="form-control"
-              name="password"
-              required
-              v-model="password"
-            />
-          </div>
-        </div>
-
-        <b-button
-          class="btn"
-          style="background-color: #F87030; border-color: #F87030; width:250px ;"
-          v-on:click="login"
-        >Login</b-button>
-        <hr />
-        <p style="color:#BEBEBE;">เข้าระบบด้วยรหัสที่ได้จากไลน์</p>
-        <b-button
-          class="btn"
-          style="background-color: #00c300; border-color: #00c300; width:150px ;"
-          v-on:click="loginline"
-        >line</b-button>
-      </div>
-    </div>
     <!-- Register -->
     <div id="slide" class="signin" v-if="this.status === 'register'">
-      <div class="div_signin">
+      <!-- <div class="div_signin">
         <button type="button" class="close" aria-label="Close" v-on:click="close">
           <span aria-hidden="true">&times;</span>
         </button>
         <h1>Register</h1>
         <div class="card-body">
-          <div v-if="error" class="alert alert-danger">{{error}}</div>
+          <div v-if="error" class="alert alert-danger">{{error}}</div> -->
           <!-- <form action="#" @submit.prevent="submit">
             <div class="form-group">
               <img class="preview" :src="picture" />
@@ -170,13 +123,13 @@
               </div>
             </div>
           </form>-->
-          <img style="width: 50%; height: 50%;" src="../src/assets/qrodeLine.jpg" alt />
+          <!-- <img style="width: 50%; height: 50%;" src="../src/assets/qrodeLine.jpg" alt />
           <div style="text-align:center;">
             <p style="color:#BEBEBE;" id="regis">Add LINE Friends via QR Code</p>
             <p style="color:#000000;" id="regis">สแกนเพื่อทำลงทะเบียน และ เข้าสู่ระบบผ่าน Line</p>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <router-view />
@@ -366,12 +319,46 @@ export default {
     },
     signin() {
       this.status = "signin";
+      Swal.fire({
+        title: "<h3>เข้าสู่ระบบ</h3>",
+        html:
+          '<div class="form-group row">' +
+          '<label for="email" class="col-md-4 col-form-label text-md-right">Email</label>' +
+          '<div class="col-md-6"><input id="emails" type="email"class="form-control" name="email" value required/> </div> </div>' +
+          '<div class="form-group row"> <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>' +
+          '<div class="col-md-6"><input id="passwords" type="password" class="form-control" name="password" required/> </div> </div>',
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText: "ตกลง",
+        confirmButtonAriaLabel: "Thumbs up, great!",
+        cancelButtonText: "ยกเลิก",
+        cancelButtonAriaLabel: "Thumbs down",
+        confirmButtonColor: "#f87030",
+        cancelButtonColor: "#313131",
+        preConfirm: () => [
+          document.getElementById("emails").value,
+          document.getElementById("passwords").value,
+        ],
+      }).then((result) => {
+        if (result.value) {
+          // email, password
+          this.login(result.value[0], result.value[1]);
+        }
+      });
     },
     close() {
       this.status = "default";
     },
     register() {
-      this.status = "register";
+      Swal.fire({
+      title: 'ลงทะเบียน',
+      text: 'Add LINE Friends via QR Code. สแกนเพื่อทำลงทะเบียน และ เข้าสู่ระบบผ่าน Line',
+      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/hachiigo-lineapp.appspot.com/o/qrodeLine.jpg?alt=media&token=bd3eeafd-c115-4d27-86a7-c478809ea5d7',
+      imageWidth: 200,
+      imageHeight: 210,
+      imageAlt: 'Custom image',
+      })
     },
     authen() {
       firebase
@@ -391,10 +378,10 @@ export default {
           this.error = err.message;
         });
     },
-    async login() {
+    async login(email, password) {
       await firebase
         .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
+        .signInWithEmailAndPassword(email, password)
         .then(
           (data) => {
             this.status = "default";
@@ -479,9 +466,7 @@ export default {
         cancelButtonAriaLabel: "Thumbs down",
         confirmButtonColor: "#f87030",
         cancelButtonColor: "#313131",
-        preConfirm: () => [
-          document.getElementById("accLine").value,
-        ],
+        preConfirm: () => [document.getElementById("accLine").value],
       }).then((result) => {
         if (result.value) {
           firebase
