@@ -54,8 +54,8 @@
         </button>
         <h1>Register</h1>
         <div class="card-body">
-          <div v-if="error" class="alert alert-danger">{{error}}</div> -->
-          <!-- <form action="#" @submit.prevent="submit">
+      <div v-if="error" class="alert alert-danger">{{error}}</div>-->
+      <!-- <form action="#" @submit.prevent="submit">
             <div class="form-group">
               <img class="preview" :src="picture" />
             </div>
@@ -122,14 +122,14 @@
                 >Register</button>
               </div>
             </div>
-          </form>-->
-          <!-- <img style="width: 50%; height: 50%;" src="../src/assets/qrodeLine.jpg" alt />
+      </form>-->
+      <!-- <img style="width: 50%; height: 50%;" src="../src/assets/qrodeLine.jpg" alt />
           <div style="text-align:center;">
             <p style="color:#BEBEBE;" id="regis">Add LINE Friends via QR Code</p>
             <p style="color:#000000;" id="regis">สแกนเพื่อทำลงทะเบียน และ เข้าสู่ระบบผ่าน Line</p>
           </div>
         </div>
-      </div> -->
+      </div>-->
     </div>
 
     <router-view />
@@ -352,13 +352,15 @@ export default {
     },
     register() {
       Swal.fire({
-      title: 'ลงทะเบียน',
-      text: 'Add LINE Friends via QR Code. สแกนเพื่อทำลงทะเบียน และ เข้าสู่ระบบผ่าน Line',
-      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/hachiigo-lineapp.appspot.com/o/qrodeLine.jpg?alt=media&token=bd3eeafd-c115-4d27-86a7-c478809ea5d7',
-      imageWidth: 200,
-      imageHeight: 210,
-      imageAlt: 'Custom image',
-      })
+        title: "ลงทะเบียน",
+        text:
+          "Add LINE Friends via QR Code. สแกนเพื่อทำลงทะเบียน และ เข้าสู่ระบบผ่าน Line",
+        imageUrl:
+          "https://firebasestorage.googleapis.com/v0/b/hachiigo-lineapp.appspot.com/o/qrodeLine.jpg?alt=media&token=bd3eeafd-c115-4d27-86a7-c478809ea5d7",
+        imageWidth: 200,
+        imageHeight: 210,
+        imageAlt: "Custom image",
+      });
     },
     authen() {
       firebase
@@ -386,6 +388,13 @@ export default {
           (data) => {
             this.status = "default";
             this.uid = data.user.uid;
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "เข้าระบบสำเร็จ",
+              showConfirmButton: false,
+              timer: 1500,
+            });
           },
           (err) => {
             alert("ับัญชี หรือ รหัสผ่าน ไม่ถูกต้อง!");
