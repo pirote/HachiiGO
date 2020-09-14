@@ -33,7 +33,7 @@
             <button class="line">Line</button>
           </div>
           <div class="col" v-if="!this.nameLine">
-            <div type="button"  class="div_btn" v-on:click="logout">ออกจากระบบ</div>
+            <div type="button" class="div_btn" v-on:click="logout">ออกจากระบบ</div>
           </div>
         </div>
       </div>
@@ -78,12 +78,19 @@
             />
           </div>
         </div>
-        
+
         <b-button
           class="btn"
           style="background-color: #F87030; border-color: #F87030; width:250px ;"
           v-on:click="login"
         >Login</b-button>
+        <hr />
+        <p style="color:#BEBEBE;">เข้าระบบด้วยรหัสที่ได้จากไลน์</p>
+        <b-button
+          class="btn"
+          style="background-color: #00c300; border-color: #00c300; width:150px ;"
+          v-on:click="loginline"
+        >line</b-button>
       </div>
     </div>
     <!-- Register -->
@@ -162,13 +169,12 @@
                 >Register</button>
               </div>
             </div>
-          </form> -->
-          <img style="width: 50%; height: 50%;" src="../src/assets/qrodeLine.jpg" alt="">
+          </form>-->
+          <img style="width: 50%; height: 50%;" src="../src/assets/qrodeLine.jpg" alt />
           <div style="text-align:center;">
-            <p style="color:#BEBEBE;" id="regis">  Add LINE Friends via QR Code</p>
-          <p style="color:#000000;"  id="regis">  สแกนเพื่อทำลงทะเบียน และ เข้าสู่ระบบผ่าน Line</p>
+            <p style="color:#BEBEBE;" id="regis">Add LINE Friends via QR Code</p>
+            <p style="color:#000000;" id="regis">สแกนเพื่อทำลงทะเบียน และ เข้าสู่ระบบผ่าน Line</p>
           </div>
-          
         </div>
       </div>
     </div>
@@ -195,7 +201,13 @@
         <div class="col">
           <p>ติดต่อเรา:</p>
           <ul>
-            <li><a href="https://www.hachiigo.com/" style="color:#ffffff;" target="_blank">https://www.hachiigo.com/</a></li>
+            <li>
+              <a
+                href="https://www.hachiigo.com/"
+                style="color:#ffffff;"
+                target="_blank"
+              >https://www.hachiigo.com/</a>
+            </li>
             <li>บริษัท ไบโอเพนนินซูล่า จำกัด (สำนักงานใหญ่) 435 หมู่ที่ 1 ต.ศิลา อ.เมืองขอนแก่น จ.ขอนแก่น 40000</li>
             <li>โทร. 0980978465</li>
             <li>E-mail global@biopeninsula.com</li>
@@ -245,6 +257,7 @@ export default {
       nameLine: "",
       imgLine: "",
       idLine: "",
+      acc_line: "",
     };
   },
   beforeCreate() {
@@ -253,46 +266,44 @@ export default {
       .then(function () {
         //window.alert('this on OS:' + liff.getOS);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         //window.alert('Error init msg: ' + error);
-        Swal.fire('กรุณารอสักครู่...');
-            //window.alert('กรุณารอสักครู่...');
+        Swal.fire("กรุณารอสักครู่...");
+        //window.alert('กรุณารอสักครู่...');
         console.log(error);
-        });
-  
+      });
   },
   async created() {
     await firebase.auth().onAuthStateChanged((firebaseUser) => {
       this.uid = firebaseUser.email;
     });
-     if (!liff.isInClient()) {
-        /*liff.sendMessages([{
+    if (!liff.isInClient()) {
+      /*liff.sendMessages([{
             'type': 'text',
             'text': "heelo" 
         }])*/
     } else {
-        liff.getProfile()
-          .then(profile=>{
-            const name =profile.displayName
-            //const line_email = liff.getDecodedIDToken().email
-            const line_Uid = profile.userId
-            const line_PUrl = profile.pictureUrl
-            // merge profile line to database
-            this.nameLine = name
-            this.idLine = line_Uid
-            this.imgLine = line_PUrl
-           /* liff.sendMessages([{
+      liff.getProfile().then((profile) => {
+        const name = profile.displayName;
+        //const line_email = liff.getDecodedIDToken().email
+        const line_Uid = profile.userId;
+        const line_PUrl = profile.pictureUrl;
+        // merge profile line to database
+        this.nameLine = name;
+        this.idLine = line_Uid;
+        this.imgLine = line_PUrl;
+        /* liff.sendMessages([{
               'type': 'text',
               'text': 'hello ' + name
             }])*/
-          })
+      });
     }
-    setTimeout(()=> this.loginLine(),1000)
+    setTimeout(() => this.loginLine(), 1000);
     //console.log(this.uid);
-    if(await this.uid === ''){
-      Swal.fire('ลงทะเบียนแล้วเข้าสู่ระบบกับเราสิ!')
-      }
-},
+    if ((await this.uid) === "") {
+      Swal.fire("ลงทะเบียนแล้วเข้าสู่ระบบกับเราสิ!");
+    }
+  },
   methods: {
     loginLine() {
       if (this.nameLine) {
@@ -320,7 +331,10 @@ export default {
                     .then(() => {
                       firebase
                         .auth()
-                        .signInWithEmailAndPassword(this.idLine + "@line.com", this.idLine)
+                        .signInWithEmailAndPassword(
+                          this.idLine + "@line.com",
+                          this.idLine
+                        )
                         .then(
                           (data) => {
                             this.status = "default";
@@ -370,7 +384,7 @@ export default {
               photoURL: this.picture,
             })
             .then(() => {
-               window.location.reload();
+              window.location.reload();
             });
         })
         .catch((err) => {
@@ -431,28 +445,71 @@ export default {
         }
       );
     },
-    accountLine(){
+    accountLine() {
       Swal.fire({
         title: "<h3>Account Line ของคุณ</h3>",
         html:
-          `<p>สามารถนำ Email และ Password นี้ ไปเข้าระบบที่หน้าเว็บได้</p>`+
-          `<b>Email: `+ this.idLine + `@line.com</b><br>` +
-          `<b>Password: `+ this.idLine + `</b>`,
+          `<p>สามารถนำ Email และ Password นี้ ไปเข้าระบบที่หน้าเว็บได้</p>` +
+          `<b>Email: ` +
+          this.idLine +
+          `@line.com</b><br>` +
+          `<b>Password: ` +
+          this.idLine +
+          `</b>`,
         showCloseButton: true,
         focusConfirm: false,
         confirmButtonText: "ตกลง",
         confirmButtonAriaLabel: "Thumbs up, great!",
         cancelButtonAriaLabel: "Thumbs down",
         confirmButtonColor: "#f87030",
-      })
+      });
+    },
+    loginline() {
+      Swal.fire({
+        title: "<h3>ใส่รหัส Line</h3>",
+        html:
+          `<p>กรอกรหัสที่ได้จาก Line</p>` +
+          `<div class="form-row"><div style="text-align: left; padding:5px;"><label for="validationCustom01">รหัส Line:</label><input type="text" class="form-control" id="accLine" placeholder="xxxxxxxxxxxxxxxxxxx" >`,
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText: "ตกลง",
+        confirmButtonAriaLabel: "Thumbs up, great!",
+        cancelButtonText: "ยกเลิก",
+        cancelButtonAriaLabel: "Thumbs down",
+        confirmButtonColor: "#f87030",
+        cancelButtonColor: "#313131",
+        preConfirm: () => [
+          document.getElementById("accLine").value,
+        ],
+      }).then((result) => {
+        if (result.value) {
+          firebase
+            .auth()
+            .signInWithEmailAndPassword(
+              result.value[0] + "@line.com",
+              result.value[0]
+            )
+            .then(
+              (data) => {
+                this.status = "default";
+                this.uid = data.user.uid;
+              },
+              (err) => {
+                alert("ับัญชี หรือ รหัสผ่าน ไม่ถูกต้อง!");
+                console.log(err);
+              }
+            );
+        }
+      });
     },
   },
 };
 </script>
 <style>
-.line{
-  background-color: #00b900; 
-  color:#ffffff;
+.line {
+  background-color: #00b900;
+  color: #ffffff;
   border-radius: 5px;
   border: none;
 }
@@ -536,17 +593,17 @@ body {
   font-size: 18px;
   color: #f87030;
 }
-.btn-line{
+.btn-line {
   color: #fff;
-        background-color: #00b900;
-        border-color: rgba(0,0,0,0.2);
+  background-color: #00b900;
+  border-color: rgba(0, 0, 0, 0.2);
 }
 @media only screen and (max-width: 1024px) {
-  .line{
-  background-color: #00b900; 
-  margin:10px 6% 0px 6%; 
-  color:#ffffff;
-}
+  .line {
+    background-color: #00b900;
+    margin: 10px 6% 0px 6%;
+    color: #ffffff;
+  }
   .routerlink {
     padding-right: 16px;
     font-size: 16px;
@@ -579,7 +636,7 @@ body {
     margin: auto;
     box-shadow: 5px 10px 10px #888888;
   }
-  .row{
+  .row {
     margin-right: 0;
   }
   #aboutus {
@@ -588,7 +645,7 @@ body {
   li {
     font-size: 10px;
   }
-  #regis{
+  #regis {
     font-size: 10px;
   }
 }
