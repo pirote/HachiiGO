@@ -322,10 +322,10 @@ export default {
       Swal.fire({
         title: "<h3>เข้าสู่ระบบ</h3>",
         html:
-          '<div class="form-group row">' +
+          '<div style="text-align: left;">' +
           '<label for="email" class="col-md-4 col-form-label text-md-right">Email</label>' +
           '<div class="col-md-6"><input id="emails" type="email"class="form-control" name="email" value required/> </div> </div>' +
-          '<div class="form-group row"> <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>' +
+          '<div style="text-align: left;"> <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>' +
           '<div class="col-md-6"><input id="passwords" type="password" class="form-control" name="password" required/> </div> </div>',
         showCloseButton: true,
         showCancelButton: true,
