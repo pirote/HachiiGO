@@ -322,11 +322,10 @@ export default {
       Swal.fire({
         title: "<h3>เข้าสู่ระบบ</h3>",
         html:
-          '<div style="text-align: left;">' +
-          '<label for="email" class="col-md-4 col-form-label text-md-right">Email</label>' +
-          '<div class="col-md-6"><input id="emails" type="email"class="form-control" name="email" value required/> </div> </div>' +
-          '<div style="text-align: left;"> <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>' +
-          '<div class="col-md-6"><input id="passwords" type="password" class="form-control" name="password" required/> </div> </div>',
+          '<div style="text-align: left;"><label>Email</label>' +
+          '<input id="emails" type="email"class="form-control" name="email" value required/> </div>' +
+          '<div style="text-align: left; margin-top:10px;"><label >Password</label>' +
+          '<input id="passwords" type="password" class="form-control" name="password" required/></div>',
         showCloseButton: true,
         showCancelButton: true,
         focusConfirm: false,
@@ -357,9 +356,10 @@ export default {
           "Add LINE Friends via QR Code. สแกนเพื่อทำลงทะเบียน และ เข้าสู่ระบบผ่าน Line",
         imageUrl:
           "https://firebasestorage.googleapis.com/v0/b/hachiigo-lineapp.appspot.com/o/qrodeLine.jpg?alt=media&token=bd3eeafd-c115-4d27-86a7-c478809ea5d7",
-        imageWidth: 200,
+        imageWidth: 240,
         imageHeight: 210,
         imageAlt: "Custom image",
+        confirmButtonColor:"#f87030",
       });
     },
     authen() {
@@ -443,15 +443,11 @@ export default {
     },
     accountLine() {
       Swal.fire({
-        title: "<h3>Account Line ของคุณ</h3>",
+        title: "<h3>รหัส Line</h3>",
         html:
-          `<p>สามารถนำ Email และ Password นี้ ไปเข้าระบบที่หน้าเว็บได้</p>` +
-          `<b>Email: ` +
-          this.idLine +
-          `@line.com</b><br>` +
-          `<b>Password: ` +
-          this.idLine +
-          `</b>`,
+          `<p>สามารถนำ รหัสนี้นำไปเข้าระบบบนเว็บ</p>` +
+          `<b>รหัส: ` +
+          this.idLine ,
         showCloseButton: true,
         focusConfirm: false,
         confirmButtonText: "ตกลง",
@@ -465,7 +461,7 @@ export default {
         title: "<h3>ใส่รหัส Line</h3>",
         html:
           `<p>กรอกรหัสที่ได้จาก Line</p>` +
-          `<div class="form-row"><div style="text-align: left; padding:5px;"><label for="validationCustom01">รหัส Line:</label><input type="text" class="form-control" id="accLine" placeholder="xxxxxxxxxxxxxxxxxxx" >`,
+          `<div class="form-row"><div style="text-align: left; padding:5px; width:100%;"><label for="validationCustom01">รหัส Line:</label><input type="text" class="form-control" id="accLine" placeholder="xxxxxxxxxxxxxxxxxxx" >`,
         showCloseButton: true,
         showCancelButton: true,
         focusConfirm: false,
